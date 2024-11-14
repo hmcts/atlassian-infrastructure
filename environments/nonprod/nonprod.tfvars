@@ -53,6 +53,17 @@ network_security_groups = {
         source_address_prefix      = "10.0.4.192/26"
         destination_address_prefix = "*"
       }
+      "allow_atlassian-dmz-subnet" = {
+        name_override              = "allow_atlassian-dmz-subnet"
+        priority                   = 200
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_ranges    = "80,443,22,5801,5701,5432,54327,8080,8090,8091,8095,24007,24008,25500,49152,49153,49154,49155,49156,49157,49158,49159,49160,5701,1099,8005,8080,40001,40011"
+        source_address_prefix      = "10.0.8.0/28"
+        destination_address_prefix = "*"
+      }
     }
   }
 }
