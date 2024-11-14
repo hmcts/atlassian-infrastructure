@@ -174,8 +174,8 @@ network_security_groups = {
         source_address_prefix      = "10.200.48.0/20"
         destination_address_prefix = "*"
       }
-      "allow_crime_mgmt" = {
-        name_override              = "allow_crime_mgmt"
+      "allow_atlassian-int-nonprod-vnet" = {
+        name_override              = "allow_atlassian-int-nonprod-vnet"
         priority                   = 150
         direction                  = "Inbound"
         access                     = "Allow"
