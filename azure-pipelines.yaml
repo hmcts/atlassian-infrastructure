@@ -33,7 +33,7 @@ parameters:
         environment: "nonprod"
         component: "general"
         service_connection: "MOJ DCD Atlassian NLE"
-        dependsOn: "Precheck"
+        # dependsOn: "Precheck"
         resource_group: azure-control-stg-rg
       # - deployment: "prod_general"
       #   environment: "prod"
@@ -55,18 +55,18 @@ variables:
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
 
 stages:
-  - stage: Precheck
-    jobs:
-      - job:
-        pool:
-            vmImage: ${{ variables.agentPool }}
-        steps:
-          - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
-            parameters:
-              keyvaultName: "infra-vault-nonprod"
-              keyvaultSecret: "azure-devops-sp-token"
-              serviceConnection: "azurerm-sandbox"
-              overrideAction: ${{ parameters.overrideAction }}
+  # - stage: Precheck
+  #   jobs:
+  #     - job:
+  #       pool:
+  #           vmImage: ${{ variables.agentPool }}
+  #       steps:
+  #         - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
+  #           parameters:
+  #             keyvaultName: "infra-vault-nonprod"
+  #             keyvaultSecret: "azure-devops-sp-token"
+  #             serviceConnection: "azurerm-sandbox"
+  #             overrideAction: ${{ parameters.overrideAction }}
   - ${{ each deployment in parameters.environment_components }}:
       - stage: ${{ deployment.deployment }}
         dependsOn: ${{ deployment.dependsOn }}

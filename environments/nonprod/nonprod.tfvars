@@ -64,6 +64,50 @@ network_security_groups = {
         source_address_prefix      = "10.0.8.0/28"
         destination_address_prefix = "*"
       }
+      "allow_atlassian-dmz-subnet-appgw" = {
+        name_override              = "allow_atlassian-dmz-subnet-appgw"
+        priority                   = 300
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_ranges    = ["8080", "8090", "8095"]
+        source_address_prefix      = "10.0.8.16/28"
+        destination_address_prefix = "*"
+      }
+      "allow_atlassian-int-subnet-ops" = {
+        name_override              = "allow_atlassian-int-subnet-ops"
+        priority                   = 400
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_ranges    = ["22", "8080", "8090"]
+        source_address_prefix      = "10.0.4.64/26"
+        destination_address_prefix = "*"
+      }
+      "allow_any_AzureLoadBalancer" = {
+        name_override              = "allow_any_AzureLoadBalancer"
+        priority                   = 500
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "AzureLoadBalancer"
+        destination_address_prefix = "*"
+      }
+      "allow_mail_outbound" = {
+        name_override              = "allow_mail_outbound"
+        priority                   = 4010
+        direction                  = "Outbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "2525"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      }
     }
   }
 }
