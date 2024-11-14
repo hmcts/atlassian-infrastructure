@@ -39,7 +39,7 @@ vnets = {
 
 
 network_security_groups = {
-  nsg = {
+  atlassian-int-subnet-app-nsg = {
     subnets = ["atlassian-int-nonprod-vnet-atlassian-int-subnet-app"]
     rules = {
       "allow_atlassian-int-subnet-app" = {
@@ -108,6 +108,56 @@ network_security_groups = {
         source_address_prefix      = "*"
         destination_address_prefix = "*"
       }
+    }
+  }
+  atlassian-int-subnet-dat-nsg = {
+    subnets = ["atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"]
+    rules = {
+      "allow_atlassian-int-subnet-app" = {
+        name_override              = "allow_atlassian-int-subnet-app"
+        priority                   = 100
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_ranges    = ["22", "80", "443", "5432", "24007", "24008", "49152", "49153", "49154", "49155", "49156", "49157", "49158", "49159", "49160"]
+        source_address_prefix      = "10.0.4.192/26"
+        destination_address_prefix = "*"
+      }
+      "allow_atlassian-int-subnet-dat" = {
+        name_override              = "allow_atlassian-int-subnet-dat"
+        priority                   = 200
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_ranges    = ["22", "80", "443", "5432", "24007", "24008", "49152", "49153", "49154", "49155", "49156", "49157", "49158", "49159", "49160"]
+        source_address_prefix      = "10.0.4.128/26"
+        destination_address_prefix = "*"
+      }
+      "allow_atlassian-int-subnet-ops" = {
+        name_override              = "allow_atlassian-int-subnet-ops"
+        priority                   = 300
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "10.0.4.64/26"
+        destination_address_prefix = "*"
+      }
+      "allow_any_AzureLoadBalancer" = {
+        name_override              = "allow_any_AzureLoadBalancer"
+        priority                   = 500
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "AzureLoadBalancer"
+        destination_address_prefix = "*"
+      }
+
     }
   }
 }
