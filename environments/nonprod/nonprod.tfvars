@@ -42,15 +42,16 @@ network_security_groups = {
   nsg = {
     subnets = ["atlassian-int-nonprod-vnet-atlassian-int-subnet-app"]
     rules = {
-      "allow_http" = {
-        priority                   = 200
+      "allow_atlassian-int-subnet-app" = {
+        name_override              = "allow_atlassian-int-subnet-app"
+        priority                   = 100
         direction                  = "Inbound"
         access                     = "Allow"
-        protocol                   = "Tcp"
+        protocol                   = "Any"
         source_port_range          = "*"
-        destination_port_range     = "80"
-        source_address_prefix      = "*"
-        destination_address_prefix = "10.10.10.0/24"
+        destination_port_range     = "80,443,22,5801,5701,5432,54327,8080,8090,8091,8095,24007,24008,25500,49152,49153,49154,49155,49156,49157,49158,49159,49160,5701,1099,8005,8080,40001,40011"
+        source_address_prefix      = "10.0.4.192/26"
+        destination_address_prefix = "*"
       }
     }
   }
