@@ -160,4 +160,86 @@ network_security_groups = {
 
     }
   }
+  atlassian-int-subnet-ops-nsg = {
+    subnets = ["atlassian-int-nonprod-vnet-atlassian-int-subnet-ops"]
+    rules = {
+      "allow_crime_mgmt" = {
+        name_override              = "allow_crime_mgmt"
+        priority                   = 100
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "10.200.48.0/20"
+        destination_address_prefix = "*"
+      }
+      "allow_crime_mgmt" = {
+        name_override              = "allow_crime_mgmt"
+        priority                   = 150
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "10.0.4.0/22"
+        destination_address_prefix = "*"
+      }
+      "allow_crime_8834" = {
+        name_override              = "allow_crime_8834"
+        priority                   = 200
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "8834"
+        source_address_prefixes    = ["10.200.60.20", "10.200.48.32/27"]
+        destination_address_prefix = "*"
+      }
+      "data_migration" = {
+        name_override              = "data_migration"
+        priority                   = 300
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "172.30.10.5"
+        destination_address_prefix = "*"
+      }
+      "allow_1024-65535" = {
+        name_override              = "allow_1024-65535"
+        priority                   = 400
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "1024-65535"
+        source_address_prefix      = "10.200.48.0/27"
+        destination_address_prefix = "*"
+      }
+      "allow_any_AzureLoadBalancer" = {
+        name_override              = "allow_any_AzureLoadBalancer"
+        priority                   = 500
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "AzureLoadBalancer"
+        destination_address_prefix = "*"
+      }
+      "allow_29418" = {
+        name_override              = "allow_29418"
+        priority                   = 100
+        direction                  = "Outbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "29418"
+        source_address_prefix      = "*"
+        destination_address_prefix = "10.88.128.192/27"
+      }
+    }
+  }
 }
