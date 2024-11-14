@@ -36,3 +36,22 @@ vnets = {
     }
   }
 }
+
+
+network_security_groups = {
+  nsg = {
+    subnets = ["vnet1-subnet1"]
+    rules = {
+      "allow_http" = {
+        priority                   = 200
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "80"
+        source_address_prefix      = "*"
+        destination_address_prefix = "10.10.10.0/24"
+      }
+    }
+  }
+}

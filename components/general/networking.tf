@@ -8,4 +8,5 @@ module "networking" {
   component                    = "networking"
   existing_resource_group_name = azurerm_resource_group.atlassian_rg.name
   vnets                        = var.vnets
+  network_security_groups      = var.network_security_groups
 }
