@@ -40,7 +40,7 @@ vnets = {
 
 network_security_groups = {
   nsg = {
-    subnets = ["atlassian-int-subnet-app"]
+    subnets = ["atlassian-int-nonprod-vnet-atlassian-int-subnet-app"]
     rules = {
       "allow_http" = {
         priority                   = 200
