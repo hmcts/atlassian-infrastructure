@@ -242,4 +242,43 @@ network_security_groups = {
       }
     }
   }
+
+  atlassian-dmz-subnet-nsg = {
+    subnets = ["atlassian-dmz-nonprod-vnet-atlassian-dmz-subnet"]
+    rules = {
+      "allow_any" = {
+        name_override              = "allow_any"
+        priority                   = 100
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      }
+      "allow_outbound_atlassian-int-nonprod-vnet" = {
+        name_override              = "allow_outbound_atlassian-int-nonprod-vnet"
+        priority                   = 1000
+        direction                  = "Outbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_ranges    = ["443", "8080", "8090", "8095"]
+        source_address_prefix      = "10.0.8.0/22"
+        destination_address_prefix = "10.0.4.0/22"
+      }
+      "allow_outbound_any" = {
+        name_override              = "allow_outbound_any"
+        priority                   = 2000
+        direction                  = "Outbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      }
+    }
+  }
 }
