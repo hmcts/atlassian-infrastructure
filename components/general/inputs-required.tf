@@ -65,3 +65,42 @@ variable "network_security_groups" {
   description = "Map of network security groups to create."
   default     = {}
 }
+
+variable "backend_address_pools" {
+  description = "list of backend pool"
+  type = list(object({
+    name                      = string
+    backend_pool_ip_addresses = optional(list(string), [])
+    backend_pool_fqdns        = optional(list(string), [])
+  }))
+}
+
+variable "probes" {
+  description = "List of probes"
+  type = list(object({
+    name                                      = string
+    interval                                  = number
+    path                                      = string
+    timeout                                   = number
+    unhealthy_threshold                       = number
+    pick_host_name_from_backend_http_settings = bool
+  }))
+}
+
+
+variable "backend_http_settings" {
+  description = "List of backend pool settings"
+  type = list(object({
+    name                                = string
+    probe_name                          = string
+    cookie_based_affinity               = bool
+    request_timeout                     = number
+    port                                = number
+    pick_host_name_from_backend_address = bool
+    connection_draining = list(object({
+      enabled           = optional(bool, false)
+      drain_timeout_sec = optional(number, 15)
+    }))
+  }))
+}
+

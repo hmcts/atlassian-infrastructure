@@ -282,3 +282,88 @@ network_security_groups = {
     }
   }
 }
+
+
+backend_address_pools = [
+  {
+    name                      = "appgw-backend-pool-jira"
+    backend_pool_ip_addresses = ["10.0.4.201", "10.0.4.202", "10.0.4.203"]
+    backend_pool_fqdns        = []
+  },
+  {
+    name                      = "appgw-backend-pool-crd"
+    backend_pool_ip_addresses = ["10.0.4.210"]
+    backend_pool_fqdns        = []
+  },
+  {
+    name                      = "appgw-backend-pool-cnf"
+    backend_pool_ip_addresses = ["10.0.4.215", "10.0.4.216"]
+    backend_pool_fqdns        = []
+  }
+]
+
+probes = [
+  {
+    name                                      = "appgw-probe-jira"
+    interval                                  = 30
+    path                                      = "/jira/status"
+    timeout                                   = 30
+    unhealthy_threshold                       = 3
+    pick_host_name_from_backend_http_settings = true
+  },
+  {
+    name                                      = "appgw-probe-crd"
+    interval                                  = 30
+    path                                      = "/crowd"
+    timeout                                   = 30
+    unhealthy_threshold                       = 3
+    pick_host_name_from_backend_http_settings = true
+  },
+  {
+    name                                      = "appgw-probe-cnf"
+    interval                                  = 30
+    path                                      = "/confluence"
+    timeout                                   = 30
+    unhealthy_threshold                       = 3
+    pick_host_name_from_backend_http_settings = true
+  }
+]
+
+
+backend_http_settings = [
+  {
+    name                                = "appgw-backend-settings-jira"
+    probe_name                          = "appgw-probe-jira"
+    cookie_based_affinity               = true
+    request_timeout                     = 300
+    port                                = 8080
+    pick_host_name_from_backend_address = true
+    connection_draining = [{
+      enabled           = true
+      drain_timeout_sec = 15
+    }]
+  },
+  {
+    name                                = "appgw-backend-settings-crd"
+    probe_name                          = "appgw-probe-crd"
+    cookie_based_affinity               = true
+    request_timeout                     = 300
+    port                                = 8095
+    pick_host_name_from_backend_address = true
+    connection_draining = [{
+      enabled = false
+    }]
+  },
+  {
+    name                                = "appgw-backend-settings-cnf"
+    probe_name                          = "appgw-probe-cnf"
+    cookie_based_affinity               = true
+    request_timeout                     = 300
+    port                                = 8090
+    pick_host_name_from_backend_address = true
+    connection_draining = [{
+      enabled           = true
+      drain_timeout_sec = 15
+    }]
+  }
+]
