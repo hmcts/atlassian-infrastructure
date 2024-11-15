@@ -176,24 +176,7 @@ resource "azurerm_application_gateway" "ag" {
     }
   }
 
-  dynamic "ssl_profile" {
-    for_each = [for app in local.gateways[count.index].app_configuration : {
-      name                         = "${app.product}-${app.component}-sslprofile"
-      verify_client_cert_issuer_dn = contains(keys(app), "verify_client_cert_issuer_dn") ? app.verify_client_cert_issuer_dn : false
-      trusted_client_certificate_names = flatten([
-        for cert in(contains(keys(app), "rootca_certificates") ? app.rootca_certificates : []) : [
-          "${app.product}-${app.component}-${cert.rootca_certificate_name}"
-        ]
-      ])
-      }
-      if lookup(app, "add_ssl_profile", false) == true && contains(keys(app), "rootca_certificates")
-    ]
-    content {
-      name                             = ssl_profile.value.name
-      trusted_client_certificate_names = ssl_profile.value.trusted_client_certificate_names
-      verify_client_cert_issuer_dn     = ssl_profile.value.verify_client_cert_issuer_dn
-    }
-  }
+
 
   dynamic "rewrite_rule_set" {
     for_each = [for app in local.gateways[count.index].app_configuration : {
