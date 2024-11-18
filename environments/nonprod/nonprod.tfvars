@@ -26,8 +26,13 @@ vnets = {
     address_space = ["10.0.8.0/22"]
     subnets = {
       atlassian-dmz-subnet = {
-        name_override    = "atlassian-dmz-subnet"
-        address_prefixes = ["10.0.8.0/28"]
+        name_override     = "atlassian-dmz-subnet"
+        address_prefixes  = ["10.0.8.0/28"]
+        service_endpoints = ["Microsoft.Storage"]
+        delegations = {
+          name    = "Microsoft.DBforPostgreSQL/flexibleServers"
+          actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
+        }
       }
       atlassian-dmz-subnet-appgw = {
         name_override    = "atlassian-dmz-subnet-appgw"
