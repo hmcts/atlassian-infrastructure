@@ -428,3 +428,5 @@ ssl_certificates = [
     key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/wildcard-staging-tools-hmcts-net/00b6a6038e774bf891b11f910fc46a4d"
   }
 ]
+
+enable_http2 = true

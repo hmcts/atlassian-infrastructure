@@ -4,7 +4,7 @@ resource "azurerm_application_gateway" "ag" {
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
   tags                = module.ctags.common_tags
-
+  enable_http2        = var.enable_http2
   sku {
     name = var.sku_name
     tier = var.sku_tier

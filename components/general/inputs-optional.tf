@@ -31,3 +31,8 @@ variable "waf_mode" {
   default     = "Prevention"
 }
 
+variable "enable_http2" {
+  description = "Enable HTTP2? defaults to false"
+  default     = false
+  type        = bool
+}
