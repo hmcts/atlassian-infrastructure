@@ -31,8 +31,8 @@ vnets = {
         service_endpoints = ["Microsoft.Storage"]
         delegations = {
           app_delegation = {
-            name    = "Microsoft.DBforPostgreSQL/flexibleServers"
-            actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
+            service_name = "Microsoft.DBforPostgreSQL/flexibleServers"
+            actions      = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
           }
         }
       }
