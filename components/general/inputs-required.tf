@@ -135,3 +135,11 @@ variable "url_path_map" {
     }))
   }))
 }
+
+variable "ssl_certificates" {
+  description = "SSL certificate list"
+  type = list(object({
+    name                = string
+    key_vault_secret_id = string
+  }))
+}
