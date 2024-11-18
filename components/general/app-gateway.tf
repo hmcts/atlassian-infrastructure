@@ -117,7 +117,7 @@ resource "azurerm_application_gateway" "ag" {
       name               = request_routing_rule.value.name
       priority           = request_routing_rule.value.priority
       rule_type          = "Basic"
-      http_listener_name = request_routing_rule.value.name
+      http_listener_name = request_routing_rule.value.http_listener_name
       url_path_map_name  = "appgw-url-map-path"
     }
   }
