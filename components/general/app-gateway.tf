@@ -75,7 +75,10 @@ resource "azurerm_application_gateway" "ag" {
       request_timeout                     = backend_http_settings.value.request_timeout
       pick_host_name_from_backend_address = backend_http_settings.value.pick_host_name_from_backend_address
       dynamic "connection_draining" {
-        for_each = backend_http_settings.value.connection_draining == null ? [] : [backend_http_settings.value.connection_draining]
+        for_each = [for conn in backend_http_settings.value.connection_draining : {
+          drain_timeout_sec = conn.drain_timeout_sec
+          enabled           = conn.enabled
+        }]
         content {
           drain_timeout_sec = connection_draining.value.drain_timeout_sec
           enabled           = connection_draining.value.enabled
@@ -89,180 +92,50 @@ resource "azurerm_application_gateway" "ag" {
     type         = "UserAssigned"
   }
 
-
-
   dynamic "http_listener" {
     for_each = var.http_listeners
-
     content {
       name                           = http_listener.value.name
-      frontend_ip_configuration_name = http_listener.value.frontend_ip_name
+      frontend_ip_configuration_name = "appGwPublicFrontendIp"
       frontend_port_name             = http_listener.value.ssl_enabled ? "https" : "http"
       protocol                       = http_listener.value.ssl_enabled ? "Https" : "Http"
-      host_name                      = http_listener.value.ssl_enabled ? coalesce(http_listener.value.listener_ssl_host_name, http_listener.value.ssl_host_name) : http_listener.value.exclude_env_in_app_name ? coalesce(http_listener.value.listener_host_name_exclude_env, http_listener.value.host_name_exclude_env) : coalesce(http_listener.value.listener_host_name_include_env, http_listener.value.host_name_include_env)
       ssl_certificate_name           = http_listener.value.ssl_enabled ? http_listener.value.ssl_certificate_name : ""
-
-    }
-  }
-
-
-  dynamic "redirect_configuration" {
-    for_each = [for app in local.gateways[count.index].app_configuration : {
-      name        = "${app.product}-${app.component}-redirect"
-      target_name = "${app.product}-${app.component}"
-      }
-      if lookup(app, "http_to_https_redirect", false) == true
-    ]
-
-    content {
-      name                 = redirect_configuration.value.name
-      redirect_type        = "Permanent"
-      include_path         = true
-      include_query_string = true
-      target_listener_name = redirect_configuration.value.target_name
     }
   }
 
   dynamic "request_routing_rule" {
-    for_each = [for i, app in local.gateways[count.index].app_configuration : {
-      name               = "${app.product}-${app.component}"
-      address_pool_name  = "${app.product}-${app.component}-address-pool"
-      http_settings_name = "${app.product}-${app.component}-http-settings"
-      rewrite_rule_name  = "${app.product}-${app.component}-rewriterule"
-      priority           = ((i + 1) * 10)
-      add_rewrite_rule   = contains(keys(app), "add_rewrite_rule") ? app.add_rewrite_rule : false
-    }]
-
+    for_each = var.request_routing_rules
     content {
-      name                       = request_routing_rule.value.name
-      priority                   = request_routing_rule.value.priority
-      rule_type                  = "Basic"
-      http_listener_name         = request_routing_rule.value.name
-      backend_address_pool_name  = request_routing_rule.value.address_pool_name
-      backend_http_settings_name = request_routing_rule.value.http_settings_name
-      rewrite_rule_set_name      = request_routing_rule.value.add_rewrite_rule ? request_routing_rule.value.rewrite_rule_name : null
+      name               = request_routing_rule.value.name
+      priority           = request_routing_rule.value.priority
+      rule_type          = "Basic"
+      http_listener_name = request_routing_rule.value.name
+      url_path_map_name  = "appgw-url-map-path"
     }
   }
-
-  dynamic "request_routing_rule" {
-    for_each = [for app in local.gateways[count.index].app_configuration : {
-      name = "${app.product}-${app.component}-redirect"
-      }
-      if lookup(app, "http_to_https_redirect", false) == true
-    ]
-
+  dynamic "url_path_map" {
+    for_each = var.url_path_map
     content {
-      name                        = request_routing_rule.value.name
-      rule_type                   = "Basic"
-      http_listener_name          = request_routing_rule.value.name
-      redirect_configuration_name = request_routing_rule.value.name
-    }
-  }
+      name                               = "appgw-url-map-path"
+      default_backend_address_pool_name  = url_path_map.value.default_backend_address_pool_name
+      default_backend_http_settings_name = url_path_map.value.default_backend_http_settings_name
+      dynamic "path_rule" {
+        for_each = [for p in url_path_map.value.path_rule : {
+          name                       = p.name
+          paths                      = p.paths
+          backend_address_pool_name  = p.backend_address_pool_name
+          backend_http_settings_name = p.backend_http_settings_name
 
-  dynamic "trusted_client_certificate" {
-    for_each = flatten([
-      for app in local.gateways[count.index].app_configuration : [
-        for cert in(contains(keys(app), "rootca_certificates") ? app.rootca_certificates : []) : {
-          name                         = "${app.product}-${app.component}-${cert.rootca_certificate_name}"
-          verify_client_cert_issuer_dn = contains(keys(app), "verify_client_cert_issuer_dn") ? app.verify_client_cert_issuer_dn : false
-          data                         = contains(keys(cert), "rootca_certificate_name") ? var.trusted_client_certificate_data[cert.rootca_certificate_name].path : false
-        }
-        if lookup(app, "add_ssl_profile", false) == true && contains(keys(app), "rootca_certificates")
-      ]
-    ])
-    content {
-      name = trusted_client_certificate.value.name
-      data = trusted_client_certificate.value.data
-    }
-  }
-
-
-
-  dynamic "rewrite_rule_set" {
-    for_each = [for app in local.gateways[count.index].app_configuration : {
-      name          = "${app.product}-${app.component}-rewriterule"
-      rewrite_rules = "${app.rewrite_rules}"
-      }
-      if lookup(app, "add_rewrite_rule", false) == true
-    ]
-    content {
-      name = rewrite_rule_set.value.name
-
-      dynamic "rewrite_rule" {
-        for_each = [for rule in rewrite_rule_set.value.rewrite_rules : {
-          name             = "${rule.name}"
-          sequence         = "${rule.sequence}"
-          conditions       = lookup(rule, "conditions", [])
-          request_headers  = lookup(rule, "request_headers", [])
-          url              = contains(keys(rule), "url") ? [rule.url] : []
-          response_headers = lookup(rule, "response_headers", [])
         }]
-
         content {
-          name          = rewrite_rule.value.name
-          rule_sequence = rewrite_rule.value.sequence
-
-          dynamic "condition" {
-            for_each = [for cond in rewrite_rule.value.conditions : {
-              variable    = "${cond.variable}"
-              pattern     = "${cond.pattern}"
-              ignore_case = lookup(cond, "ignore_case", false)
-              negate      = lookup(cond, "negate", false)
-            }]
-
-            content {
-              variable    = condition.value.variable
-              pattern     = condition.value.pattern
-              ignore_case = condition.value.ignore_case
-              negate      = condition.value.negate
-            }
-          }
-
-          dynamic "request_header_configuration" {
-            for_each = [for request_header in rewrite_rule.value.request_headers : {
-              header_name  = "${request_header.header_name}"
-              header_value = "${request_header.header_value}"
-            }]
-
-            content {
-              header_name  = request_header_configuration.value.header_name
-              header_value = request_header_configuration.value.header_value
-            }
-          }
-
-          dynamic "url" {
-            for_each = [for the_url in rewrite_rule.value.url : {
-              components   = lookup(the_url, "components", null)
-              path         = lookup(the_url, "path", null)
-              reroute      = lookup(the_url, "reroute", false)
-              query_string = lookup(the_url, "query_string", null)
-            }]
-
-            content {
-              components   = url.value.components
-              path         = url.value.path
-              reroute      = url.value.reroute
-              query_string = url.value.query_string
-            }
-          }
-
-          dynamic "response_header_configuration" {
-            for_each = [for response_header in rewrite_rule.value.response_headers : {
-              header_name  = "${response_header.header_name}"
-              header_value = "${response_header.header_value}"
-            }]
-
-            content {
-              header_name  = response_header_configuration.value.header_name
-              header_value = response_header_configuration.value.header_value
-            }
-          }
-
+          name                       = path_rule.value.name
+          paths                      = [path_rule.value.paths]
+          backend_address_pool_name  = path_rule.value.backend_address_pool_name
+          backend_http_settings_name = path_rule.value.backend_http_settings_name
         }
       }
     }
   }
-
   depends_on = [azurerm_role_assignment.identity]
 }
 
