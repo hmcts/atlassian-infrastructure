@@ -396,8 +396,6 @@ request_routing_rules = [
 
 url_path_map = [
   {
-    default_backend_address_pool_name  = "appgw-backend-pool-cnf"
-    default_backend_http_settings_name = "appgw-backend-settings-cnf"
     path_rule = [
       {
         name                       = "confluence"
