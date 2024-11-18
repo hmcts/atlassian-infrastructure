@@ -114,11 +114,13 @@ resource "azurerm_application_gateway" "ag" {
   dynamic "request_routing_rule" {
     for_each = var.request_routing_rules
     content {
-      name               = request_routing_rule.value.name
-      priority           = request_routing_rule.value.priority
-      rule_type          = "Basic"
-      http_listener_name = request_routing_rule.value.http_listener_name
-      url_path_map_name  = "appgw-url-map-path"
+      name                       = request_routing_rule.value.name
+      priority                   = request_routing_rule.value.priority
+      rule_type                  = "Basic"
+      http_listener_name         = request_routing_rule.value.http_listener_name
+      url_path_map_name          = "appgw-url-map-path"
+      backend_address_pool_name  = request_routing_rule.value.backend_address_pool_name
+      backend_http_settings_name = request_routing_rule.value.backend_http_settings_name
     }
   }
   dynamic "url_path_map" {

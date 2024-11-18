@@ -116,9 +116,11 @@ variable "http_listeners" {
 variable "request_routing_rules" {
   description = "List of routing rules"
   type = list(object({
-    name               = string
-    priority           = number
-    http_listener_name = string
+    name                       = string
+    priority                   = number
+    http_listener_name         = string
+    backend_address_pool_name  = string
+    backend_http_settings_name = string
   }))
 }
 

@@ -386,9 +386,11 @@ http_listeners = [
 
 request_routing_rules = [
   {
-    name               = "appgw-routing-rule"
-    priority           = 1
-    http_listener_name = "appgw-http-listener"
+    name                       = "appgw-routing-rule"
+    priority                   = 1
+    http_listener_name         = "appgw-http-listener"
+    backend_address_pool_name  = "appgw-backend-pool-cnf"
+    backend_http_settings_name = "appgw-backend-settings-cnf"
   }
 ]
 
