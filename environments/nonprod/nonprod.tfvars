@@ -30,8 +30,10 @@ vnets = {
         address_prefixes  = ["10.0.8.0/28"]
         service_endpoints = ["Microsoft.Storage"]
         delegations = {
-          name    = "Microsoft.DBforPostgreSQL/flexibleServers"
-          actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
+          app_delegation = {
+            name    = "Microsoft.DBforPostgreSQL/flexibleServers"
+            actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
+          }
         }
       }
       atlassian-dmz-subnet-appgw = {
