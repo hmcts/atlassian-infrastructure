@@ -418,3 +418,11 @@ url_path_map = [
     ]
   }
 ]
+
+
+ssl_certificates = [
+  {
+    name                = "staging.tools.hmcts.net"
+    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/wildcard-staging-tools-hmcts-net/00b6a6038e774bf891b11f910fc46a4d"
+  }
+]
