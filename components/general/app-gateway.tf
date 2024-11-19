@@ -116,7 +116,7 @@ resource "azurerm_application_gateway" "ag" {
     content {
       name                       = request_routing_rule.value.name
       priority                   = request_routing_rule.value.priority
-      rule_type                  = "Basic"
+      rule_type                  = "PathBasedRouting"
       http_listener_name         = request_routing_rule.value.http_listener_name
       url_path_map_name          = "appgw-url-map-path"
       backend_address_pool_name  = request_routing_rule.value.backend_address_pool_name
