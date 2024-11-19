@@ -127,6 +127,8 @@ variable "request_routing_rules" {
 variable "url_path_map" {
   description = "List of url_path_map"
   type = list(object({
+    default_backend_address_pool_name  = string
+    default_backend_http_settings_name = string
     path_rule = list(object({
       name                       = string
       paths                      = string
