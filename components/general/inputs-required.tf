@@ -145,3 +145,8 @@ variable "ssl_certificates" {
     key_vault_secret_id = string
   }))
 }
+
+variable "storage_account_name" {
+  type        = string
+  description = "Name of the storage account"
+}
