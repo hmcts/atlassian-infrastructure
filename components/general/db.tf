@@ -26,7 +26,7 @@ module "single_database_source" {
   postgresql_user    = "rhubarbadmin"
   database_name      = "rhubarb-v11"
   postgresql_version = "11"
-  subnet_id          = "7123b1c1-dd17-43ca-88a4-615a46282ab4"
+  subnet_id          = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Network/virtualNetworks/atlassian-int-nonprod-vnet/subnets/atlassian-int-subnet-dat"
   sku_name           = "GP_Gen5_2"
   sku_tier           = "GeneralPurpose"
   storage_mb         = "51200"
