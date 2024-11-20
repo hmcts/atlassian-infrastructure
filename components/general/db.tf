@@ -18,7 +18,7 @@ resource "azurerm_key_vault_secret" "POSTGRES-PASS-SOURCE" {
 
 # single server (source) - for DMS migration testing only
 module "single_database_source" {
-  source             = "git@github.com:hmcts/cnp-module-postgres?ref=postgresql_tf"
+  source             = "github.com/hmcts/cnp-module-postgres?ref=postgresql_tf"
   product            = var.product
   name               = "${var.product}-v11-source"
   location           = var.location
