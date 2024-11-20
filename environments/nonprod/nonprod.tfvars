@@ -429,4 +429,5 @@ ssl_certificates = [
   }
 ]
 
-enable_http2 = true
+enable_http2         = true
+storage_account_name = "atlassiannonprod"
