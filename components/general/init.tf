@@ -15,9 +15,3 @@ provider "azurerm" {
   features {}
   subscription_id = var.subscription_id
 }
-
-provider "azurerm" {
-  features {}
-  alias           = "live"
-  subscription_id = "79898897-729c-41a0-a5ca-53c764839d95"
-}

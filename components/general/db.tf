@@ -1,16 +1,15 @@
 data "azurerm_key_vault" "key_vault" {
-  provider            = azurerm.live
-  name                = "PRD-ATL-Backups-KV"
-  resource_group_name = "RG-PRD-ATL-01"
+  name                = "atlasssian-${var.env}-kv"
+  resource_group_name = azurerm_resource_group.atlassian_rg.name
 }
 
-data "azurerm_key_vault_secret" "PRP-ATL-POSTGRES-PGSQL-BACKUP-TRIAL" {
-  name         = "PRP-ATL-POSTGRES-PGSQL-BACKUP-TRIAL"
+data "azurerm_key_vault_secret" "PREPROD-POSTGRES-SINGLE-SERVER-PASS" {
+  name         = "PREPROD-POSTGRES-SINGLE-SERVER-PASS"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
 output "secret_value" {
-  value     = data.azurerm_key_vault_secret.PRP-ATL-POSTGRES-PGSQL-BACKUP-TRIAL.value
+  value     = data.azurerm_key_vault_secret.PREPROD-POSTGRES-SINGLE-SERVER-PASS.value
   sensitive = true
 }
 
