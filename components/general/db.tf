@@ -30,7 +30,7 @@ module "single_database_source" {
   postgresql_user    = "pgsqladmin"
   database_name      = "backup-restore-trial"
   postgresql_version = "11"
-  subnet_id          = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Network/virtualNetworks/atlassian-int-nonprod-vnet/subnets/atlassian-int-subnet-dat"
+  subnet_id          = module.networking.subnet_ids["atlassian-dmz-${var.env}-vnet-atlassian-dmz-subnet-appgw"]
   sku_name           = "GP_Gen5_2"
   sku_tier           = "GeneralPurpose"
   storage_mb         = "51200"
