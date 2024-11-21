@@ -31,9 +31,38 @@ resource "azurerm_key_vault" "atlasssian_kv" {
       object_id      = "e7ea2042-4ced-45dd-8ae3-e051c6551789" # DTS Platform Operations
       application_id = null
 
-      certificate_permissions = []
-      key_permissions         = []
-      storage_permissions     = []
+      certificate_permissions = [
+        "Get",
+        "List",
+        "Update",
+        "Create",
+        "Import",
+        "Delete",
+        "Recover",
+        "Backup",
+        "Restore",
+        "ManageContacts",
+        "ManageIssuers",
+        "GetIssuers",
+        "ListIssuers",
+        "SetIssuers",
+        "DeleteIssuers",
+      ]
+      key_permissions = [
+        "Get",
+        "List",
+        "Update",
+        "Create",
+        "Import",
+        "Delete",
+        "Recover",
+        "Backup",
+        "Restore",
+        "GetRotationPolicy",
+        "SetRotationPolicy",
+        "Rotate",
+      ]
+      storage_permissions = []
 
       secret_permissions = [
         "Get",
