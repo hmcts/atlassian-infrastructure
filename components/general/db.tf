@@ -9,7 +9,7 @@ data "azurerm_key_vault_secret" "db_manager_password" {
 }
 
 output "secret_value" {
-  value     = data.azurerm_key_vault_secret.PREPROD-POSTGRES-SINGLE-SERVER-PASS.value
+  value     = data.azurerm_key_vault_secret.db_manager_password.value
   sensitive = true
 }
 
