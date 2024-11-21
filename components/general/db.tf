@@ -1,9 +1,3 @@
-provider "azurerm" {
-  features {}
-  alias           = "live"
-  subscription_id = "79898897-729c-41a0-a5ca-53c764839d95"
-}
-
 data "azurerm_key_vault" "key_vault" {
   provider            = azurerm.live
   name                = "PRD-ATL-Backups-KV"
