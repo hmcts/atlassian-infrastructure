@@ -29,7 +29,7 @@ module "single_database_source" {
   storage_mb         = "51200"
   common_tags        = module.ctags.common_tags
   subscription       = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
-  key_vault_rg       = "RG-PRD-ATL-01"
-  key_vault_name     = "PRD-ATL-Backups-KV"
+  key_vault_rg       = data.azurerm_key_vault.key_vault.resource_group_name
+  key_vault_name     = data.azurerm_key_vault.key_vault.name
   business_area      = "SDS"
 }
