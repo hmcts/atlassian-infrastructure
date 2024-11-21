@@ -1,18 +1,3 @@
-data "azurerm_key_vault" "key_vault" {
-  name                = "atlasssian-${var.env}-kv"
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
-}
-
-data "azurerm_key_vault_secret" "db_manager_password" {
-  name         = "PREPROD-POSTGRES-SINGLE-SERVER-PASS"
-  key_vault_id = data.azurerm_key_vault.key_vault.id
-}
-
-output "secret_value" {
-  value     = data.azurerm_key_vault_secret.db_manager_password.value
-  sensitive = true
-}
-
 # single server (source) - for DMS migration testing only
 module "single_database_source" {
   source             = "github.com/hmcts/cnp-module-postgres?ref=postgresql_tf"
@@ -29,7 +14,7 @@ module "single_database_source" {
   storage_mb         = "51200"
   common_tags        = module.ctags.common_tags
   subscription       = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
-  key_vault_rg       = data.azurerm_key_vault.key_vault.resource_group_name
-  key_vault_name     = data.azurerm_key_vault.key_vault.name
+  key_vault_rg       = azurerm_key_vault.atlasssian_kv.resource_group_name
+  key_vault_name     = azurerm_key_vault.atlasssian_kv.name
   business_area      = "SDS"
 }
