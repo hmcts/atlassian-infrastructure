@@ -3,7 +3,7 @@ data "azurerm_key_vault" "key_vault" {
   resource_group_name = azurerm_resource_group.atlassian_rg.name
 }
 
-data "azurerm_key_vault_secret" "PREPROD-POSTGRES-SINGLE-SERVER-PASS" {
+data "azurerm_key_vault_secret" "db_manager_password" {
   name         = "PREPROD-POSTGRES-SINGLE-SERVER-PASS"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
