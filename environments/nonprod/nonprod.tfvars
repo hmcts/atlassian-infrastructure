@@ -112,7 +112,7 @@ network_security_groups = {
         protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "22"
-        source_address_prefix      = "10.99.2.0/23"
+        source_address_prefix      = "10.99.72.0/21"
         destination_address_prefix = "*"
       }
       "allow_mail_outbound" = {
