@@ -20,4 +20,9 @@ resource "azurerm_postgresql_server" "atlassian-preprod-server" {
   administrator_login_password = data.azurerm_key_vault_secret.PREPROD-POSTGRES-SINGLE-SERVER-PASS.value
   version                      = "11"
   ssl_enforcement_enabled      = true
+  lifecycle {
+    ignore_changes = [
+      administrator_login
+    ]
+  }
 }
