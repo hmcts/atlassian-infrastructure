@@ -28,7 +28,7 @@ resource "azurerm_postgresql_server" "atlassian-server" {
 }
 
 resource "azurerm_postgresql_database" "jira" {
-  name                = "jira-${var.env}"
+  name                = "jira-db-${var.env}"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   server_name         = azurerm_postgresql_server.atlassian-server.name
   charset             = "UTF8"
@@ -41,7 +41,7 @@ resource "azurerm_postgresql_database" "jira" {
 }
 
 resource "azurerm_postgresql_database" "confluence" {
-  name                = "confluence-${var.env}"
+  name                = "confluence-db-${var.env}"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   server_name         = azurerm_postgresql_server.atlassian-server.name
   charset             = "UTF8"
@@ -54,7 +54,7 @@ resource "azurerm_postgresql_database" "confluence" {
 }
 
 resource "azurerm_postgresql_database" "crowd" {
-  name                = "crowd-${var.env}"
+  name                = "crowd-db-${var.env}"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   server_name         = azurerm_postgresql_server.atlassian-server.name
   charset             = "UTF8"
