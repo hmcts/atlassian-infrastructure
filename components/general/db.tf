@@ -26,3 +26,42 @@ resource "azurerm_postgresql_server" "atlassian-preprod-server" {
     ]
   }
 }
+
+resource "azurerm_postgresql_database" "jira-prd" {
+  name                = "jira-prd"
+  resource_group_name = azurerm_resource_group.atlassian_rg.name
+  server_name         = azurerm_postgresql_server.atlassian-preprod-server.name
+  charset             = "UTF8"
+  collation           = "English_United States.1252"
+
+  # prevent the possibility of accidental data loss
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "azurerm_postgresql_database" "confluence-prd" {
+  name                = "confluence-prd"
+  resource_group_name = azurerm_resource_group.atlassian_rg.name
+  server_name         = azurerm_postgresql_server.atlassian-preprod-server.name
+  charset             = "UTF8"
+  collation           = "English_United States.1252"
+
+  # prevent the possibility of accidental data loss
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "azurerm_postgresql_database" "crowd-prd" {
+  name                = "crowd-prd"
+  resource_group_name = azurerm_resource_group.atlassian_rg.name
+  server_name         = azurerm_postgresql_server.atlassian-preprod-server.name
+  charset             = "UTF8"
+  collation           = "English_United States.1252"
+
+  # prevent the possibility of accidental data loss
+  lifecycle {
+    prevent_destroy = true
+  }
+}
