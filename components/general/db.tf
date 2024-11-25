@@ -26,3 +26,17 @@ resource "azurerm_postgresql_server" "atlassian-server" {
     ]
   }
 }
+
+resource "azurerm_postgresql_virtual_network_rule" "app_subnet_rule" {
+  name                = "app-subnet-rule"
+  resource_group_name = azurerm_resource_group.atlassian_rg.name
+  server_name         = azurerm_postgresql_server.atlassian-server.name
+  subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-app"]
+}
+
+resource "azurerm_postgresql_virtual_network_rule" "ops_subnet_rule" {
+  name                = "ops-subnet-rule"
+  resource_group_name = azurerm_resource_group.atlassian_rg.name
+  server_name         = azurerm_postgresql_server.atlassian-server.name
+  subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-ops"]
+}
