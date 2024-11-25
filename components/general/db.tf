@@ -14,7 +14,7 @@ resource "azurerm_postgresql_server" "atlassian-server" {
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   sku_name            = "GP_Gen5_8"
 
-  storage_mb = 51200
+  storage_mb = 76800
 
   administrator_login          = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value
   administrator_login_password = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-PASS.value
