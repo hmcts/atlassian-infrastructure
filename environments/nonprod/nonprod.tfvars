@@ -12,12 +12,14 @@ vnets = {
         address_prefixes = ["10.0.4.64/26"]
       }
       atlassian-int-subnet-dat = {
-        name_override    = "atlassian-int-subnet-dat"
-        address_prefixes = ["10.0.4.128/26"]
+        name_override     = "atlassian-int-subnet-dat"
+        address_prefixes  = ["10.0.4.128/26"]
+        service_endpoints = ["Microsoft.Sql"]
       }
       atlassian-int-subnet-app = {
-        name_override    = "atlassian-int-subnet-app"
-        address_prefixes = ["10.0.4.192/26"]
+        name_override     = "atlassian-int-subnet-app"
+        address_prefixes  = ["10.0.4.192/26"]
+        service_endpoints = ["Microsoft.Sql"]
       }
     }
   }
