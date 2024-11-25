@@ -12,7 +12,7 @@ resource "azurerm_postgresql_server" "atlassian-server" {
   name                = "atlassian-${var.env}-server"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
-  sku_name            = "B_Gen5_2"
+  sku_name            = "GP_Gen5_8"
 
   storage_mb = 51200
 
