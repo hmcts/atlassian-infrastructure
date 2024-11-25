@@ -81,6 +81,9 @@ resource "azurerm_key_vault" "atlasssian_kv" {
         "Get",
         "List",
       ]
+      certificate_permissions = []
+      key_permissions         = []
+      storage_permissions     = []
     }
   ]
 
