@@ -71,6 +71,18 @@ resource "azurerm_key_vault" "atlasssian_kv" {
         "Delete",
         "Purge"
       ]
+    },
+    {
+      certificate_permissions = []
+      key_permissions         = []
+      object_id               = "96f806d7-de3f-4407-bd62-b746b59cc3d7"
+      secret_permissions = [
+        "Get",
+        "List",
+      ]
+      storage_permissions = []
+      tenant_id           = "531ff96d-0ae9-462a-8d2d-bec7c0b42082"
+
     }
   ]
 
