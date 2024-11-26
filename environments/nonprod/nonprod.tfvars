@@ -177,7 +177,17 @@ network_security_groups = {
         source_address_prefix      = "AzureLoadBalancer"
         destination_address_prefix = "*"
       }
-
+      "allow_vpn_ssh" = {
+        name_override              = "allow_vpn_ssh"
+        priority                   = 600
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "10.99.72.0/21"
+        destination_address_prefix = "*"
+      }
     }
   }
   atlassian-int-subnet-ops-nsg = {
