@@ -317,17 +317,17 @@ network_security_groups = {
 backend_address_pools = [
   {
     name                      = "appgw-backend-pool-jira"
-    backend_pool_ip_addresses = ["10.0.4.201", "10.0.4.202", "10.0.4.203"]
+    backend_pool_ip_addresses = ["10.0.4.197", "10.0.4.198", "10.0.4.199"]
     backend_pool_fqdns        = []
   },
   {
     name                      = "appgw-backend-pool-crd"
-    backend_pool_ip_addresses = ["10.0.4.210"]
+    backend_pool_ip_addresses = ["10.0.4.202"]
     backend_pool_fqdns        = []
   },
   {
     name                      = "appgw-backend-pool-cnf"
-    backend_pool_ip_addresses = ["10.0.4.215", "10.0.4.216"]
+    backend_pool_ip_addresses = ["10.0.4.200", "10.0.4.201"]
     backend_pool_fqdns        = []
   }
 ]
