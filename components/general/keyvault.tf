@@ -1,7 +1,7 @@
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "atlassian_kv" {
-  name                     = "atlassian-${var.env}-kv"
+  name                     = "atlasssian-${var.env}-kv"
   resource_group_name      = azurerm_resource_group.atlassian_rg.name
   location                 = var.location
   sku_name                 = "standard"
