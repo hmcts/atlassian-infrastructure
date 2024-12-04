@@ -74,7 +74,20 @@ resource "azurerm_key_vault" "atlassian_kv" {
     },
     {
 
-      object_id      = "96f806d7-de3f-4407-bd62-b746b59cc3d7"
+      object_id      = "96f806d7-de3f-4407-bd62-b746b59cc3d7" # atlassian-nonprod-app-gateway-identity
+      tenant_id      = data.azurerm_client_config.current.tenant_id
+      application_id = null
+      secret_permissions = [
+        "Get",
+        "List",
+      ]
+      certificate_permissions = []
+      key_permissions         = []
+      storage_permissions     = []
+    },
+    {
+
+      object_id      = "17779c5d-7381-4439-89a2-19cfcb66179f" # atlassian-nonprod-app-gateway-identity
       tenant_id      = data.azurerm_client_config.current.tenant_id
       application_id = null
       secret_permissions = [
