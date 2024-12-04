@@ -1,6 +1,6 @@
 data "azurerm_client_config" "current" {}
 
-resource "azurerm_key_vault" "atlasssian_kv" {
+resource "azurerm_key_vault" "atlassian_kv" {
   name                     = "atlasssian-${var.env}-kv"
   resource_group_name      = azurerm_resource_group.atlassian_rg.name
   location                 = var.location
@@ -88,4 +88,9 @@ resource "azurerm_key_vault" "atlasssian_kv" {
   ]
 
   tags = module.ctags.common_tags
+}
+
+moved {
+  from = azurerm_key_vault.atlasssian_kv
+  to   = azurerm_key_vault.atlassian_kv
 }
