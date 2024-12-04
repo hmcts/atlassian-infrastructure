@@ -165,3 +165,8 @@ resource "azurerm_role_assignment" "identity" {
 
   role_definition_name = "Key Vault Secrets User"
 }
+
+import {
+  to = azurerm_application_gateway.ag
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Network/applicationGateways/atlassian-nonprod-app-gateway"
+}
