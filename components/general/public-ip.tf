@@ -1,5 +1,5 @@
 resource "azurerm_public_ip" "app_gw" {
-  name                = "atlasssian-${var.env}-public-ip"
+  name                = "atlassian-${var.env}-public-ip"
   location            = var.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   sku                 = "Standard"

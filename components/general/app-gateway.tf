@@ -1,6 +1,6 @@
 resource "azurerm_application_gateway" "ag" {
 
-  name                = "atlasssian-${var.env}-app-gateway"
+  name                = "atlassian-${var.env}-app-gateway"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
   tags                = module.ctags.common_tags
@@ -152,7 +152,7 @@ resource "azurerm_application_gateway" "ag" {
 
 
 resource "azurerm_user_assigned_identity" "identity" {
-  name                = "atlasssian-${var.env}-app-gateway-identity"
+  name                = "atlassian-${var.env}-app-gateway-identity"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
 
@@ -161,7 +161,7 @@ resource "azurerm_user_assigned_identity" "identity" {
 
 resource "azurerm_role_assignment" "identity" {
   principal_id = azurerm_user_assigned_identity.identity.principal_id
-  scope        = azurerm_key_vault.atlasssian_kv.id
+  scope        = azurerm_key_vault.atlassian_kv.id
 
   role_definition_name = "Key Vault Secrets User"
 }

@@ -1,11 +1,11 @@
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-PASS" {
   name         = "${var.env}-POSTGRES-SINGLE-SERVER-PASS"
-  key_vault_id = azurerm_key_vault.atlasssian_kv.id
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-USER" {
   name         = "${var.env}-POSTGRES-SINGLE-SERVER-USER"
-  key_vault_id = azurerm_key_vault.atlasssian_kv.id
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
 resource "azurerm_postgresql_server" "atlassian-server" {
