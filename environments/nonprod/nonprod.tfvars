@@ -317,7 +317,7 @@ network_security_groups = {
 backend_address_pools = [
   {
     name                      = "appgw-backend-pool-jira"
-    backend_pool_ip_addresses = ["10.0.4.197", "10.0.4.198", "10.0.4.199"]
+    backend_pool_ip_addresses = ["10.0.4.203", "10.0.4.204", "10.0.4.205"]
     backend_pool_fqdns        = []
   },
   {
