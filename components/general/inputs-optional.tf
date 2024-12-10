@@ -36,3 +36,9 @@ variable "enable_http2" {
   default     = false
   type        = bool
 }
+
+variable "autoShutdown" {
+  description = "To add Tag for all the resources"
+  default     = false
+  type        = bool
+}
