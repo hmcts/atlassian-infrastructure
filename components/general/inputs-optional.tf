@@ -28,7 +28,7 @@ variable "enable_waf" {
 
 variable "waf_mode" {
   description = "Mode for waf to run in"
-  default     = "Prevention"
+  default     = "Detection"
 }
 
 variable "enable_http2" {
