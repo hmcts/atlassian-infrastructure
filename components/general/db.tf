@@ -73,7 +73,7 @@ resource "azurerm_private_dns_a_record" "postgres_private_dns_a_record" {
   provider            = azurerm.dns
   name                = azurerm_postgresql_server.atlassian-server.name
   zone_name           = local.zone_name
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
+  resource_group_name = "core-infra-intsvc-rg"
   ttl                 = 300
   records             = [azurerm_private_endpoint.postgres_private_endpoint.private_service_connection[0].private_ip_address]
 }
