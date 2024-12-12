@@ -1,4 +1,3 @@
-
 environment     = "nonprod"
 subscription_id = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
 
@@ -19,6 +18,11 @@ vnets = {
       atlassian-int-subnet-app = {
         name_override     = "atlassian-int-subnet-app"
         address_prefixes  = ["10.0.4.192/26"]
+        service_endpoints = ["Microsoft.Sql"]
+      }
+      atlassian-int-subnet-postgres = {
+        name_override     = "atlassian-int-subnet-postgres"
+        address_prefixes  = ["10.0.4.0/26"]
         service_endpoints = ["Microsoft.Sql"]
       }
     }
