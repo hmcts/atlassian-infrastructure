@@ -130,7 +130,7 @@ network_security_groups = {
       }
       "postgres_outbound" = {
         name_override              = "postgres_outbound"
-        priority                   = 100
+        priority                   = 200
         direction                  = "Outbound"
         access                     = "Allow"
         protocol                   = "Tcp"
@@ -201,7 +201,7 @@ network_security_groups = {
       }
       "postgres_outbound" = {
         name_override              = "postgres_outbound"
-        priority                   = 100
+        priority                   = 200
         direction                  = "Outbound"
         access                     = "Allow"
         protocol                   = "Tcp"
@@ -294,7 +294,7 @@ network_security_groups = {
       }
       "postgres_outbound" = {
         name_override              = "postgres_outbound"
-        priority                   = 100
+        priority                   = 200
         direction                  = "Outbound"
         access                     = "Deny"
         protocol                   = "Tcp"
