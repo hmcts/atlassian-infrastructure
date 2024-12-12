@@ -64,7 +64,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_vnet
   provider              = azurerm.dns
   name                  = "atlassian-${var.env}-postgres-dns-vnet-link"
   resource_group_name   = azurerm_resource_group.atlassian_rg.name
-  virtual_network_id    = module.networking.vnet_id
+  virtual_network_id    = module.networking.vnet_ids["atlassian-int-nonprod-vnet"]
   private_dns_zone_name = local.zone_name
 }
 
