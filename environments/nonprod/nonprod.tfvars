@@ -320,7 +320,7 @@ network_security_groups = {
       }
       "postgres_private" = {
         name_override              = "postgres_private"
-        priority                   = 100
+        priority                   = 150
         direction                  = "Outbound"
         access                     = "Allow"
         protocol                   = "Tcp"
