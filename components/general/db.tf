@@ -1,6 +1,6 @@
 locals {
-  private_dns_zone_id = "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/private.postgres.database.azure.com"
-  zone_name           = "private.postgres.database.azure.com"
+  private_dns_zone_id = "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.postgres.database.azure.com"
+  zone_name           = "privatelink.postgres.database.azure.com"
   zone_resource_group = "core-infra-intsvc-rg"
 }
 
@@ -48,7 +48,7 @@ resource "azurerm_postgresql_virtual_network_rule" "dat_subnet_rule" {
 }
 
 resource "azurerm_private_endpoint" "postgres_private_endpoint" {
-  name                = "test-pe"
+  name                = "atlassian-${var.env}-postgres-pe"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres"]
@@ -59,6 +59,29 @@ resource "azurerm_private_endpoint" "postgres_private_endpoint" {
     is_manual_connection           = false
     subresource_names              = ["postgresqlServer"]
   }
+  private_dns_zone_group {
+    name                 = local.zone_name
+    private_dns_zone_ids = [local.private_dns_zone_id]
+  }
+
 }
+
+resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_vnet_link" {
+  provider              = azurerm.dns
+  name                  = "atlassian-${var.env}-postgres-dns-vnet-link"
+  resource_group_name   = local.zone_resource_group
+  virtual_network_id    = module.networking.vnet_ids["atlassian-int-nonprod-vnet"]
+  private_dns_zone_name = local.zone_name
+}
+
+
+# resource "azurerm_private_dns_a_record" "postgres_private_dns_a_record" {
+#   provider            = azurerm.dns
+#   name                = azurerm_postgresql_server.atlassian-server.name
+#   zone_name           = local.zone_name
+#   resource_group_name = local.zone_resource_group
+#   ttl                 = 300
+#   records             = [azurerm_private_endpoint.postgres_private_endpoint.private_service_connection[0].private_ip_address]
+# }
 
 
