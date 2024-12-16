@@ -51,6 +51,11 @@ module "vm" {
   vm_subnet_id         = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-${local.vm_subnets[each.value.tier]}"]
   privateip_allocation = "Dynamic"
 
+  install_azure_monitor      = var.install_azure_monitor
+  install_dynatrace_oneagent = var.install_dynatrace_oneagent
+  install_nessus_agent       = var.install_nessus_agent
+  install_splunk_uf          = var.install_splunk_uf
+
   tags = module.ctags.common_tags
 }
 
