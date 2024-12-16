@@ -18,9 +18,11 @@ locals {
 
 }
 
-data "azurerm_key_vault_secret" "admin_public_key" {
-  name         = "public-key"
-  key_vault_id = azurerm_key_vault.atlassian_kv.id
+resource "random_password" "vm_password" {
+  for_each = var.vms
+
+  length  = 11
+  special = true
 }
 
 module "vm" {
