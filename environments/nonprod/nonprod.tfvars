@@ -1,5 +1,6 @@
-environment     = "nonprod"
+env             = "nonprod"
 subscription_id = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
+cnp_vault_sub   = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 
 vnets = {
   atlassian-int-nonprod-vnet = {
@@ -525,3 +526,125 @@ ssl_certificates = [
 enable_http2         = true
 storage_account_name = "atlassiannonprod"
 autoShutdown         = true
+
+vms = {
+  atlassian-nonprod-jira-01 = {
+    vm_size                 = "Standard_E8s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "app"
+    existing_disks = {
+      atlassiannonprodjira01-datadisk-000-20241210-115350 = {
+        disk_name = "atlassiannonprodjira01-datadisk-000-20241210-115350"
+        lun       = 0
+        caching   = "ReadOnly"
+      }
+    }
+  }
+  atlassian-nonprod-jira-02 = {
+    vm_size                 = "Standard_E8s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "app"
+  }
+  atlassian-nonprod-jira-03 = {
+    vm_size                 = "Standard_E8s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "app"
+  }
+  atlassian-nonprod-crowd-01 = {
+    vm_size                 = "Standard_E4s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "app"
+  }
+  atlassian-nonprod-confluence-02 = {
+    vm_size                 = "Standard_E8s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "app"
+    existing_disks = {
+      atlassiannonprodconfluence02-datadisk-000-20241122-161757 = {
+        disk_name = "atlassiannonprodconfluence02-datadisk-000-20241122-161757"
+        lun       = 0
+        caching   = "ReadOnly"
+      }
+    }
+  }
+  atlassian-nonprod-confluence-04 = {
+    vm_size                 = "Standard_E8s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "app"
+    existing_disks = {
+      atlassiannonprodconfluence04-datadisk-000-20241125-074446 = {
+        disk_name = "atlassiannonprodconfluence04-datadisk-000-20241125-074446"
+        lun       = 0
+        caching   = "ReadOnly"
+      }
+    }
+  }
+  atlassian-nonprod-gluster-01 = {
+    vm_size                 = "Standard_E8s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "data"
+    existing_disks = {
+      atlassiannonprodgluster01-datadisk-000-20241125-095229 = {
+        disk_name = "atlassiannonprodgluster01-datadisk-000-20241125-095229"
+        lun       = 0
+        caching   = "ReadWrite"
+      }
+      atlassiannonprodgluster01-datadisk-001-20241125-095229 = {
+        disk_name = "atlassiannonprodgluster01-datadisk-001-20241125-095229"
+        lun       = 1
+        caching   = "None"
+      }
+    }
+  }
+  atlassian-nonprod-gluster-02 = {
+    vm_size                 = "Standard_E8s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "data"
+    existing_disks = {
+      atlassiannonprodgluster02-datadisk-000-20241125-173706 = {
+        disk_name = "atlassiannonprodgluster02-datadisk-000-20241125-173706"
+        lun       = 0
+        caching   = "ReadWrite"
+      }
+    }
+  }
+  atlassian-nonprod-gluster-03 = {
+    vm_size                 = "Standard_E8s_v3"
+    vm_image_publisher_name = "RedHat"
+    vm_image_offer          = "RHEL"
+    vm_image_sku            = "7.8"
+    vm_image_version        = "latest"
+    tier                    = "data"
+    existing_disks = {
+      atlassiannonprodgluster03-datadisk-000-20241125-173919 = {
+        disk_name = "atlassiannonprodgluster03-datadisk-000-20241125-173919"
+        lun       = 0
+        caching   = "ReadWrite"
+      }
+    }
+  }
+}
