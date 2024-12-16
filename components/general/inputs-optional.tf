@@ -42,3 +42,15 @@ variable "autoShutdown" {
   default     = false
   type        = bool
 }
+
+variable "product" {
+  description = "The name of the product."
+  type        = string
+  default     = "atlassian"
+}
+
+variable "builtFrom" {
+  description = "The GitHub URL for the repository that contains the infrastructure code."
+  type        = string
+  default     = "hmcts/atlassian-infrastructure"
+}

@@ -17,24 +17,35 @@ variable "vnets" {
   }))
 }
 
+variable "vms" {
+  description = "List of VMs to create"
+  type = map(object({
+    vm_size                 = string
+    vm_image_publisher_name = string
+    vm_image_offer          = string
+    vm_image_sku            = string
+    vm_image_version        = string
+    tier                    = string
+    existing_disks = optional(map(object({
+      disk_name = string
+      lun       = number
+      caching   = string
+    })), {})
+  }))
+}
+
 variable "env" {
   description = "Name of the environment set by the pipeline"
-  type        = string
-}
-
-variable "builtFrom" {
-  description = "The GitHub URL for the repository that contains the infrastructure code."
-  type        = string
-}
-
-variable "product" {
-  description = "The name of the product."
   type        = string
 }
 
 variable "subscription_id" {
   description = "Subscription ID where Azure resources going to be deployed"
   type        = string
+}
+
+variable "cnp_vault_sub" {
+  type = string
 }
 
 variable "network_security_groups" {
