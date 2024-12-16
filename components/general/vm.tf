@@ -53,7 +53,7 @@ module "vm" {
 
   install_azure_monitor      = var.install_azure_monitor
   install_dynatrace_oneagent = var.install_dynatrace_oneagent
-  install_nessus_agent       = var.install_nessus_agent
+  nessus_install             = var.install_nessus_agent
   install_splunk_uf          = var.install_splunk_uf
 
   tags = module.ctags.common_tags
