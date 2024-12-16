@@ -18,11 +18,9 @@ locals {
 
 }
 
-resource "random_password" "vm_password" {
-  for_each = var.vms
-
-  length  = 11
-  special = true
+data "azurerm_key_vault_secret" "admin_public_key" {
+  name         = "public-key"
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
 module "vm" {
@@ -36,17 +34,19 @@ module "vm" {
     azurerm.dcr = azurerm.dcr
   }
 
-  env                  = var.env
-  vm_name              = each.key
-  vm_type              = "linux"
-  vm_resource_group    = azurerm_resource_group.atlassian_rg.name
-  vm_admin_password    = random_password.vm_password[each.key].result
-  vm_size              = each.value.vm_size
-  vm_publisher_name    = each.value.vm_image_publisher_name
-  vm_offer             = each.value.vm_image_offer
-  vm_sku               = each.value.vm_image_sku
-  vm_version           = each.value.vm_image_version
-  vm_availabilty_zones = "1"
+  env                             = var.env
+  vm_name                         = each.key
+  vm_type                         = "linux"
+  vm_resource_group               = azurerm_resource_group.atlassian_rg.name
+  vm_admin_username               = "atlassian-admin"
+  disable_password_authentication = true
+  vm_admin_ssh_key                = data.azurerm_key_vault_secret.admin_public_key.value
+  vm_size                         = each.value.vm_size
+  vm_publisher_name               = each.value.vm_image_publisher_name
+  vm_offer                        = each.value.vm_image_offer
+  vm_sku                          = each.value.vm_image_sku
+  vm_version                      = each.value.vm_image_version
+  vm_availabilty_zones            = "1"
 
   vm_subnet_id         = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-${local.vm_subnets[each.value.tier]}"]
   privateip_allocation = "Dynamic"
