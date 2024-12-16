@@ -107,3 +107,11 @@ moved {
   from = azurerm_key_vault.atlasssian_kv
   to   = azurerm_key_vault.atlassian_kv
 }
+
+resource "azurerm_key_vault_secret" "vm_password" {
+  for_each = var.vms
+
+  name         = "${each.key}-vm-password"
+  value        = random_password.vm_password[each.key].result
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
+}
