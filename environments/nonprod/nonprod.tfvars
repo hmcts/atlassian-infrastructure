@@ -1,4 +1,3 @@
-
 environment     = "nonprod"
 subscription_id = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
 
@@ -19,6 +18,11 @@ vnets = {
       atlassian-int-subnet-app = {
         name_override     = "atlassian-int-subnet-app"
         address_prefixes  = ["10.0.4.192/26"]
+        service_endpoints = ["Microsoft.Sql"]
+      }
+      atlassian-int-subnet-postgres = {
+        name_override     = "atlassian-int-subnet-postgres"
+        address_prefixes  = ["10.0.4.0/26"]
         service_endpoints = ["Microsoft.Sql"]
       }
     }
@@ -128,6 +132,28 @@ network_security_groups = {
         source_address_prefix      = "*"
         destination_address_prefix = "*"
       }
+      "postgres_private" = {
+        name_override              = "postgres_private"
+        priority                   = 100
+        direction                  = "Outbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "5432"
+        source_address_prefix      = "*"
+        destination_address_prefix = "10.0.4.0/26"
+      }
+      "postgres_outbound" = {
+        name_override              = "postgres_outbound"
+        priority                   = 200
+        direction                  = "Outbound"
+        access                     = "Deny"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "5432"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      }
     }
   }
   atlassian-int-subnet-dat-nsg = {
@@ -186,6 +212,28 @@ network_security_groups = {
         source_port_range          = "*"
         destination_port_range     = "22"
         source_address_prefix      = "10.99.72.0/21"
+        destination_address_prefix = "*"
+      }
+      "postgres_private" = {
+        name_override              = "postgres_private"
+        priority                   = 100
+        direction                  = "Outbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "5432"
+        source_address_prefix      = "*"
+        destination_address_prefix = "10.0.4.0/26"
+      }
+      "postgres_outbound" = {
+        name_override              = "postgres_outbound"
+        priority                   = 200
+        direction                  = "Outbound"
+        access                     = "Deny"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "5432"
+        source_address_prefix      = "*"
         destination_address_prefix = "*"
       }
     }
@@ -269,6 +317,28 @@ network_security_groups = {
         destination_port_range     = "29418"
         source_address_prefix      = "*"
         destination_address_prefix = "10.88.128.192/27"
+      }
+      "postgres_private" = {
+        name_override              = "postgres_private"
+        priority                   = 150
+        direction                  = "Outbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "5432"
+        source_address_prefix      = "*"
+        destination_address_prefix = "10.0.4.0/26"
+      }
+      "postgres_outbound" = {
+        name_override              = "postgres_outbound"
+        priority                   = 200
+        direction                  = "Outbound"
+        access                     = "Deny"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "5432"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
       }
     }
   }
