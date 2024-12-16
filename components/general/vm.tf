@@ -38,7 +38,7 @@ module "vm" {
   vm_name                         = each.key
   vm_type                         = "linux"
   vm_resource_group               = azurerm_resource_group.atlassian_rg.name
-  vm_admin_username               = "atlassian-admin"
+  vm_admin_name                   = "atlassian-admin"
   disable_password_authentication = true
   vm_admin_ssh_key                = data.azurerm_key_vault_secret.admin_public_key.value
   vm_size                         = each.value.vm_size
