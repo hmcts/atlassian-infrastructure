@@ -20,13 +20,11 @@ variable "vnets" {
 variable "vms" {
   description = "List of VMs to create"
   type = map(object({
-    vm_size                 = string
-    vm_image_publisher_name = string
-    vm_image_offer          = string
-    vm_image_sku            = string
-    vm_image_version        = string
-    tier                    = string
-    existing_disks = optional(map(object({
+    computer_name = string
+    vm_size       = string
+    nic_name      = string
+    os_disk_name  = optional(string)
+    data_disks = optional(map(object({
       disk_name = string
       lun       = number
       caching   = string
