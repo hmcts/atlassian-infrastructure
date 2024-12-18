@@ -33,6 +33,8 @@ resource "azurerm_virtual_machine" "vm" {
     create_option     = "Attach"
     managed_disk_type = "Premium_LRS"
   }
+
+  tags = module.ctags.tags
 }
 
 data "azurerm_network_interface" "nic" {

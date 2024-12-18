@@ -31,6 +31,8 @@ resource "azurerm_postgresql_server" "atlassian-server" {
       administrator_login
     ]
   }
+
+  tags = module.ctags.tags
 }
 
 resource "azurerm_postgresql_virtual_network_rule" "app_subnet_rule" {
