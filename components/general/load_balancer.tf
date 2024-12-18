@@ -2,7 +2,7 @@ resource "azurerm_lb" "azlb" {
   name                = "atlassian-${var.env}-lb-glusterfs"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
-  sku                 = "standard"
+  sku                 = "Basic"
 
   frontend_ip_configuration {
     name                          = "lb-glusterfs-front-ip"
