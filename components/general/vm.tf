@@ -10,8 +10,8 @@ resource "azurerm_virtual_machine" "vm" {
   location                     = "UK South"
   resource_group_name          = azurerm_resource_group.atlassian_rg.name
   vm_size                      = each.value.vm_size
-  network_interface_ids        = [data.azurerm_network_interface.nic[each.key].id]
-  primary_network_interface_id = data.azurerm_network_interface.nic[each.key].id
+  network_interface_ids        = [azurerm_network_interface.nic[each.value.nic_name].id]
+  primary_network_interface_id = azurerm_network_interface.nic[each.value.nic_name].id
 
   storage_os_disk {
     name              = each.value.os_disk_name
@@ -21,13 +21,6 @@ resource "azurerm_virtual_machine" "vm" {
   }
 
   tags = module.ctags.common_tags
-}
-
-data "azurerm_network_interface" "nic" {
-  for_each = var.vms
-
-  name                = each.value.nic_name
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
