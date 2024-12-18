@@ -54,27 +54,3 @@ variable "builtFrom" {
   type        = string
   default     = "hmcts/atlassian-infrastructure"
 }
-
-variable "install_azure_monitor" {
-  description = "Install Azure Monitor Agent on VMs"
-  default     = false
-  type        = bool
-}
-
-variable "install_dynatrace_oneagent" {
-  description = "Install Dynatrace OneAgent on VMs"
-  default     = false
-  type        = bool
-}
-
-variable "install_nessus_agent" {
-  description = "Install Nessus Agent on VMs"
-  default     = false
-  type        = bool
-}
-
-variable "install_splunk_uf" {
-  description = "Install Splunk Universal Forwarder on VMs"
-  default     = false
-  type        = bool
-}
