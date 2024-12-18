@@ -1,45 +1,22 @@
 # VM IMPORTS
 import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-confluence-02"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-confluence-02"
+  for_each = var.vms
+
+  to = azurerm_virtual_machine.vm[each.key]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/${each.key}"
+}
+
+# DATA DISK IMPORTS
+import {
+  for_each = var.data_disks
+
+  to = azurerm_managed_disk.data_disk[each.key]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/disks/${each.key}"
 }
 
 import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-confluence-04"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-confluence-04"
-}
+  for_each = var.data_disks
 
-import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-crowd-01"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-crowd-01"
-}
-
-import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-gluster-01"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-gluster-01"
-}
-
-import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-gluster-02"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-gluster-02"
-}
-
-import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-gluster-03"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-gluster-03"
-}
-
-import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-jira-01"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-jira-01"
-}
-
-import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-jira-02"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-jira-02"
-}
-
-import {
-  to = azurerm_virtual_machine.vm["atlassian-nonprod-jira-03"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/atlassian-nonprod-jira-03"
+  to = azurerm_virtual_machine_data_disk_attachment.data_disk_attachment[each.key]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/${each.value.vm_name}/dataDisks/${each.key}"
 }

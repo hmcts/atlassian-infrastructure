@@ -24,11 +24,18 @@ variable "vms" {
     vm_size       = string
     nic_name      = string
     os_disk_name  = optional(string)
-    data_disks = optional(map(object({
-      disk_name = string
-      lun       = number
-      caching   = string
-    })), {})
+  }))
+}
+
+variable "data_disks" {
+  description = "List of data disks to attach to VMs"
+  type = map(object({
+    vm_name              = string
+    disk_size_gb         = number
+    create_option        = string
+    storage_account_type = string
+    caching              = string
+    lun                  = number
   }))
 }
 
