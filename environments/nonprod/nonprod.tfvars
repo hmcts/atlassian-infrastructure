@@ -533,100 +533,130 @@ vms = {
     vm_size       = "Standard_E8s_v3"
     nic_name      = "atlassian-nonprod-jira-01-nic-2bf04f9d184740e4ba95798ea502f3d5"
     os_disk_name  = "atlassiannonprodjira01-osdisk-20241210-115350"
-    data_disks = {
-      atlassiannonprodjira01-datadisk-000-20241210-115350 = {
-        disk_name = "atlassiannonprodjira01-datadisk-000-20241210-115350"
-        lun       = 0
-        caching   = "ReadOnly"
-      }
-    }
   }
+
   atlassian-nonprod-jira-02 = {
     computer_name = "prdatl01ajra02.cp.cjs.hmcts.net"
     vm_size       = "Standard_E8s_v3"
     nic_name      = "atlassian-nonprod-jira-02-nic-7773e36dd19149988dc2dd31dd3d1211"
     os_disk_name  = "atlassiannonprodjira02-osdisk-20241210-120042"
   }
+
   atlassian-nonprod-jira-03 = {
     computer_name = "prdatl01ajra03.cp.cjs.hmcts.net"
     vm_size       = "Standard_E8s_v3"
     nic_name      = "atlassian-nonprod-jira-03-nic-77d0300d21c24f52b034101543b660b7"
     os_disk_name  = "atlassiannonprodjira03-osdisk-20241210-120129"
   }
+
   atlassian-nonprod-crowd-01 = {
     computer_name = "prdatl01acrd01.cp.cjs.hmcts.net"
     vm_size       = "Standard_E4s_v3"
     nic_name      = "atlassian-nonprod-crowd-01-nic-40caf3d35456486aa41f2530ec2357f3"
     os_disk_name  = "atlassiannonprodcrowd01-osdisk-20241125-091031"
   }
+
   atlassian-nonprod-confluence-02 = {
     computer_name = "prdatl01acnf02.cp.cjs.hmcts.net"
     vm_size       = "Standard_E8s_v3"
     nic_name      = "atlassian-nonprod-confluence-02-nic-c91338cf8903400e933c85625531fa4f"
     os_disk_name  = "atlassiannonprodconfluence02-osdisk-20241122-161757"
-    data_disks = {
-      atlassiannonprodconfluence02-datadisk-000-20241122-161757 = {
-        disk_name = "atlassiannonprodconfluence02-datadisk-000-20241122-161757"
-        lun       = 0
-        caching   = "ReadOnly"
-      }
-    }
   }
+
   atlassian-nonprod-confluence-04 = {
     computer_name = "prdatl01acnf04.cp.cjs.hmcts.net"
     vm_size       = "Standard_E8s_v3"
     nic_name      = "atlassian-nonprod-confluence-04-nic-8afa1a4c95d54fdf84457e5896020903"
     os_disk_name  = "atlassiannonprodconfluence04-osdisk-20241125-074446"
-    data_disks = {
-      atlassiannonprodconfluence04-datadisk-000-20241125-074446 = {
-        disk_name = "atlassiannonprodconfluence04-datadisk-000-20241125-074446"
-        lun       = 0
-        caching   = "ReadOnly"
-      }
-    }
   }
+
   atlassian-nonprod-gluster-01 = {
     computer_name = "PRDATL01DGST01.cp.cjs.hmcts.net"
     vm_size       = "Standard_E8s_v3"
     nic_name      = "atlassian-nonprod-gluster-01-nic-3b8759f70b0548e6a991aadfceca458a"
     os_disk_name  = "atlassiannonprodgluster01-osdisk-20241125-095229"
-    data_disks = {
-      atlassiannonprodgluster01-datadisk-000-20241125-095229 = {
-        disk_name = "atlassiannonprodgluster01-datadisk-000-20241125-095229"
-        lun       = 0
-        caching   = "ReadWrite"
-      }
-      atlassiannonprodgluster01-datadisk-001-20241125-095229 = {
-        disk_name = "atlassiannonprodgluster01-datadisk-001-20241125-095229"
-        lun       = 1
-        caching   = "None"
-      }
-    }
   }
+
   atlassian-nonprod-gluster-02 = {
     computer_name = "prdatl01dgst02.cp.cjs.hmcts.net"
     vm_size       = "Standard_E8s_v3"
     nic_name      = "atlassian-nonprod-gluster-02-nic-51cf948a14964a158a57cf29875a8c88"
     os_disk_name  = "atlassiannonprodgluster02-osdisk-20241125-173706"
-    data_disks = {
-      atlassiannonprodgluster02-datadisk-000-20241125-173706 = {
-        disk_name = "atlassiannonprodgluster02-datadisk-000-20241125-173706"
-        lun       = 0
-        caching   = "ReadWrite"
-      }
-    }
   }
+
   atlassian-nonprod-gluster-03 = {
     computer_name = "prdatl01dgst03.cp.cjs.hmcts.net"
     vm_size       = "Standard_E8s_v3"
     nic_name      = "atlassian-nonprod-gluster-03-nic-015f19e041b3446fa1ee16d1cf476f99"
     os_disk_name  = "atlassiannonprodgluster03-osdisk-20241125-173919"
-    data_disks = {
-      atlassiannonprodgluster03-datadisk-000-20241125-173919 = {
-        disk_name = "atlassiannonprodgluster03-datadisk-000-20241125-173919"
-        lun       = 0
-        caching   = "ReadWrite"
-      }
-    }
   }
 }
+
+data_disks = {
+  atlassiannonprodjira01-datadisk-000-20241210-115350 = {
+    vm_name              = "atlassian-nonprod-jira-01"
+    disk_size_gb         = 100
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadOnly"
+  }
+
+  atlassiannonprodconfluence02-datadisk-000-20241122-161757 = {
+    vm_name              = "atlassian-nonprod-confluence-02"
+    disk_size_gb         = 128
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadOnly"
+  }
+
+  atlassiannonprodconfluence04-datadisk-000-20241125-074446 = {
+    vm_name              = "atlassian-nonprod-confluence-04"
+    disk_size_gb         = 128
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadOnly"
+  }
+
+  atlassiannonprodgluster01-datadisk-000-20241125-095229 = {
+    vm_name              = "atlassian-nonprod-gluster-01"
+    disk_size_gb         = 4000
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadWrite"
+  }
+
+
+  atlassiannonprodgluster01-datadisk-001-20241125-095229 = {
+    vm_name              = "atlassian-nonprod-gluster-01"
+    disk_size_gb         = 1024
+    create_option        = "Import"
+    storage_account_type = "StandardSSD_LRS"
+    lun                  = 1
+    caching              = "None"
+  }
+
+
+  atlassiannonprodgluster02-datadisk-000-20241125-173706 = {
+    vm_name              = "atlassian-nonprod-gluster-02"
+    disk_size_gb         = 4000
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadWrite"
+  }
+
+
+  atlassiannonprodgluster03-datadisk-000-20241125-173919 = {
+    vm_name              = "atlassian-nonprod-gluster-03"
+    disk_size_gb         = 4000
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadWrite"
+  }
+}
+
