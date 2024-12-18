@@ -150,3 +150,34 @@ variable "storage_account_name" {
   type        = string
   description = "Name of the storage account"
 }
+
+variable "frontend_private_ip_address" {
+  type        = string
+  description = "Private IP address for the load balancer frontend"
+}
+
+
+variable "lb_backend_addresses" {
+  type = map(object({
+    name = optional(string)
+    ip   = optional(string)
+  }))
+  description = "Map of backend addresses to add to the load balancer"
+  default     = {}
+}
+
+variable "health_probes" {
+  type = map(object({
+    healthprobe_name  = string
+    health_protocol   = string
+    backend_port      = number
+    lb_probe_interval = number
+    protocol          = string
+    frontend_port     = number
+    backend_port_rule = number
+    rule_name         = string
+  }))
+  description = "Map of health probes to add to the load balancer"
+  default     = {}
+
+}

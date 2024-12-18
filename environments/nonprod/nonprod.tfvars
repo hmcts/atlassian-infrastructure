@@ -525,3 +525,165 @@ ssl_certificates = [
 enable_http2         = true
 storage_account_name = "atlassiannonprod"
 autoShutdown         = true
+
+frontend_private_ip_address = "10.0.4.150"
+
+lb_backend_addresses = {
+  lb_address_1 = {
+    name = "atlassian-nonprod-gluster-01"
+    ip   = "10.0.4.132"
+  }
+  lb_address_2 = {
+    name = "atlassian-nonprod-gluster-02"
+    ip   = "10.0.4.133"
+  }
+  lb_address_3 = {
+    name = "atlassian-nonprod-gluster-03"
+    ip   = "10.0.4.134"
+  }
+}
+
+health_probes = {
+  24008 = {
+    healthprobe_name  = "24008"
+    health_protocol   = "Tcp"
+    backend_port      = 24008
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 24008
+    backend_port_rule = 24008
+    rule_name         = "24008_GLUSTER_TCP-RULE"
+  }
+  8080 = {
+    healthprobe_name  = "8080"
+    health_protocol   = "Tcp"
+    backend_port      = 8080
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 8080
+    backend_port_rule = 8080
+    rule_name         = "8080_GLUSTER_TCP-RULE"
+  }
+  24007 = {
+    healthprobe_name  = "24007"
+    health_protocol   = "Tcp"
+    backend_port      = 24007
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 24007
+    backend_port_rule = 24007
+    rule_name         = "8080_GLUSTER_TCP-RULE"
+  }
+  443 = {
+    healthprobe_name  = "443"
+    health_protocol   = "Tcp"
+    backend_port      = 443
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 443
+    backend_port_rule = 443
+    rule_name         = "443_GLUSTER_TCP-RULE"
+  }
+  40001 = {
+    healthprobe_name  = "40001"
+    health_protocol   = "Tcp"
+    backend_port      = 40001
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 40001
+    backend_port_rule = 40001
+    rule_name         = "40001_GLUSTER_TCP-RULE"
+  }
+
+  49153 = {
+    healthprobe_name  = "49153"
+    health_protocol   = "Tcp"
+    backend_port      = 49153
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 49153
+    backend_port_rule = 49153
+    rule_name         = "49153_GLUSTER_TCP-RULE"
+  }
+  8091 = {
+    healthprobe_name  = "8091"
+    health_protocol   = "Tcp"
+    backend_port      = 8091
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 8091
+    backend_port_rule = 8091
+    rule_name         = "8091_GLUSTER_TCP-RULE"
+  }
+  80 = {
+    healthprobe_name  = "80"
+    health_protocol   = "Tcp"
+    backend_port      = 80
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 80
+    backend_port_rule = 80
+    rule_name         = "80_GLUSTER_TCP-RULE"
+  }
+  8090 = {
+    healthprobe_name  = "8090"
+    health_protocol   = "Tcp"
+    backend_port      = 8090
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 8090
+    backend_port_rule = 8090
+    rule_name         = "8090_GLUSTER_TCP-RULE"
+  }
+
+  49152 = {
+    healthprobe_name  = "49152"
+    health_protocol   = "Tcp"
+    backend_port      = 49152
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 49152
+    backend_port_rule = 49152
+    rule_name         = "49152_GLUSTER_TCP-RULE"
+  }
+  1099 = {
+    healthprobe_name  = "1099"
+    health_protocol   = "Tcp"
+    backend_port      = 1099
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 1099
+    backend_port_rule = 1099
+    rule_name         = "1099_GLUSTER_TCP-RULE"
+  }
+  8005 = {
+    healthprobe_name  = "8005"
+    health_protocol   = "Tcp"
+    backend_port      = 8005
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 8005
+    backend_port_rule = 8005
+    rule_name         = "8005_GLUSTER_TCP-RULE"
+  }
+  8095 = {
+    healthprobe_name  = "8095"
+    health_protocol   = "Tcp"
+    backend_port      = 8095
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 8095
+    backend_port_rule = 8095
+    rule_name         = "8095_GLUSTER_TCP-RULE"
+  }
+  5432 = {
+    healthprobe_name  = "5432"
+    health_protocol   = "Tcp"
+    backend_port      = 5432
+    lb_probe_interval = 15
+    protocol          = "Tcp"
+    frontend_port     = 5432
+    backend_port_rule = 5432
+    rule_name         = "5432_GLUSTER_TCP-RULE"
+  }
+}
