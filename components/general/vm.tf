@@ -34,7 +34,7 @@ resource "azurerm_virtual_machine" "vm" {
     managed_disk_type = "Premium_LRS"
   }
 
-  tags = module.ctags.tags
+  tags = module.ctags.common_tags
 }
 
 data "azurerm_network_interface" "nic" {
