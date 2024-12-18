@@ -39,6 +39,18 @@ variable "data_disks" {
   }))
 }
 
+variable "nics" {
+  description = "List of network interfaces to create"
+  type = map(object({
+    ip_configuration = map(object({
+      name                  = string
+      private_ip_allocation = string
+      private_ip_address    = optional(string)
+      subnet_name           = string
+    }))
+  }))
+}
+
 variable "env" {
   description = "Name of the environment set by the pipeline"
   type        = string
