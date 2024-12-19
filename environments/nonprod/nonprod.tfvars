@@ -1,5 +1,6 @@
-environment     = "nonprod"
+env             = "nonprod"
 subscription_id = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
+cnp_vault_sub   = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 
 vnets = {
   atlassian-int-nonprod-vnet = {
@@ -525,3 +526,238 @@ ssl_certificates = [
 enable_http2         = true
 storage_account_name = "atlassiannonprod"
 autoShutdown         = true
+
+vms = {
+  atlassian-nonprod-jira-01 = {
+    computer_name = "prdatl01ajra01.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E8s_v3"
+    nic_name      = "atlassian-nonprod-jira-01-nic-2bf04f9d184740e4ba95798ea502f3d5"
+    os_disk_name  = "atlassiannonprodjira01-osdisk-20241210-115350"
+  }
+
+  atlassian-nonprod-jira-02 = {
+    computer_name = "prdatl01ajra02.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E8s_v3"
+    nic_name      = "atlassian-nonprod-jira-02-nic-7773e36dd19149988dc2dd31dd3d1211"
+    os_disk_name  = "atlassiannonprodjira02-osdisk-20241210-120042"
+  }
+
+  atlassian-nonprod-jira-03 = {
+    computer_name = "prdatl01ajra03.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E8s_v3"
+    nic_name      = "atlassian-nonprod-jira-03-nic-77d0300d21c24f52b034101543b660b7"
+    os_disk_name  = "atlassiannonprodjira03-osdisk-20241210-120129"
+  }
+
+  atlassian-nonprod-crowd-01 = {
+    computer_name = "prdatl01acrd01.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E4s_v3"
+    nic_name      = "atlassian-nonprod-crowd-01-nic-40caf3d35456486aa41f2530ec2357f3"
+    os_disk_name  = "atlassiannonprodcrowd01-osdisk-20241125-091031"
+  }
+
+  atlassian-nonprod-confluence-02 = {
+    computer_name = "prdatl01acnf02.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E8s_v3"
+    nic_name      = "atlassian-nonprod-confluence-02-nic-c91338cf8903400e933c85625531fa4f"
+    os_disk_name  = "atlassiannonprodconfluence02-osdisk-20241122-161757"
+  }
+
+  atlassian-nonprod-confluence-04 = {
+    computer_name = "prdatl01acnf04.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E8s_v3"
+    nic_name      = "atlassian-nonprod-confluence-04-nic-8afa1a4c95d54fdf84457e5896020903"
+    os_disk_name  = "atlassiannonprodconfluence04-osdisk-20241125-074446"
+  }
+
+  atlassian-nonprod-gluster-01 = {
+    computer_name = "PRDATL01DGST01.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E8s_v3"
+    nic_name      = "atlassian-nonprod-gluster-01-nic-3b8759f70b0548e6a991aadfceca458a"
+    os_disk_name  = "atlassiannonprodgluster01-osdisk-20241125-095229"
+  }
+
+  atlassian-nonprod-gluster-02 = {
+    computer_name = "prdatl01dgst02.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E8s_v3"
+    nic_name      = "atlassian-nonprod-gluster-02-nic-51cf948a14964a158a57cf29875a8c88"
+    os_disk_name  = "atlassiannonprodgluster02-osdisk-20241125-173706"
+  }
+
+  atlassian-nonprod-gluster-03 = {
+    computer_name = "prdatl01dgst03.cp.cjs.hmcts.net"
+    vm_size       = "Standard_E8s_v3"
+    nic_name      = "atlassian-nonprod-gluster-03-nic-015f19e041b3446fa1ee16d1cf476f99"
+    os_disk_name  = "atlassiannonprodgluster03-osdisk-20241125-173919"
+  }
+}
+
+data_disks = {
+  atlassiannonprodjira01-datadisk-000-20241210-115350 = {
+    vm_name              = "atlassian-nonprod-jira-01"
+    disk_size_gb         = 100
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadOnly"
+  }
+
+  atlassiannonprodconfluence02-datadisk-000-20241122-161757 = {
+    vm_name              = "atlassian-nonprod-confluence-02"
+    disk_size_gb         = 128
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadOnly"
+  }
+
+  atlassiannonprodconfluence04-datadisk-000-20241125-074446 = {
+    vm_name              = "atlassian-nonprod-confluence-04"
+    disk_size_gb         = 128
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadOnly"
+  }
+
+  atlassiannonprodgluster01-datadisk-000-20241125-095229 = {
+    vm_name              = "atlassian-nonprod-gluster-01"
+    disk_size_gb         = 4000
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadWrite"
+  }
+
+
+  atlassiannonprodgluster01-datadisk-001-20241125-095229 = {
+    vm_name              = "atlassian-nonprod-gluster-01"
+    disk_size_gb         = 1024
+    create_option        = "Import"
+    storage_account_type = "StandardSSD_LRS"
+    lun                  = 1
+    caching              = "None"
+  }
+
+
+  atlassiannonprodgluster02-datadisk-000-20241125-173706 = {
+    vm_name              = "atlassian-nonprod-gluster-02"
+    disk_size_gb         = 4000
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadWrite"
+  }
+
+
+  atlassiannonprodgluster03-datadisk-000-20241125-173919 = {
+    vm_name              = "atlassian-nonprod-gluster-03"
+    disk_size_gb         = 4000
+    create_option        = "Import"
+    storage_account_type = "Premium_LRS"
+    lun                  = 0
+    caching              = "ReadWrite"
+  }
+}
+
+nics = {
+  atlassian-nonprod-jira-01-nic-2bf04f9d184740e4ba95798ea502f3d5 = {
+    ip_configuration = {
+      primary = {
+        name                  = "cd81ffe92f634e95975e1024ef0e7781"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.203"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
+      }
+    }
+  }
+
+  atlassian-nonprod-jira-02-nic-7773e36dd19149988dc2dd31dd3d1211 = {
+    ip_configuration = {
+      primary = {
+        name                  = "931641f8a2ab4eb3a7e3868eeac562cf"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.204"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
+      }
+    }
+  }
+
+  atlassian-nonprod-jira-03-nic-77d0300d21c24f52b034101543b660b7 = {
+    ip_configuration = {
+      primary = {
+        name                  = "4976ee53b1e040689127ced3379145c6"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.205"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
+      }
+    }
+  }
+
+  atlassian-nonprod-crowd-01-nic-40caf3d35456486aa41f2530ec2357f3 = {
+    ip_configuration = {
+      primary = {
+        name                  = "d9335525e0e841f99d52e48ad11a8e87"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.202"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
+      }
+    }
+
+  }
+
+  atlassian-nonprod-confluence-02-nic-c91338cf8903400e933c85625531fa4f = {
+    ip_configuration = {
+      primary = {
+        name                  = "005577f7fd3c4516b5dc7bfa1ba17b5a"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.200"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
+      }
+    }
+  }
+
+  atlassian-nonprod-confluence-04-nic-8afa1a4c95d54fdf84457e5896020903 = {
+    ip_configuration = {
+      primary = {
+        name                  = "12a735767e7f42948948ff80a1b69b8d"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.201"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
+      }
+    }
+  }
+
+  atlassian-nonprod-gluster-01-nic-3b8759f70b0548e6a991aadfceca458a = {
+    ip_configuration = {
+      primary = {
+        name                  = "d5a5758491df4601a3e66c3b0d1dbe7f"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.132"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
+      }
+    }
+  }
+
+  atlassian-nonprod-gluster-02-nic-51cf948a14964a158a57cf29875a8c88 = {
+    ip_configuration = {
+      primary = {
+        name                  = "26342ae710994efbbf9360be4b3c3da1"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.133"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
+      }
+    }
+  }
+
+  atlassian-nonprod-gluster-03-nic-015f19e041b3446fa1ee16d1cf476f99 = {
+    ip_configuration = {
+      primary = {
+        name                  = "381368d874f4410882164dea15c14bdd"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.134"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
+      }
+    }
+  }
+}

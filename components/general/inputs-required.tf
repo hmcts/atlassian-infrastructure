@@ -17,18 +17,42 @@ variable "vnets" {
   }))
 }
 
+variable "vms" {
+  description = "List of VMs to create"
+  type = map(object({
+    computer_name = string
+    vm_size       = string
+    nic_name      = string
+    os_disk_name  = optional(string)
+  }))
+}
+
+variable "data_disks" {
+  description = "List of data disks to attach to VMs"
+  type = map(object({
+    vm_name              = string
+    disk_size_gb         = number
+    create_option        = string
+    storage_account_type = string
+    caching              = string
+    lun                  = number
+  }))
+}
+
+variable "nics" {
+  description = "List of network interfaces to create"
+  type = map(object({
+    ip_configuration = map(object({
+      name                  = string
+      private_ip_allocation = string
+      private_ip_address    = optional(string)
+      subnet_name           = string
+    }))
+  }))
+}
+
 variable "env" {
   description = "Name of the environment set by the pipeline"
-  type        = string
-}
-
-variable "builtFrom" {
-  description = "The GitHub URL for the repository that contains the infrastructure code."
-  type        = string
-}
-
-variable "product" {
-  description = "The name of the product."
   type        = string
 }
 
