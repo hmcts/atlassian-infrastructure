@@ -22,31 +22,18 @@ resource "azurerm_postgresql_server" "atlassian-server" {
 
   storage_mb = 76800
 
-  administrator_login          = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value
-  administrator_login_password = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-PASS.value
-  version                      = "11"
-  ssl_enforcement_enabled      = true
+  administrator_login           = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value
+  administrator_login_password  = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-PASS.value
+  version                       = "11"
+  ssl_enforcement_enabled       = true
+  public_network_access_enabled = false
+
   lifecycle {
     ignore_changes = [
       administrator_login
     ]
   }
 }
-
-resource "azurerm_postgresql_virtual_network_rule" "app_subnet_rule" {
-  name                = "app-subnet-rule"
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
-  server_name         = azurerm_postgresql_server.atlassian-server.name
-  subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-app"]
-}
-
-resource "azurerm_postgresql_virtual_network_rule" "dat_subnet_rule" {
-  name                = "dat-subnet-rule"
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
-  server_name         = azurerm_postgresql_server.atlassian-server.name
-  subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-dat"]
-}
-
 resource "azurerm_private_endpoint" "postgres_private_endpoint" {
   name                = "atlassian-${var.env}-postgres-pe"
   location            = azurerm_resource_group.atlassian_rg.location
