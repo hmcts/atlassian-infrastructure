@@ -32,6 +32,8 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "postgres_vnet_link" {
+  provider = azurerm.dns
+
   name                  = "atlassian-${var.env}-postgres-dns-vnet-link"
   resource_group_name   = "core-infra-intsvc-rg"
   private_dns_zone_name = "privatelink.postgres.database.azure.com"
