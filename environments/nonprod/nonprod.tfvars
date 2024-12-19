@@ -665,7 +665,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "cd81ffe92f634e95975e1024ef0e7781"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.203"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
       }
@@ -676,7 +676,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "931641f8a2ab4eb3a7e3868eeac562cf"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.204"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
       }
@@ -687,7 +687,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "4976ee53b1e040689127ced3379145c6"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.205"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
       }
@@ -698,7 +698,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "d9335525e0e841f99d52e48ad11a8e87"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.202"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
       }
@@ -710,7 +710,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "005577f7fd3c4516b5dc7bfa1ba17b5a"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.200"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
       }
@@ -721,7 +721,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "12a735767e7f42948948ff80a1b69b8d"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.201"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
       }
@@ -732,7 +732,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "d5a5758491df4601a3e66c3b0d1dbe7f"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.132"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
       }
@@ -743,7 +743,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "26342ae710994efbbf9360be4b3c3da1"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.133"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
       }
@@ -754,7 +754,7 @@ nics = {
     ip_configuration = {
       primary = {
         name                  = "381368d874f4410882164dea15c14bdd"
-        private_ip_allocation = "Dynamic"
+        private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.134"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
       }
