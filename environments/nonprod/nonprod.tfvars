@@ -810,7 +810,7 @@ health_probes = {
     protocol          = "Tcp"
     frontend_port     = 24007
     backend_port_rule = 24007
-    rule_name         = "8080_GLUSTER_TCP-RULE"
+    rule_name         = "24007_GLUSTER_TCP-RULE"
   }
   443 = {
     healthprobe_name  = "443"
