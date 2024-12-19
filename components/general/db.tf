@@ -2,6 +2,7 @@ locals {
   private_dns_zone_id = "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.postgres.database.azure.com"
   zone_name           = "privatelink.postgres.database.azure.com"
   zone_resource_group = "core-infra-intsvc-rg"
+  app_names           = toset(["jira", "confluence", "crowd"])
 }
 
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-PASS" {
@@ -61,4 +62,49 @@ resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_vnet
   resource_group_name   = local.zone_resource_group
   virtual_network_id    = module.networking.vnet_ids["atlassian-int-nonprod-vnet"]
   private_dns_zone_name = local.zone_name
+}
+
+resource "random_password" "postgres_password" {
+  for_each = local.app_names
+
+  length  = 11
+  special = false
+  numeric = true
+}
+
+resource "azurerm_key_vault_secret" "postgres_password" {
+  for_each = local.app_names
+
+  name         = "${each.key}-db-${var.env}-postgres-password"
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
+  value        = random_password.postgres_password[each.key].result
+}
+
+resource "azurerm_key_vault_secret" "postgres_username" {
+  for_each = local.app_names
+
+  name         = "${each.key}-db-${var.env}-postgres-username"
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
+  value        = "${each.key}_user@atlassian-${var.env}-server"
+}
+
+resource "terraform_data" "postgres" {
+  for_each = local.app_names
+
+  triggers_replace = [
+    azurerm_postgresql_server.atlassian-server.id,
+    azurerm_key_vault_secret.postgres_password[each.key].id,
+    azurerm_key_vault_secret.postgres_username[each.key].id
+  ]
+  provisioner "local-exec" {
+    command = "${path.module}/scripts/configure-postgres.sh"
+    environment = {
+      POSTGRES_HOST  = azurerm_postgresql_server.atlassian-server.fqdn
+      ADMIN_USER     = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value
+      ADMIN_PASSWORD = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-PASS.value
+      DATABASE_NAME  = "${each.key}-db-${var.env}"
+      USER           = "${each.key}_user@atlassian-${var.env}-server"
+      PASSWORD       = random_password.postgres_password[each.key].result
+    }
+  }
 }
