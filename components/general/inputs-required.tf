@@ -61,10 +61,6 @@ variable "subscription_id" {
   type        = string
 }
 
-variable "cnp_vault_sub" {
-  type = string
-}
-
 variable "network_security_groups" {
   type = map(object({
     name_override           = optional(string)
