@@ -33,6 +33,8 @@ resource "azurerm_postgresql_server" "atlassian-server" {
       administrator_login
     ]
   }
+
+  tags = module.ctags.common_tags
 }
 resource "azurerm_private_endpoint" "postgres_private_endpoint" {
   name                = "atlassian-${var.env}-postgres-pe"
