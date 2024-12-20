@@ -36,12 +36,7 @@ resource "azurerm_application_gateway" "ag" {
     public_ip_address_id = azurerm_public_ip.app_gw.id
   }
 
-  waf_configuration {
-    enabled          = var.enable_waf
-    firewall_mode    = var.waf_mode
-    rule_set_type    = "OWASP"
-    rule_set_version = "3.2"
-  }
+
 
   dynamic "backend_address_pool" {
     for_each = var.backend_address_pools
@@ -175,8 +170,8 @@ resource "azurerm_web_application_firewall_policy" "waf_policy" {
   location            = var.location
 
   policy_settings {
-    enabled                     = true
-    mode                        = "Prevention"
+    enabled                     = var.enable_waf
+    mode                        = var.waf_mode
     request_body_check          = true
     file_upload_limit_in_mb     = 100
     max_request_body_size_in_kb = 2000
@@ -243,3 +238,7 @@ resource "azurerm_web_application_firewall_policy" "waf_policy" {
   }
 }
 
+import {
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies/atlassian-nonprod-app-gateway-waf-policy"
+  to = azurerm_web_application_firewall_policy.waf_policy
+}
