@@ -5,6 +5,7 @@ resource "azurerm_application_gateway" "ag" {
   location            = var.location
   tags                = module.ctags.common_tags
   enable_http2        = var.enable_http2
+  firewall_policy_id  = azurerm_web_application_firewall_policy.waf_policy.id
   sku {
     name = var.sku_name
     tier = var.sku_tier
@@ -40,14 +41,6 @@ resource "azurerm_application_gateway" "ag" {
     firewall_mode    = var.waf_mode
     rule_set_type    = "OWASP"
     rule_set_version = "3.2"
-
-    dynamic "disabled_rule_group" {
-      for_each = var.disabled_rule_groups
-      content {
-        rule_group_name = disabled_rule_group.value.rule_group_name
-        rules           = disabled_rule_group.value.rules
-      }
-    }
   }
 
   dynamic "backend_address_pool" {
@@ -174,7 +167,79 @@ resource "azurerm_role_assignment" "identity" {
   role_definition_name = "Key Vault Secrets User"
 }
 
-import {
-  to = azurerm_application_gateway.ag
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Network/applicationGateways/atlassian-nonprod-app-gateway"
+
+resource "azurerm_web_application_firewall_policy" "waf_policy" {
+
+  name                = "${azurerm_application_gateway.ag.name}-waf-policy"
+  resource_group_name = azurerm_resource_group.atlassian_rg.name
+  location            = var.location
+
+  policy_settings {
+    enabled                     = true
+    mode                        = "Prevention"
+    request_body_check          = true
+    file_upload_limit_in_mb     = 100
+    max_request_body_size_in_kb = 2000
+  }
+
+  dynamic "managed_rules" {
+    for_each = var.waf_managed_rules != null ? var.waf_managed_rules : []
+
+    content {
+      managed_rule_set {
+        type    = managed_rules.value.type
+        version = managed_rules.value.version
+
+        dynamic "rule_group_override" {
+          for_each = managed_rules.value.rule_group_override
+
+          content {
+            rule_group_name = rule_group_override.value.rule_group_name
+
+            dynamic "rule" {
+              for_each = rule_group_override.value.rule
+
+              content {
+                id      = rule.value.id
+                enabled = rule.value.enabled
+                action  = rule.value.action
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  dynamic "custom_rules" {
+    for_each = var.waf_custom_rules != null ? var.waf_custom_rules : []
+
+    content {
+      name      = custom_rules.value.name
+      priority  = custom_rules.value.priority
+      rule_type = custom_rules.value.rule_type
+
+      dynamic "match_conditions" {
+        for_each = custom_rules.value.match_conditions
+
+        content {
+          dynamic "match_variables" {
+            for_each = match_conditions.value.match_variables
+
+            content {
+              variable_name = match_variables.value.variable_name
+              selector      = lookup(match_variables.value, "selector", null)
+            }
+          }
+
+          operator           = match_conditions.value.operator
+          negation_condition = match_conditions.value.negation_condition
+          match_values       = match_conditions.value.match_values
+        }
+      }
+
+      action = custom_rules.value.action
+    }
+  }
 }
+
