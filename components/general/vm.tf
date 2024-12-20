@@ -41,6 +41,10 @@ data "azurerm_key_vault_secret" "admin_username" {
 resource "terraform_data" "jira_vm" {
   for_each = { for k, v in var.vms : k => v if can(regex("jira", k)) }
 
+  triggers_replace = [
+    azurerm_virtual_machine.vm[each.key].id
+  ]
+
   connection {
     type        = "ssh"
     host        = azurerm_virtual_machine.vm[each.key].private_ip_address
