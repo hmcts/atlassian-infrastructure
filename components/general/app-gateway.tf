@@ -168,6 +168,7 @@ resource "azurerm_web_application_firewall_policy" "waf_policy" {
   name                = "atlassian-${var.env}-app-gateway-waf-policy"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
+  tags                = module.ctags.common_tags
 
   policy_settings {
     enabled                     = var.enable_waf
