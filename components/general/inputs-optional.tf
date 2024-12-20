@@ -28,7 +28,7 @@ variable "enable_waf" {
 
 variable "waf_mode" {
   description = "Mode for waf to run in"
-  default     = "Detection"
+  default     = "Prevention"
 }
 
 variable "enable_http2" {
@@ -53,4 +53,13 @@ variable "builtFrom" {
   description = "The GitHub URL for the repository that contains the infrastructure code."
   type        = string
   default     = "hmcts/atlassian-infrastructure"
+}
+
+variable "disabled_rule_groups" {
+  description = "List of disabled rule groups for WAF"
+  type = list(object({
+    rule_group_name = string
+    rules           = list(number)
+  }))
+  default = []
 }

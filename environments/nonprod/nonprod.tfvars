@@ -925,3 +925,15 @@ health_probes = {
     rule_name         = "5432_GLUSTER_TCP-RULE"
   }
 }
+
+
+disabled_rule_groups = [
+  {
+    rule_group_name = "REQUEST-942-APPLICATION-ATTACK-SQLI"
+    rules           = [942200, 942260, 942340, 942370, 942430, 942100, 942150, 942410, 942380, 942190]
+  },
+  {
+    rule_group_name = "REQUEST-920-PROTOCOL-ENFORCEMENT"
+    rules           = [920300, 920230, 920350, 920170]
+  }
+]

@@ -40,6 +40,14 @@ resource "azurerm_application_gateway" "ag" {
     firewall_mode    = var.waf_mode
     rule_set_type    = "OWASP"
     rule_set_version = "3.2"
+
+    dynamic "disabled_rule_group" {
+      for_each = var.disabled_rule_groups
+      content {
+        rule_group_name = disabled_rule_group.value.rule_group_name
+        rules           = disabled_rule_group.value.rules
+      }
+    }
   }
 
   dynamic "backend_address_pool" {
