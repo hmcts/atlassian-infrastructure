@@ -27,8 +27,8 @@ resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
   caching            = each.value.caching
 }
 
-data "azurerm_key_vault_secret" "admin_public_key" {
-  name         = "public-key"
+data "azurerm_key_vault_secret" "admin_private_key" {
+  name         = "private-key"
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
@@ -42,10 +42,10 @@ resource "terraform_data" "jira_vm" {
   for_each = { for k, v in var.vms : k => v if can(regex("jira", k)) }
 
   connection {
-    type     = "ssh"
-    host     = azurerm_virtual_machine.vm[each.key].private_ip_address
-    user     = data.azurerm_key_vault_secret.admin_username.value
-    host_key = data.azurerm_key_vault_secret.admin_public_key.value
+    type        = "ssh"
+    host        = azurerm_virtual_machine.vm[each.key].private_ip_address
+    user        = data.azurerm_key_vault_secret.admin_username.value
+    private_key = data.azurerm_key_vault_secret.admin_private_key.value
   }
 
   provisioner "file" {
