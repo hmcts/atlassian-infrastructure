@@ -239,6 +239,6 @@ resource "azurerm_web_application_firewall_policy" "waf_policy" {
 }
 
 import {
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies/atlassian-nonprod-app-gateway-waf-policy"
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Network/applicationGatewayWebApplicationFirewallPolicies/atlassian-nonprod-app-gateway-waf-policy"
   to = azurerm_web_application_firewall_policy.waf_policy
 }
