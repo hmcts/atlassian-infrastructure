@@ -52,7 +52,7 @@ resource "azurerm_private_endpoint" "postgres_private_endpoint" {
     name                 = local.zone_name
     private_dns_zone_ids = [local.private_dns_zone_id]
   }
-
+  tags = module.ctags.common_tags
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_vnet_link" {
