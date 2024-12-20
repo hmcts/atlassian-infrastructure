@@ -55,11 +55,37 @@ variable "builtFrom" {
   default     = "hmcts/atlassian-infrastructure"
 }
 
-variable "disabled_rule_groups" {
-  description = "List of disabled rule groups for WAF"
+variable "waf_managed_rules" {
   type = list(object({
-    rule_group_name = string
-    rules           = list(number)
+    type    = string
+    version = string
+    rule_group_override = list(object({
+      rule_group_name = string
+      rule = list(object({
+        id      = string
+        enabled = bool
+        action  = string
+      }))
+    }))
   }))
-  default = []
+  default = null
+}
+
+variable "waf_custom_rules" {
+  type = list(object({
+    name      = string
+    priority  = number
+    rule_type = string
+    match_conditions = list(object({
+      match_variables = list(object({
+        variable_name = string
+        selector      = optional(string)
+      }))
+      operator           = string
+      negation_condition = bool
+      match_values       = list(string)
+    }))
+    action = string
+  }))
+  default = null
 }

@@ -927,13 +927,176 @@ health_probes = {
 }
 
 
-disabled_rule_groups = [
+# WAF Managed Rules
+waf_managed_rules = [
   {
-    rule_group_name = "REQUEST-942-APPLICATION-ATTACK-SQLI"
-    rules           = [942200, 942260, 942340, 942370, 942430, 942100, 942150, 942410, 942380, 942190]
+    type    = "OWASP"
+    version = "3.2"
+    rule_group_override = [
+      {
+        rule_group_name = "REQUEST-920-PROTOCOL-ENFORCEMENT"
+        rule = [
+          {
+            id      = "920300"
+            enabled = true
+            action  = "Log"
+          },
+          {
+            id      = "920440"
+            enabled = true
+            action  = "Block"
+          }
+        ]
+      }
+    ]
+  }
+]
+
+# WAF Custom Rules
+waf_custom_rules = [
+  {
+    name      = "JiraException"
+    priority  = 1
+    rule_type = "MatchRule"
+    match_conditions = [
+      {
+        match_variables = [
+          {
+            variable_name = "RequestUri"
+          }
+        ]
+        operator           = "Regex"
+        negation_condition = false
+        match_values       = ["\\/jira\\/(?:[^login\\.jsp\\W]).*"]
+      }
+    ]
+    action = "Allow"
   },
   {
-    rule_group_name = "REQUEST-920-PROTOCOL-ENFORCEMENT"
-    rules           = [920300, 920230, 920350, 920170]
+    name      = "Comments"
+    priority  = 2
+    rule_type = "MatchRule"
+    match_conditions = [
+      {
+        match_variables = [
+          {
+            variable_name = "RequestUri"
+          }
+        ]
+        operator           = "Regex"
+        negation_condition = false
+        match_values       = ["[comment]"]
+      }
+    ]
+    action = "Allow"
+  },
+  {
+    name      = "TechPod"
+    priority  = 10
+    rule_type = "MatchRule"
+    match_conditions = [
+      {
+        match_variables = [
+          {
+            variable_name = "QueryString"
+          }
+        ]
+        operator           = "Contains"
+        negation_condition = false
+        match_values       = ["?src=spacemenu"]
+      }
+    ]
+    action = "Allow"
+  },
+  {
+    name      = "JsonBulkPayLoad"
+    priority  = 11
+    rule_type = "MatchRule"
+    match_conditions = [
+      {
+        match_variables = [
+          {
+            variable_name = "PostArgs",
+            selector      = "batch.js?locale=en-GB"
+          }
+        ]
+        operator           = "Contains"
+        negation_condition = false
+        match_values       = ["POST"]
+      }
+    ]
+    action = "Allow"
+  },
+  {
+    name      = "Confluence"
+    priority  = 12
+    rule_type = "MatchRule"
+    match_conditions = [
+      {
+        match_variables = [
+          {
+            variable_name = "RequestUri"
+          }
+        ]
+        operator           = "Contains"
+        negation_condition = false
+        match_values       = ["cql="]
+      }
+    ]
+    action = "Allow"
+  },
+  {
+    name      = "ConfluenceStatusURLAllow"
+    priority  = 13
+    rule_type = "MatchRule"
+    match_conditions = [
+      {
+        match_variables = [
+          {
+            variable_name = "RequestUri"
+          }
+        ]
+        operator           = "Contains"
+        negation_condition = false
+        match_values       = ["status="]
+      }
+    ]
+    action = "Allow"
+  },
+  {
+    name      = "ConfluenceBulk"
+    priority  = 14
+    rule_type = "MatchRule"
+    match_conditions = [
+      {
+        match_variables = [
+          {
+            variable_name = "RequestUri"
+          }
+        ]
+        operator           = "Contains"
+        negation_condition = false
+        match_values       = ["/rest/analytics/", "plugins/servlet/gadgets"]
+      }
+    ]
+    action = "Allow"
+  },
+  {
+    name      = "PlusSymbol"
+    priority  = 15
+    rule_type = "MatchRule"
+    match_conditions = [
+      {
+        match_variables = [
+          {
+            variable_name = "RequestUri"
+          }
+        ]
+        operator           = "Regex"
+        negation_condition = false
+        match_values       = ["[+]"]
+      }
+    ]
+    action = "Allow"
   }
 ]
