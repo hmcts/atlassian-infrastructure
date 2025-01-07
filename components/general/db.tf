@@ -109,3 +109,7 @@ resource "terraform_data" "postgres" {
     }
   }
 }
+
+output "db_user" {
+  value = "${data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value}@atlassian-${var.env}-server"
+}

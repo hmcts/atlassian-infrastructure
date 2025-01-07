@@ -20,10 +20,11 @@ variable "vnets" {
 variable "vms" {
   description = "List of VMs to create"
   type = map(object({
-    computer_name = string
-    vm_size       = string
-    nic_name      = string
-    os_disk_name  = optional(string)
+    computer_name      = string
+    vm_size            = string
+    nic_name           = string
+    os_disk_name       = optional(string)
+    private_ip_address = string
   }))
 }
 
