@@ -39,7 +39,7 @@ data "azurerm_key_vault_secret" "admin_username" {
 
 # Currently provisions the Jira VMs only - TODO: Update script to be more generic and run on all VMs or add scripts and provisioners for other VMs
 resource "terraform_data" "jira_vm" {
-  for_each = { for k, v in var.vms : k => v if can(regex("jira", k)) }
+  for_each = { for k, v in var.vms : k => v if contains(k, "jira") }
 
   triggers_replace = [
     azurerm_virtual_machine.vm[each.key].id
@@ -47,7 +47,7 @@ resource "terraform_data" "jira_vm" {
 
   connection {
     type        = "ssh"
-    host        = each.key.value.private_ip_address
+    host        = each.value.private_ip_address
     user        = data.azurerm_key_vault_secret.admin_username.value
     private_key = data.azurerm_key_vault_secret.admin_private_key.value
   }
