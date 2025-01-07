@@ -1,8 +1,3 @@
-data "azurerm_key_vault_secret" "admin_public_key" {
-  name         = "public-key"
-  key_vault_id = azurerm_key_vault.atlassian_kv.id
-}
-
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
 
@@ -32,3 +27,48 @@ resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
   caching            = each.value.caching
 }
 
+data "azurerm_key_vault_secret" "admin_private_key" {
+  name         = "private-key"
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
+}
+
+data "azurerm_key_vault_secret" "admin_username" {
+  name         = "vm-admin-username"
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
+}
+
+# Currently provisions the Jira VMs only - TODO: Update script to be more generic and run on all VMs or add scripts and provisioners for other VMs
+resource "terraform_data" "jira_vm" {
+  for_each = { for k, v in var.vms : k => v if can(regex("jira", k)) }
+
+  triggers_replace = [
+    azurerm_virtual_machine.vm[each.key].id
+  ]
+
+  connection {
+    type        = "ssh"
+    host        = azurerm_virtual_machine.vm[each.key].private_ip_address
+    user        = data.azurerm_key_vault_secret.admin_username.value
+    private_key = data.azurerm_key_vault_secret.admin_private_key.value
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/scripts/configure-jira-vm.sh"
+    destination = "/tmp/configure-jira-vm.sh"
+  }
+  provisioner "file" {
+    source      = "${path.module}/scripts/functions.sh"
+    destination = "/tmp/functions.sh"
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /tmp/configure-jira-vm.sh",
+      "sudo ./tmp/configure-jira-vm.sh ${local.DB_SERVER}/jira-db-${var.env} jira_user@atlassian-${var.env}-server ${random_password.postgres_password["jira"].result}",
+      "sudo chmod +x /tmp/functions.sh",
+      "sudo ./tmp/functions.sh",
+      "sudo rm /tmp/configure-jira-vm.sh",
+      "sudo rm /tmp/functions.sh"
+    ]
+  }
+
+}
