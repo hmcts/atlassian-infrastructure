@@ -3,6 +3,7 @@ locals {
   zone_name           = "privatelink.postgres.database.azure.com"
   zone_resource_group = "core-infra-intsvc-rg"
   app_names           = toset(["jira"]) # TODO: Add Confluence and Crowd to list
+  DB_SERVER           = "jdbc:postgresql://atlassian-${var.env}-server.postgres.database.azure.com:5432"
 }
 
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-PASS" {
