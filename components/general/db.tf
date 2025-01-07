@@ -101,7 +101,7 @@ resource "terraform_data" "postgres" {
     command = "${path.module}/scripts/configure-postgres.sh"
     environment = {
       POSTGRES_HOST  = azurerm_postgresql_server.atlassian-server.fqdn
-      ADMIN_USER     = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value
+      ADMIN_USER     = "${data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value}@atlassian-${var.env}-server"
       ADMIN_PASSWORD = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-PASS.value
       DATABASE_NAME  = "${each.key}-db-${var.env}"
       USER           = "${each.key}_user@atlassian-${var.env}-server"
