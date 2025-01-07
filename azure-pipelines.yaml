@@ -59,7 +59,7 @@ stages:
     jobs:
       - job:
         pool:
-            vmImage: ${{ variables.agentPool }}
+            name: ${{ variables.agentPool }}
         steps:
           - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
             parameters:
@@ -73,7 +73,7 @@ stages:
         jobs:
           - job: TerraformPlanApply
             pool:
-              vmImage: ${{ variables.agentPool }}
+              name: ${{ variables.agentPool }}
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
