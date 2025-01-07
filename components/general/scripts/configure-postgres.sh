@@ -19,4 +19,4 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO ${USER};
 "
 
 # Run query
-psql -c "${SQL_COMMAND}
+psql -c "${SQL_COMMAND}"

@@ -529,24 +529,27 @@ autoShutdown         = true
 
 vms = {
   atlassian-nonprod-jira-01 = {
-    computer_name = "prdatl01ajra01.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E8s_v3"
-    nic_name      = "atlassian-nonprod-jira-01-nic-2bf04f9d184740e4ba95798ea502f3d5"
-    os_disk_name  = "atlassiannonprodjira01-osdisk-20241210-115350"
+    computer_name      = "prdatl01ajra01.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E8s_v3"
+    nic_name           = "atlassian-nonprod-jira-01-nic-2bf04f9d184740e4ba95798ea502f3d5"
+    os_disk_name       = "atlassiannonprodjira01-osdisk-20241210-115350"
+    private_ip_address = "10.0.4.203"
   }
 
   atlassian-nonprod-jira-02 = {
-    computer_name = "prdatl01ajra02.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E8s_v3"
-    nic_name      = "atlassian-nonprod-jira-02-nic-7773e36dd19149988dc2dd31dd3d1211"
-    os_disk_name  = "atlassiannonprodjira02-osdisk-20241210-120042"
+    computer_name      = "prdatl01ajra02.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E8s_v3"
+    nic_name           = "atlassian-nonprod-jira-02-nic-7773e36dd19149988dc2dd31dd3d1211"
+    os_disk_name       = "atlassiannonprodjira02-osdisk-20241210-120042"
+    private_ip_address = "10.0.4.204"
   }
 
   atlassian-nonprod-jira-03 = {
-    computer_name = "prdatl01ajra03.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E8s_v3"
-    nic_name      = "atlassian-nonprod-jira-03-nic-77d0300d21c24f52b034101543b660b7"
-    os_disk_name  = "atlassiannonprodjira03-osdisk-20241210-120129"
+    computer_name      = "prdatl01ajra03.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E8s_v3"
+    nic_name           = "atlassian-nonprod-jira-03-nic-77d0300d21c24f52b034101543b660b7"
+    os_disk_name       = "atlassiannonprodjira03-osdisk-20241210-120129"
+    private_ip_address = "10.0.4.205"
   }
 
   atlassian-nonprod-crowd-01 = {
