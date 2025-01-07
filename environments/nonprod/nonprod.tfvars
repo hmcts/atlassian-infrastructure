@@ -553,45 +553,51 @@ vms = {
   }
 
   atlassian-nonprod-crowd-01 = {
-    computer_name = "prdatl01acrd01.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E4s_v3"
-    nic_name      = "atlassian-nonprod-crowd-01-nic-40caf3d35456486aa41f2530ec2357f3"
-    os_disk_name  = "atlassiannonprodcrowd01-osdisk-20241125-091031"
+    computer_name      = "prdatl01acrd01.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E4s_v3"
+    nic_name           = "atlassian-nonprod-crowd-01-nic-40caf3d35456486aa41f2530ec2357f3"
+    os_disk_name       = "atlassiannonprodcrowd01-osdisk-20241125-091031"
+    private_ip_address = "10.0.4.202"
   }
 
   atlassian-nonprod-confluence-02 = {
-    computer_name = "prdatl01acnf02.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E8s_v3"
-    nic_name      = "atlassian-nonprod-confluence-02-nic-c91338cf8903400e933c85625531fa4f"
-    os_disk_name  = "atlassiannonprodconfluence02-osdisk-20241122-161757"
+    computer_name      = "prdatl01acnf02.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E8s_v3"
+    nic_name           = "atlassian-nonprod-confluence-02-nic-c91338cf8903400e933c85625531fa4f"
+    os_disk_name       = "atlassiannonprodconfluence02-osdisk-20241122-161757"
+    private_ip_address = "10.0.4.200"
   }
 
   atlassian-nonprod-confluence-04 = {
-    computer_name = "prdatl01acnf04.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E8s_v3"
-    nic_name      = "atlassian-nonprod-confluence-04-nic-8afa1a4c95d54fdf84457e5896020903"
-    os_disk_name  = "atlassiannonprodconfluence04-osdisk-20241125-074446"
+    computer_name      = "prdatl01acnf04.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E8s_v3"
+    nic_name           = "atlassian-nonprod-confluence-04-nic-8afa1a4c95d54fdf84457e5896020903"
+    os_disk_name       = "atlassiannonprodconfluence04-osdisk-20241125-074446"
+    private_ip_address = "10.0.4.201"
   }
 
   atlassian-nonprod-gluster-01 = {
-    computer_name = "PRDATL01DGST01.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E8s_v3"
-    nic_name      = "atlassian-nonprod-gluster-01-nic-3b8759f70b0548e6a991aadfceca458a"
-    os_disk_name  = "atlassiannonprodgluster01-osdisk-20241125-095229"
+    computer_name      = "PRDATL01DGST01.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E8s_v3"
+    nic_name           = "atlassian-nonprod-gluster-01-nic-3b8759f70b0548e6a991aadfceca458a"
+    os_disk_name       = "atlassiannonprodgluster01-osdisk-20241125-095229"
+    private_ip_address = "10.0.4.132"
   }
 
   atlassian-nonprod-gluster-02 = {
-    computer_name = "prdatl01dgst02.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E8s_v3"
-    nic_name      = "atlassian-nonprod-gluster-02-nic-51cf948a14964a158a57cf29875a8c88"
-    os_disk_name  = "atlassiannonprodgluster02-osdisk-20241125-173706"
+    computer_name      = "prdatl01dgst02.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E8s_v3"
+    nic_name           = "atlassian-nonprod-gluster-02-nic-51cf948a14964a158a57cf29875a8c88"
+    os_disk_name       = "atlassiannonprodgluster02-osdisk-20241125-173706"
+    private_ip_address = "10.0.4.133"
   }
 
   atlassian-nonprod-gluster-03 = {
-    computer_name = "prdatl01dgst03.cp.cjs.hmcts.net"
-    vm_size       = "Standard_E8s_v3"
-    nic_name      = "atlassian-nonprod-gluster-03-nic-015f19e041b3446fa1ee16d1cf476f99"
-    os_disk_name  = "atlassiannonprodgluster03-osdisk-20241125-173919"
+    computer_name      = "prdatl01dgst03.cp.cjs.hmcts.net"
+    vm_size            = "Standard_E8s_v3"
+    nic_name           = "atlassian-nonprod-gluster-03-nic-015f19e041b3446fa1ee16d1cf476f99"
+    os_disk_name       = "atlassiannonprodgluster03-osdisk-20241125-173919"
+    private_ip_address = "10.0.4.134"
   }
 }
 
