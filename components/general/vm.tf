@@ -47,7 +47,7 @@ resource "terraform_data" "jira_vm" {
 
   connection {
     type        = "ssh"
-    host        = azurerm_virtual_machine.vm[each.key].private_ip_address
+    host        = each.value.private_ip_address
     user        = data.azurerm_key_vault_secret.admin_username.value
     private_key = data.azurerm_key_vault_secret.admin_private_key.value
   }
