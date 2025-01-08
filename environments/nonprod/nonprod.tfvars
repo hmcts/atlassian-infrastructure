@@ -122,6 +122,17 @@ network_security_groups = {
         source_address_prefix      = "10.99.72.0/21"
         destination_address_prefix = "*"
       }
+      "allow_aks_ssh" = {
+        name_override              = "allow_vpn_ssh"
+        priority                   = 620
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefixes    = ["10.148.16.0/20", "10.148.0.0/20"]
+        destination_address_prefix = "*"
+      }
       "allow_mail_outbound" = {
         name_override              = "allow_mail_outbound"
         priority                   = 4010
@@ -213,6 +224,17 @@ network_security_groups = {
         source_port_range          = "*"
         destination_port_range     = "22"
         source_address_prefix      = "10.99.72.0/21"
+        destination_address_prefix = "*"
+      }
+      "allow_aks_ssh" = {
+        name_override              = "allow_vpn_ssh"
+        priority                   = 620
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefixes    = ["10.148.16.0/20", "10.148.0.0/20"]
         destination_address_prefix = "*"
       }
       "postgres_private" = {
