@@ -25,6 +25,22 @@ resource "azurerm_key_vault" "atlassian_kv" {
         "Delete",
         "Purge"
       ]
+      }, {
+      tenant_id      = data.azurerm_client_config.current.tenant_id
+      object_id      = "345d18cb-dabd-48f4-80fc-ea735abf14f1" # DTS Bootstrap (sub:moj dcd atlassian nle)
+      application_id = null
+
+      certificate_permissions = []
+      key_permissions         = []
+      storage_permissions     = []
+
+      secret_permissions = [
+        "Get",
+        "List",
+        "Set",
+        "Delete",
+        "Purge"
+      ]
     },
     {
       tenant_id      = data.azurerm_client_config.current.tenant_id
