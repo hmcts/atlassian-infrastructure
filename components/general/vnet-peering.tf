@@ -30,7 +30,7 @@ resource "azurerm_virtual_network_peering" "int-to-ss-stg-vnet" {
   allow_forwarded_traffic      = "true"
 }
 
-resource "azurerm_virtual_network_peering" "int-to-ss-stg-vnet" {
+resource "azurerm_virtual_network_peering" "ss-stg-vnet-to-int" {
   provider                  = azurerm.stg
   name                      = "ss-stg-vnet-to-atlassian-int-nonprod-vnet"
   resource_group_name       = "ss-stg-network-rg"
