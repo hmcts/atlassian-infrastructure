@@ -4,6 +4,7 @@ locals {
   zone_resource_group = "core-infra-intsvc-rg"
   app_names           = toset(["jira"]) # TODO: Add Confluence and Crowd to list
   DB_SERVER           = "jdbc:postgresql://atlassian-${var.env}-server.postgres.database.azure.com:5432"
+  DB_USER             = "${data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value}@atlassian-${var.env}-server"
 }
 
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-PASS" {
@@ -104,7 +105,7 @@ resource "terraform_data" "postgres" {
       ADMIN_USER     = "${data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value}@atlassian-${var.env}-server"
       ADMIN_PASSWORD = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-PASS.value
       DATABASE_NAME  = "${each.key}-db-${var.env}"
-      USER           = "${each.key}_user@atlassian-${var.env}-server"
+      USER           = "${each.key}_user"
       PASSWORD       = random_password.postgres_password[each.key].result
     }
   }
