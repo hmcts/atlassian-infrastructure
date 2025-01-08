@@ -123,7 +123,7 @@ network_security_groups = {
         destination_address_prefix = "*"
       }
       "allow_aks_ssh" = {
-        name_override              = "allow_vpn_ssh"
+        name_override              = "allow_aks_ssh"
         priority                   = 620
         direction                  = "Inbound"
         access                     = "Allow"
@@ -227,7 +227,7 @@ network_security_groups = {
         destination_address_prefix = "*"
       }
       "allow_aks_ssh" = {
-        name_override              = "allow_vpn_ssh"
+        name_override              = "allow_aks_ssh"
         priority                   = 620
         direction                  = "Inbound"
         access                     = "Allow"

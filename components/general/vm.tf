@@ -28,7 +28,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
 }
 
 data "azurerm_key_vault_secret" "admin_private_key" {
-  name         = "private-key"
+  name         = "test-private-key"
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
