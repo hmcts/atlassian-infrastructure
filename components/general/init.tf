@@ -19,3 +19,9 @@ provider "azurerm" {
   features {}
   subscription_id = "1baf5470-1c3e-40d3-a6f7-74bfbce4b348"
 }
+
+provider "azurerm" {
+  alias = "stg"
+  features {}
+  subscription_id = "74dacd4f-a248-45bb-a2f0-af700dc4cf68" #DTS-SHAREDSERVICES-STG
+}

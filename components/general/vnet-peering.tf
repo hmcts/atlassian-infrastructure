@@ -29,3 +29,14 @@ resource "azurerm_virtual_network_peering" "int-to-ss-stg-vnet" {
   allow_virtual_network_access = "true"
   allow_forwarded_traffic      = "true"
 }
+
+resource "azurerm_virtual_network_peering" "int-to-ss-stg-vnet" {
+  provider                  = azurerm.stg
+  name                      = "ss-stg-vnet-to-atlassian-int-nonprod-vnet"
+  resource_group_name       = "ss-stg-network-rg"
+  virtual_network_name      = "ss-stg-vnet"
+  remote_virtual_network_id = module.networking.vnet_ids["atlassian-int-nonprod-vnet"]
+
+  allow_virtual_network_access = "true"
+  allow_forwarded_traffic      = "true"
+}
