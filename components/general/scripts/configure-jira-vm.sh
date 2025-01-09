@@ -2,6 +2,9 @@
 
 set -x
 
+
+systemctl stop jira
+
 source ./functions.sh
 
 # Access the variables
@@ -42,3 +45,5 @@ sed -i 's/tools\.hmcts\.net/staging.tools.hmcts.net/g' /opt/atlassian/jira/conf/
 cd /opt/atlassian/jira/jre
 openssl s_client -connect staging.tools.hmcts.net:443 -servername staging.tools.hmcts.net < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > public.crt
 ./bin/keytool -importcert -alias staging.tools.hmcts.net -keystore ./lib/security/cacerts -file public.crt
+
+systemctl start jira
