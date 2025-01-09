@@ -44,7 +44,8 @@ resource "terraform_data" "jira_vm" {
   for_each = { for k, v in var.vms : k => v if can(regex("jira", k)) }
 
   triggers_replace = [
-    azurerm_virtual_machine.vm[each.key].id
+    data.null_data_source.function_file_hash.outputs["file_hash"],
+    data.null_data_source.jira_file_hash.outputs["file_hash"]
   ]
 
   connection {
@@ -73,4 +74,15 @@ resource "terraform_data" "jira_vm" {
     ]
   }
 
+}
+data "null_data_source" "function_file_hash" {
+  inputs = {
+    file_hash = md5(file("${path.module}/scripts/functions.sh"))
+  }
+}
+
+data "null_data_source" "jira_file_hash" {
+  inputs = {
+    file_hash = md5(file("${path.module}/scripts/configure-jira-vm.sh"))
+  }
 }
