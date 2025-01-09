@@ -1,3 +1,7 @@
+locals {
+  jira_file_hash     = md5(file("${path.module}/scripts/configure-jira-vm.sh"))
+  function_file_hash = md5(file("${path.module}/scripts/configure-function-vm.sh"))
+}
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
 
@@ -44,8 +48,8 @@ resource "terraform_data" "jira_vm" {
   for_each = { for k, v in var.vms : k => v if can(regex("jira", k)) }
 
   triggers_replace = [
-    data.null_data_source.function_file_hash.outputs["file_hash"],
-    data.null_data_source.jira_file_hash.outputs["file_hash"]
+    local.jira_file_hash,
+    local.function_file_hash
   ]
 
   connection {
@@ -59,30 +63,19 @@ resource "terraform_data" "jira_vm" {
     source      = "${path.module}/scripts/configure-jira-vm.sh"
     destination = "/tmp/configure-jira-vm.sh"
   }
+
   provisioner "file" {
     source      = "${path.module}/scripts/functions.sh"
     destination = "/tmp/functions.sh"
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /tmp/configure-jira-vm.sh",
-      "sudo chmod +x /tmp/functions.sh",
-      "sudo ./tmp/configure-jira-vm.sh ${local.DB_SERVER}/jira-db-${var.env} jira_user@atlassian-${var.env}-server ${random_password.postgres_password["jira"].result}",
-      "sudo ./tmp/functions.sh",
-      # "sudo rm /tmp/configure-jira-vm.sh",
-      # "sudo rm /tmp/functions.sh"
+      "set -x",
+      "sudo chmod +x ./configure-jira-vm.sh",
+      "sudo chmod +x ./functions.sh",
+      "sudo ./configure-jira-vm.sh '${local.DB_SERVER}/jira-db-${var.env}' 'jira_user@atlassian-${var.env}-server' '${random_password.postgres_password["jira"].result}'"
+      "sudo rm /tmp/configure-jira-vm.sh",
     ]
   }
 
-}
-data "null_data_source" "function_file_hash" {
-  inputs = {
-    file_hash = md5(file("${path.module}/scripts/functions.sh"))
-  }
-}
-
-data "null_data_source" "jira_file_hash" {
-  inputs = {
-    file_hash = md5(file("${path.module}/scripts/configure-jira-vm.sh"))
-  }
 }
