@@ -42,9 +42,9 @@ done
 # Update Jira server.xml to replace tools.hmcts.net with staging.tools.hmcts.net
 sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="staging.tools.hmcts.net"/g' /opt/atlassian/jira/conf/server.xml
 
-# # Import SSL certificate
-# cd /opt/atlassian/jira/jre
-# openssl s_client -connect staging.tools.hmcts.net:443 -servername staging.tools.hmcts.net < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > public.crt
-# ./bin/keytool -importcert -alias staging.tools.hmcts.net -keystore ./lib/security/cacerts -file public.crt
+# Import SSL certificate
+
+openssl s_client -connect staging.tools.hmcts.net:443 -servername staging.tools.hmcts.net < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /opt/atlassian/jira/jre/public.crt
+/opt/atlassian/jira/jre/bin/keytool -importcert -alias staging.tools.hmcts.net -keystore /opt/atlassian/jira/jre/lib/security/cacerts -file /opt/atlassian/jira/jre/public.crt -storepass changeit
 
 systemctl start jira
