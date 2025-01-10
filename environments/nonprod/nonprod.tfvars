@@ -547,7 +547,7 @@ ssl_certificates = [
 
 enable_http2         = true
 storage_account_name = "atlassiannonprod"
-autoShutdown         = true
+autoShutdown         = false #TODO
 
 vms = {
   atlassian-nonprod-jira-01 = {
