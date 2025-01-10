@@ -70,11 +70,10 @@ resource "terraform_data" "jira_vm" {
   }
   provisioner "remote-exec" {
     inline = [
-      "set -x",
-      "sudo chmod +x ./configure-jira-vm.sh",
-      "sudo chmod +x ./functions.sh",
-      "sudo ./configure-jira-vm.sh '${local.DB_SERVER}/jira-db-${var.env}' 'jira_user@atlassian-${var.env}-server' '${random_password.postgres_password["jira"].result}'",
-      "sudo rm /tmp/configure-jira-vm.sh",
+      "chmod +x /tmp/configure-jira-vm.sh",
+      "chmod +x /tmp/functions.sh",
+      "sudo su - -c '/tmp/configure-jira-vm.sh ${local.DB_SERVER}/jira-db-${var.env} jira_user@atlassian-${var.env}-server ${random_password.postgres_password["jira"].result}'",
+      "rm -f /tmp/configure-jira-vm.sh",
     ]
   }
 
