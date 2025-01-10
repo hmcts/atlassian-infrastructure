@@ -1,6 +1,6 @@
 locals {
   jira_file_hash     = md5(file("${path.module}/scripts/configure-jira-vm.sh"))
-  function_file_hash = md5(file("${path.module}/scripts/configure-function-vm.sh"))
+  function_file_hash = md5(file("${path.module}/scripts/functions.sh"))
 }
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
