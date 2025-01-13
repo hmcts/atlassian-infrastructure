@@ -25,6 +25,7 @@ variable "vms" {
     nic_name           = string
     os_disk_name       = optional(string)
     private_ip_address = string
+    app                = string
   }))
 }
 
