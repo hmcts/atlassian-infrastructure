@@ -48,3 +48,6 @@ openssl s_client -connect staging.tools.hmcts.net:443 -servername staging.tools.
 /opt/atlassian/jira/jre/bin/keytool -importcert -alias staging.tools.hmcts.net -keystore /opt/atlassian/jira/jre/lib/security/cacerts -file /opt/atlassian/jira/jre/public.crt -storepass changeit
 
 systemctl start jira
+
+# Remove Dynatrace
+/opt/dynatrace/oneagent/agent/uninstall.sh
