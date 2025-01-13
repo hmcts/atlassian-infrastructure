@@ -1131,3 +1131,5 @@ waf_custom_rules = [
     action = "Allow"
   }
 ]
+
+jira_action = "status" # change this to "status" or "stop" in order to stop the jira

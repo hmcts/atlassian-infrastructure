@@ -89,3 +89,9 @@ variable "waf_custom_rules" {
   }))
   default = null
 }
+
+variable "jira_action" {
+  description = "The action to take on the Jira VMs"
+  type        = string
+  default     = "status"
+}
