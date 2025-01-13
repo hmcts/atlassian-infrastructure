@@ -83,5 +83,6 @@ resource "terraform_data" "vm" {
     ]
   }
 
+  depends_on = [terraform_data.postgres]
 }
 
