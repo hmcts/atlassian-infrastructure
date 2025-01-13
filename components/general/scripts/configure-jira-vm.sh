@@ -2,7 +2,7 @@
 
 set -x
 
-systemctl stop jira
+
 
 source /tmp/functions.sh
 
@@ -11,6 +11,9 @@ DB_URL=$1
 DB_USERNAME=$2
 DB_PASSWORD=$3
 ENV=$4
+JIRA_ACTION=$5
+
+systemctl $JIRA_ACTION jira
 
 # Grant permissions to Jira user
 chown -R jira:jira /opt/atlassian/jira
