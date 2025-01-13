@@ -1,6 +1,7 @@
 locals {
   jira_file_hash     = md5(file("${path.module}/scripts/configure-jira-vm.sh"))
   function_file_hash = md5(file("${path.module}/scripts/functions.sh"))
+  crowd_file_hash    = md5(file("${path.module}/scripts/configure-crowd-vm.sh"))
 }
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
@@ -43,12 +44,17 @@ data "azurerm_key_vault_secret" "admin_username" {
 
 # Currently provisions the Jira VMs only - TODO: Update script to be more generic and run on all VMs or add scripts and provisioners for other VMs
 
+moved {
+  from = terraform_data.jira_vm
+  to   = terraform_data.vm
+}
 
-resource "terraform_data" "jira_vm" {
-  for_each = { for k, v in var.vms : k => v if can(regex("jira", k)) }
+resource "terraform_data" "vm" {
+  for_each = { for k, v in var.vms : k => v if can(regex("(jira|crowd)", k)) }
 
   triggers_replace = [
     local.jira_file_hash,
+    local.crowd_file_hash,
     local.function_file_hash
   ]
 
@@ -60,8 +66,8 @@ resource "terraform_data" "jira_vm" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/scripts/configure-jira-vm.sh"
-    destination = "/tmp/configure-jira-vm.sh"
+    source      = "${path.module}/scripts/configure-${each.value.app}-vm.sh"
+    destination = "/tmp/configure-${each.value.app}-vm.sh"
   }
 
   provisioner "file" {
@@ -70,11 +76,13 @@ resource "terraform_data" "jira_vm" {
   }
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/configure-jira-vm.sh",
+      "chmod +x /tmp/configure-${each.value.app}-vm.sh",
       "chmod +x /tmp/functions.sh",
-      "sudo su - -c '/tmp/configure-jira-vm.sh ${local.DB_SERVER}/jira-db-${var.env} jira_user@atlassian-${var.env}-server ${random_password.postgres_password["jira"].result} ${var.env} ${var.jira_action}'",
-      # "rm -f /tmp/configure-jira-vm.sh",
+      "sudo su - -c '/tmp/configure-${each.value.app}-vm.sh ${local.DB_SERVER}/${each.value.app}-db-${var.env} ${each.value.app}_user@atlassian-${var.env}-server ${random_password.postgres_password["${each.value.app}"].result} ${var.env} ${var.app_action}'",
+      "rm -f /tmp/configure-${each.value.app}-vm.sh",
     ]
   }
 
+  depends_on = [terraform_data.postgres]
 }
+

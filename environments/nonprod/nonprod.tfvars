@@ -556,6 +556,7 @@ vms = {
     nic_name           = "atlassian-nonprod-jira-01-nic-2bf04f9d184740e4ba95798ea502f3d5"
     os_disk_name       = "atlassiannonprodjira01-osdisk-20241210-115350"
     private_ip_address = "10.0.4.203"
+    app                = "jira"
   }
 
   atlassian-nonprod-jira-02 = {
@@ -564,6 +565,7 @@ vms = {
     nic_name           = "atlassian-nonprod-jira-02-nic-7773e36dd19149988dc2dd31dd3d1211"
     os_disk_name       = "atlassiannonprodjira02-osdisk-20241210-120042"
     private_ip_address = "10.0.4.204"
+    app                = "jira"
   }
 
   atlassian-nonprod-jira-03 = {
@@ -572,6 +574,7 @@ vms = {
     nic_name           = "atlassian-nonprod-jira-03-nic-77d0300d21c24f52b034101543b660b7"
     os_disk_name       = "atlassiannonprodjira03-osdisk-20241210-120129"
     private_ip_address = "10.0.4.205"
+    app                = "jira"
   }
 
   atlassian-nonprod-crowd-01 = {
@@ -580,6 +583,7 @@ vms = {
     nic_name           = "atlassian-nonprod-crowd-01-nic-40caf3d35456486aa41f2530ec2357f3"
     os_disk_name       = "atlassiannonprodcrowd01-osdisk-20241125-091031"
     private_ip_address = "10.0.4.202"
+    app                = "crowd"
   }
 
   atlassian-nonprod-confluence-02 = {
@@ -588,6 +592,7 @@ vms = {
     nic_name           = "atlassian-nonprod-confluence-02-nic-c91338cf8903400e933c85625531fa4f"
     os_disk_name       = "atlassiannonprodconfluence02-osdisk-20241122-161757"
     private_ip_address = "10.0.4.200"
+    app                = "confluence"
   }
 
   atlassian-nonprod-confluence-04 = {
@@ -596,6 +601,7 @@ vms = {
     nic_name           = "atlassian-nonprod-confluence-04-nic-8afa1a4c95d54fdf84457e5896020903"
     os_disk_name       = "atlassiannonprodconfluence04-osdisk-20241125-074446"
     private_ip_address = "10.0.4.201"
+    app                = "confluence"
   }
 
   atlassian-nonprod-gluster-01 = {
@@ -604,6 +610,7 @@ vms = {
     nic_name           = "atlassian-nonprod-gluster-01-nic-3b8759f70b0548e6a991aadfceca458a"
     os_disk_name       = "atlassiannonprodgluster01-osdisk-20241125-095229"
     private_ip_address = "10.0.4.132"
+    app                = "gluster"
   }
 
   atlassian-nonprod-gluster-02 = {
@@ -612,6 +619,7 @@ vms = {
     nic_name           = "atlassian-nonprod-gluster-02-nic-51cf948a14964a158a57cf29875a8c88"
     os_disk_name       = "atlassiannonprodgluster02-osdisk-20241125-173706"
     private_ip_address = "10.0.4.133"
+    app                = "gluster"
   }
 
   atlassian-nonprod-gluster-03 = {
@@ -620,6 +628,7 @@ vms = {
     nic_name           = "atlassian-nonprod-gluster-03-nic-015f19e041b3446fa1ee16d1cf476f99"
     os_disk_name       = "atlassiannonprodgluster03-osdisk-20241125-173919"
     private_ip_address = "10.0.4.134"
+    app                = "gluster"
   }
 }
 
@@ -1132,4 +1141,5 @@ waf_custom_rules = [
   }
 ]
 
-jira_action = "status" # change this to "status" or "stop" in order to stop the jira
+app_action = "status" # change this to "status" or "stop" in order to stop the jira
+
