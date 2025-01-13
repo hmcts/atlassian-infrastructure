@@ -72,7 +72,7 @@ resource "terraform_data" "jira_vm" {
     inline = [
       "chmod +x /tmp/configure-jira-vm.sh",
       "chmod +x /tmp/functions.sh",
-      "sudo su - -c '/tmp/configure-jira-vm.sh ${local.DB_SERVER}/jira-db-${var.env} jira_user@atlassian-${var.env}-server ${random_password.postgres_password["jira"].result}' ${var.env}",
+      "sudo su - -c '/tmp/configure-jira-vm.sh ${local.DB_SERVER}/jira-db-${var.env} jira_user@atlassian-${var.env}-server ${random_password.postgres_password["jira"].result}' ${var.env} ${var.jira_action} ",
       # "rm -f /tmp/configure-jira-vm.sh",
     ]
   }
