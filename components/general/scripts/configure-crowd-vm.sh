@@ -27,7 +27,7 @@ if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging
 
   # Replace glusterfs entry in /etc/fstab
-  sed -i '/glusterfs/c\10.0.4.150:/crowd_shared /var/atlassian/application_data/crowd_shared glusterfs defaults 0 0' /etc/fstab
+  sed -i '/glusterfs/c\10.0.4.150:/crowd_shared /var/atlassian/application-data/crowd_shared glusterfs defaults 0 0' /etc/fstab
   mount -a
 
   # Update crowd server.xml to replace tools.hmcts.net with staging.tools.hmcts.net
