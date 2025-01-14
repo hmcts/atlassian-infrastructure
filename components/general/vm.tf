@@ -1,8 +1,10 @@
 locals {
-  jira_file_hash     = md5(file("${path.module}/scripts/configure-jira-vm.sh"))
-  function_file_hash = md5(file("${path.module}/scripts/functions.sh"))
-  crowd_file_hash    = md5(file("${path.module}/scripts/configure-crowd-vm.sh"))
-  gluster_file_hash  = md5(file("${path.module}/scripts/configure-gluster-vm.sh"))
+  jira_file_hash         = md5(file("${path.module}/scripts/configure-jira-vm.sh"))
+  function_file_hash     = md5(file("${path.module}/scripts/functions.sh"))
+  crowd_file_hash        = md5(file("${path.module}/scripts/configure-crowd-vm.sh"))
+  gluster_file_hash      = md5(file("${path.module}/scripts/configure-gluster-vm.sh"))
+  confluence_private_ips = join(",", [for k, v in var.vms : v.private_ip_address if can(regex("confluence", k))])
+  confluence_file_hash   = md5(file("${path.module}/scripts/configure-confluence-vm.sh"))
 }
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
@@ -43,21 +45,15 @@ data "azurerm_key_vault_secret" "admin_username" {
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
-# Currently provisions the Jira VMs only - TODO: Update script to be more generic and run on all VMs or add scripts and provisioners for other VMs
-
-moved {
-  from = terraform_data.jira_vm
-  to   = terraform_data.vm
-}
-
 resource "terraform_data" "vm" {
-  for_each = { for k, v in var.vms : k => v if can(regex("(jira|crowd|gluster)", k)) }
+  for_each = { for k, v in var.vms : k => v if can(regex("(jira|crowd|gluster|confluence)", k)) }
 
   triggers_replace = [
     local.jira_file_hash,
     local.crowd_file_hash,
     local.function_file_hash,
     local.gluster_file_hash,
+    local.confluence_file_hash,
   ]
 
   connection {
@@ -80,7 +76,7 @@ resource "terraform_data" "vm" {
     inline = [
       "chmod +x /tmp/configure-${each.value.app}-vm.sh",
       "chmod +x /tmp/functions.sh",
-      "sudo su - -c '/tmp/configure-${each.value.app}-vm.sh ${local.DB_SERVER}/${each.value.app}-db-${var.env} ${each.value.app}_user@atlassian-${var.env}-server ${each.value.app != "gluster" ? random_password.postgres_password["${each.value.app}"].result : each.value.app} ${var.env} ${var.app_action}'",
+      "sudo su - -c '/tmp/configure-${each.value.app}-vm.sh ${local.DB_SERVER}/${each.value.app}-db-${var.env} ${each.value.app}_user@atlassian-${var.env}-server ${each.value.app != "gluster" ? random_password.postgres_password["${each.value.app}"].result : each.value.app} ${var.env} ${var.app_action} ${local.confluence_private_ips}'",
       "rm -f /tmp/configure-${each.value.app}-vm.sh",
     ]
   }
