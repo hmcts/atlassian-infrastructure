@@ -81,7 +81,7 @@ resource "terraform_data" "vm" {
       "chmod +x /tmp/configure-${each.value.app}-vm.sh",
       "chmod +x /tmp/functions.sh",
       "sudo su - -c '/tmp/configure-${each.value.app}-vm.sh ${local.DB_SERVER}/${each.value.app}-db-${var.env} ${each.value.app}_user@atlassian-${var.env}-server ${each.value.app != "gluster" ? random_password.postgres_password["${each.value.app}"].result : ""} ${var.env} ${var.app_action}'",
-      "rm -f /tmp/configure-${each.value.app}-vm.sh",
+      # "rm -f /tmp/configure-${each.value.app}-vm.sh",
     ]
   }
 

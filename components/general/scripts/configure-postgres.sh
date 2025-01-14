@@ -27,3 +27,9 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO \"${USER}\";
 
 # Run query
 psql "sslmode=require" -c "${SQL_COMMAND}"
+
+# Disable emails if DATABASE_NAME is jira-db-nonprod
+if [ "${DATABASE_NAME}" = "jira-db-nonprod" ]; then
+  DISABLE_EMAIL="UPDATE propertynumber SET propertyvalue = 1 WHERE \"id\" = (SELECT \"id\" FROM \"propertyentry\" WHERE \"property_key\" = 'jira.mail.send.disabled');"
+  psql "sslmode=require" -c "${DISABLE_EMAIL}"
+fi

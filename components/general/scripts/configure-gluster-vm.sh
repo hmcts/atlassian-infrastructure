@@ -11,7 +11,6 @@ else
   echo "No environment specified"
 fi
 
-
 # Update /etc/resolv.conf
 RESOLV_CONF_ENTRIES="
 search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net
