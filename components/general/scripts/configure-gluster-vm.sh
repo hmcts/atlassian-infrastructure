@@ -8,6 +8,7 @@ source /tmp/functions.sh
 
 if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging
+  log_entry "Added entries in the hosts file"
 else
   echo "No environment specified"
 fi
@@ -19,3 +20,4 @@ nameserver 168.63.129.16
 "
 echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
 
+log_entry "Updated resolv.conf"

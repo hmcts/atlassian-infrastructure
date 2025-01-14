@@ -51,12 +51,13 @@ moved {
 }
 
 resource "terraform_data" "vm" {
-  for_each = { for k, v in var.vms : k => v if can(regex("(jira|crowd)", k)) }
+  for_each = { for k, v in var.vms : k => v if can(regex("(jira|crowd|gluster)", k)) }
 
   triggers_replace = [
     local.jira_file_hash,
     local.crowd_file_hash,
     local.function_file_hash,
+    local.gluster_file_hash,
   ]
 
   connection {
@@ -79,7 +80,7 @@ resource "terraform_data" "vm" {
     inline = [
       "chmod +x /tmp/configure-${each.value.app}-vm.sh",
       "chmod +x /tmp/functions.sh",
-      "sudo su - -c '/tmp/configure-${each.value.app}-vm.sh ${local.DB_SERVER}/${each.value.app}-db-${var.env} ${each.value.app}_user@atlassian-${var.env}-server ${random_password.postgres_password["${each.value.app}"].result} ${var.env} ${var.app_action}'",
+      "sudo su - -c '/tmp/configure-${each.value.app}-vm.sh ${local.DB_SERVER}/${each.value.app}-db-${var.env} ${each.value.app}_user@atlassian-${var.env}-server ${each.value.app != "gluster" ? random_password.postgres_password["${each.value.app}"].result : each.value.app} ${var.env} ${var.app_action}'",
       "rm -f /tmp/configure-${each.value.app}-vm.sh",
     ]
   }
