@@ -13,7 +13,7 @@ APP_ACTION=$5
 PRIVATE_IPS=$6
 
 systemctl $APP_ACTION confluence
-systemctl stop confluence
+
 log_entry "Executed systemctl $APP_ACTION confluence"
 
 # Grant permissions to confluence user
