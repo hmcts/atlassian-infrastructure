@@ -15,8 +15,6 @@ APP_ACTION=$5
 
 systemctl $APP_ACTION crowd
 
-systemctl stop crowd
-
 # Grant permissions to crowd user
 chown -R crowd:crowd /opt/crowd
 chmod -R u+rw /opt/crowd
