@@ -5,6 +5,7 @@ set -x
 source /tmp/functions.sh
 
 # # Update /etc/hosts
+
 if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging
 else

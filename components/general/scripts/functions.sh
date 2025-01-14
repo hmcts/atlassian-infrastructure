@@ -16,3 +16,11 @@ update_hosts_file_staging() {
 10.0.4.202 PRDATL01ACRD01.CP.CJS.HMCTS.NET prdatl01acrd01"
 echo "${HOST_ENTRIES}" > /etc/hosts
 }
+
+log_entry() {
+  LOG_FILE="/tmp/configure-file.log"
+  if [ ! -f $LOG_FILE ]; then
+    touch $LOG_FILE
+  fi
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> $LOG_FILE
+}

@@ -2,8 +2,6 @@
 
 set -x
 
-
-
 source /tmp/functions.sh
 
 # Access the variables
