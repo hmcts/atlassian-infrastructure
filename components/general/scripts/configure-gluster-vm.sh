@@ -4,8 +4,9 @@ set -x
 
 source /tmp/functions.sh
 
-# # Update /etc/hosts
+ENV=$4
 
+# # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging
   log_entry "Added entries in the hosts file"
