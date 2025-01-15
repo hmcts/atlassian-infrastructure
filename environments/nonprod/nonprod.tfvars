@@ -1141,5 +1141,5 @@ waf_custom_rules = [
   }
 ]
 
-app_action = "status" # change this to "status" or "stop" in order to stop the jira
+app_action = "stop" # change this to "status" or "stop" in order to stop the jira
 

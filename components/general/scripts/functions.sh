@@ -28,3 +28,26 @@ log_entry() {
   fi
   echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> $LOG_FILE
 }
+
+mounting() {
+  # Create the /tmp/mounting.sh file with the specified contents
+cat <<EOL > /tmp/mounting.sh
+#!/bin/bash
+mount -a
+systemctl stop $1
+systemctl start $1
+EOL
+
+# Make the script executable
+chmod +x /tmp/mounting.sh
+
+# Define the cron job
+cron_job="0 8 * * * /bin/bash /tmp/mounting.sh"
+
+# Check if the cron job already exists and add it if not
+  if ! crontab -l 2>/dev/null | grep -qF "$cron_job"; then
+    (crontab -l 2>/dev/null; echo "$cron_job") | crontab -
+  fi
+
+log_entry "mounting cron job has been added to run 8am daily"
+}
