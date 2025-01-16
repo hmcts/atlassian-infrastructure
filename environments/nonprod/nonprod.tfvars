@@ -1139,6 +1139,6 @@ waf_custom_rules = [
     action = "Allow"
   }
 ]
-#TODO change this to status
-app_action = "stop" # change this to "status" or "stop" in order to stop the jira
+
+app_action = "status" # change this to "status" or "stop" in order to stop the jira
 
