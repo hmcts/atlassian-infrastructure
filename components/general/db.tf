@@ -96,7 +96,8 @@ resource "terraform_data" "postgres" {
   triggers_replace = [
     azurerm_postgresql_server.atlassian-server.id,
     azurerm_key_vault_secret.postgres_password[each.key].id,
-    azurerm_key_vault_secret.postgres_username[each.key].id
+    azurerm_key_vault_secret.postgres_username[each.key].id,
+    local.DB_SERVER #TODO remove this
   ]
   provisioner "local-exec" {
     command = "${path.module}/scripts/configure-postgres.sh"
