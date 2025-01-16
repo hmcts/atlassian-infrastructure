@@ -31,6 +31,8 @@ if [ "$ENV" == "nonprod" ]; then
   # Update crowd server.xml to replace tools.hmcts.net with staging.tools.hmcts.net
   sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="staging.tools.hmcts.net"/g' /opt/crowd/apache-tomcat/conf/server.xml
   log_entry "Updated server.xml"
+
+  mounting "crowd"
 else
   echo "No environment specified"
 fi

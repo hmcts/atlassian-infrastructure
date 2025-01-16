@@ -37,6 +37,8 @@ if [ "$ENV" == "nonprod" ]; then
     # Remove Dynatrace
     /opt/dynatrace/oneagent/agent/uninstall.sh
     log_entry "Uninstalled Dynatrace"
+
+    mounting "confluence"
 else
   echo "No environment specified"
 fi
