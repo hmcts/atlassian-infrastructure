@@ -18,7 +18,7 @@ update_hosts_file_staging() {
 10.0.4.201 PRDATL01ACNF02.CP.CJS.HMCTS.NET prdatl01acnf02
 10.0.4.200 PRDATL01ACNF04.CP.CJS.HMCTS.NET prdatl01acnf04
 10.0.4.200 PRDATL01ACNF04.cp.cjs.hmcts.net PRDATL01ACNF04
-10.0.4.150 prdatl01lbcrd01"
+10.0.4.197 prdatl01lbcrd01"
 echo "${HOST_ENTRIES}" > /etc/hosts
 }
 
