@@ -603,12 +603,11 @@ vms = {
     private_ip_address = "10.0.4.200"
     app                = "confluence"
   }
-  ### TODO until restore done
   atlassian-nonprod-gluster-01 = {
     computer_name      = "PRDATL01DGST01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-gluster-01-nic-3b8759f70b0548e6a991aadfceca458a"
-    os_disk_name       = "atlassiannonprodgluster01-osdisk-20241125-095229"
+    nic_name           = "atlassian-nonprod-gluster-01-nic-9d7a4faa7a584b8a93625c8a890aaaa2"
+    os_disk_name       = "atlassiannonprodgluster01-osdisk-20250115-110018"
     private_ip_address = "10.0.4.132"
     app                = "gluster"
   }
@@ -616,8 +615,8 @@ vms = {
   atlassian-nonprod-gluster-02 = {
     computer_name      = "prdatl01dgst02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-gluster-02-nic-51cf948a14964a158a57cf29875a8c88"
-    os_disk_name       = "atlassiannonprodgluster02-osdisk-20241125-173706"
+    nic_name           = "atlassian-nonprod-gluster-02-nic-5d520339a4a3439ea10b42309dd60d89"
+    os_disk_name       = "atlassiannonprodgluster02-osdisk-20250115-110126"
     private_ip_address = "10.0.4.133"
     app                = "gluster"
   }
@@ -625,8 +624,8 @@ vms = {
   atlassian-nonprod-gluster-03 = {
     computer_name      = "prdatl01dgst03.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-gluster-03-nic-015f19e041b3446fa1ee16d1cf476f99"
-    os_disk_name       = "atlassiannonprodgluster03-osdisk-20241125-173919"
+    nic_name           = "atlassian-nonprod-gluster-03-nic-789c1d7bf88c4ff2a65e0bffd22dd45c"
+    os_disk_name       = "atlassiannonprodgluster03-osdisk-20250115-110154"
     private_ip_address = "10.0.4.134"
     app                = "gluster"
   }
@@ -660,7 +659,7 @@ data_disks = {
     caching              = "ReadOnly"
   }
 
-  atlassiannonprodgluster01-datadisk-000-20241125-095229 = {
+  atlassiannonprodgluster01-datadisk-000-20250115-110018 = {
     vm_name              = "atlassian-nonprod-gluster-01"
     disk_size_gb         = 4000
     create_option        = "Import"
@@ -670,7 +669,7 @@ data_disks = {
   }
 
 
-  atlassiannonprodgluster01-datadisk-001-20241125-095229 = {
+  atlassiannonprodgluster01-datadisk-001-20250115-110018 = {
     vm_name              = "atlassian-nonprod-gluster-01"
     disk_size_gb         = 1024
     create_option        = "Import"
@@ -680,7 +679,7 @@ data_disks = {
   }
 
 
-  atlassiannonprodgluster02-datadisk-000-20241125-173706 = {
+  atlassiannonprodgluster02-datadisk-000-20250115-110126 = {
     vm_name              = "atlassian-nonprod-gluster-02"
     disk_size_gb         = 4000
     create_option        = "Import"
@@ -690,7 +689,7 @@ data_disks = {
   }
 
 
-  atlassiannonprodgluster03-datadisk-000-20241125-173919 = {
+  atlassiannonprodgluster03-datadisk-000-20250115-110154 = {
     vm_name              = "atlassian-nonprod-gluster-03"
     disk_size_gb         = 4000
     create_option        = "Import"
@@ -767,11 +766,11 @@ nics = {
       }
     }
   }
-  ## TODO
-  atlassian-nonprod-gluster-01-nic-3b8759f70b0548e6a991aadfceca458a = {
+
+  atlassian-nonprod-gluster-01-nic-9d7a4faa7a584b8a93625c8a890aaaa2 = {
     ip_configuration = {
       primary = {
-        name                  = "d5a5758491df4601a3e66c3b0d1dbe7f"
+        name                  = "b9eac8ecb6a44fd9b0c6a4c244fa77ec"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.132"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
@@ -779,10 +778,10 @@ nics = {
     }
   }
 
-  atlassian-nonprod-gluster-02-nic-51cf948a14964a158a57cf29875a8c88 = {
+  atlassian-nonprod-gluster-02-nic-5d520339a4a3439ea10b42309dd60d89 = {
     ip_configuration = {
       primary = {
-        name                  = "26342ae710994efbbf9360be4b3c3da1"
+        name                  = "dbd462d9274e49bda9025e3fc2034dc8"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.133"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
@@ -790,10 +789,10 @@ nics = {
     }
   }
 
-  atlassian-nonprod-gluster-03-nic-015f19e041b3446fa1ee16d1cf476f99 = {
+  atlassian-nonprod-gluster-03-nic-789c1d7bf88c4ff2a65e0bffd22dd45c = {
     ip_configuration = {
       primary = {
-        name                  = "381368d874f4410882164dea15c14bdd"
+        name                  = "213e090d693745268e3483f55897a2e4"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.134"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
