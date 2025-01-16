@@ -30,8 +30,11 @@ if [ "$ENV" == "nonprod" ]; then
   mount -a
   log_entry "Mounted glusterfs"
   # Update Jira server.xml to replace tools.hmcts.net with staging.tools.hmcts.net
-  sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="staging.tools.hmcts.net"/g' /opt/atlassian/jira/conf/server.xml
-  log_entry "Updated server.xml"
+  for file2 in /opt/atlassian/jira/conf/server.xml /opt/atlassian/jira/data/customisations/conf/server.xml /opt/atlassian/jira/install/conf/server.xml; do
+      sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="staging.tools.hmcts.net"/g' $file2
+      log_entry "Updated server.xml"
+  done
+
   # Import SSL certificate
 
     openssl s_client -connect staging.tools.hmcts.net:443 -servername staging.tools.hmcts.net < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /opt/atlassian/jira/jre/public.crt
