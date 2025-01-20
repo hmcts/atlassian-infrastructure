@@ -40,10 +40,6 @@ if [ "$ENV" == "nonprod" ]; then
 
     mounting "confluence"
 
-    # Comment out the line containing Datlassian.recovery.password
-    sed -i '/Datlassian.recovery.password/s/^/#/' /opt/atlassian/confluence/install/bin/setenv.sh
-    log_entry "Comment out the line containing Datlassian.recovery.password"
-
     # Uncomment the line with mail senddisabled
     sed -i 's/^#\(CATALINA_OPTS="-Datlassian.mail.senddisabled=true -Datlassian.mail.fetchdisabled=true \(.*\)\)$/\1/' /opt/atlassian/confluence/install/bin/setenv.sh
 
@@ -52,6 +48,9 @@ else
   echo "No environment specified"
 fi
 
+# Comment out the line containing Datlassian.recovery.password
+sed -i '/Datlassian.recovery.password/s/^/#/' /opt/atlassian/confluence/install/bin/setenv.sh
+log_entry "Comment out the line containing Datlassian.recovery.password"
 
 # Update /etc/resolv.conf
 RESOLV_CONF_ENTRIES="search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net
