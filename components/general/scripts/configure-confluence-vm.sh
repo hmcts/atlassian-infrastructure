@@ -39,10 +39,18 @@ if [ "$ENV" == "nonprod" ]; then
     log_entry "Uninstalled Dynatrace"
 
     mounting "confluence"
+
+    # Uncomment the line with mail senddisabled
+    sed -i 's/^#\(CATALINA_OPTS="-Datlassian.mail.senddisabled=true -Datlassian.mail.fetchdisabled=true \(.*\)\)$/\1/' /opt/atlassian/confluence/install/bin/setenv.sh
+
+    log_entry "Uncomment the line with mail senddisabled to disable mail"
 else
   echo "No environment specified"
 fi
 
+# Comment out the line containing Datlassian.recovery.password
+sed -i '/Datlassian.recovery.password/s/^/#/' /opt/atlassian/confluence/install/bin/setenv.sh
+log_entry "Comment out the line containing Datlassian.recovery.password"
 
 # Update /etc/resolv.conf
 RESOLV_CONF_ENTRIES="search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net
@@ -58,6 +66,8 @@ for file in /var/atlassian/application_data/confluence_shared/confluence.cfg.xml
   sed -i "s|<property name=\"confluence.cluster.peers\">.*</property>|<property name=\"confluence.cluster.peers\">${PRIVATE_IPS}</property>|" $file
 done
 log_entry "Updated dbconfig.xml"
+
+
 
 systemctl start confluence
 log_entry "started confluence"
