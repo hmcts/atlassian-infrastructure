@@ -43,7 +43,7 @@ EOL
 chmod +x /tmp/mounting.sh
 
 # Define the cron job
-cron_job="15 7 * * * /bin/bash /tmp/mounting.sh"
+cron_job="0 * * * * /bin/bash /tmp/mounting.sh"
 
 # Check if the cron job already exists and add it if not
   if ! crontab -l 2>/dev/null | grep -qF "$cron_job"; then
