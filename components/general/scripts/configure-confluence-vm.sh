@@ -38,7 +38,7 @@ if [ "$ENV" == "nonprod" ]; then
     /opt/dynatrace/oneagent/agent/uninstall.sh
     log_entry "Uninstalled Dynatrace"
 
-    mounting "confluence"
+    mounting "confluence" "/var/atlassian/application_data/confluence_shared/"
 
     # Uncomment the line with mail senddisabled
     sed -i 's/^#\(CATALINA_OPTS="-Datlassian.mail.senddisabled=true -Datlassian.mail.fetchdisabled=true \(.*\)\)$/\1/' /opt/atlassian/confluence/install/bin/setenv.sh
