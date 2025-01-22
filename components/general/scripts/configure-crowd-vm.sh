@@ -32,7 +32,7 @@ if [ "$ENV" == "nonprod" ]; then
   sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="staging.tools.hmcts.net"/g' /opt/crowd/apache-tomcat/conf/server.xml
   log_entry "Updated server.xml"
 
-  mounting "crowd"
+  mounting "crowd" "/var/atlassian/application-data/crowd_shared"
 else
   echo "No environment specified"
 fi

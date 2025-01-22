@@ -44,7 +44,7 @@ if [ "$ENV" == "nonprod" ]; then
     /opt/dynatrace/oneagent/agent/uninstall.sh
     log_entry "Uninstalled Dynatrace"
 
-    mounting "jira"
+    mounting "jira" "/var/atlassian/application_data/jira_shared/"
 else
   echo "No environment specified"
 fi

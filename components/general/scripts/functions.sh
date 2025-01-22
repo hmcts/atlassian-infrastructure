@@ -32,21 +32,33 @@ log_entry() {
 
 mounting() {
   # Create the /tmp/mounting.sh file with the specified contents
+
+  path_to_check=$2
+
 cat <<EOL > /tmp/mounting.sh
 #!/bin/bash
-mount -a
-systemctl stop $1
-systemctl start $1
+if ! mountpoint -q "$path_to_check"; then
+  echo "$path_to_check is not mounted. Mounting now..."
+  mount -a
+  systemctl stop $1
+  systemctl start $1
+else
+  echo "$path_to_check is already mounted. No action required."
+fi
 EOL
 
 # Make the script executable
 chmod +x /tmp/mounting.sh
 
 # Define the cron job
-cron_job="15 7 * * * /bin/bash /tmp/mounting.sh"
+cron_job="0 * * * * /bin/bash /tmp/mounting.sh"
 
 # Check if the cron job already exists and add it if not
   if ! crontab -l 2>/dev/null | grep -qF "$cron_job"; then
+    # Remove any existing cron jobs with mounting.sh
+    (crontab -l 2>/dev/null | grep -v '/tmp/mounting.sh') | crontab -
+
+    # Add the new cron job
     (crontab -l 2>/dev/null; echo "$cron_job") | crontab -
   fi
 
