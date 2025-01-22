@@ -35,16 +35,16 @@ mounting() {
 
   path_to_check=$2
 
-  # Check if the path is already mounted
-  if mountpoint -q "$path_to_check"; then
-    return
-  fi
-
 cat <<EOL > /tmp/mounting.sh
 #!/bin/bash
-mount -a
-systemctl stop $1
-systemctl start $1
+if ! mountpoint -q "$path_to_check"; then
+  echo "$path_to_check is not mounted. Mounting now..."
+  mount -a
+  systemctl stop $1
+  systemctl start $1
+else
+  echo "$path_to_check is already mounted. No action required."
+fi
 EOL
 
 # Make the script executable
