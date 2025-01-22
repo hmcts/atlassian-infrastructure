@@ -37,7 +37,6 @@ mounting() {
 
   # Check if the path is already mounted
   if mountpoint -q "$path_to_check"; then
-    log_entry "$path_to_check is already mounted. No action required."
     return
   fi
 
