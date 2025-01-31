@@ -125,7 +125,7 @@ resource "azurerm_application_gateway" "ag" {
       name                               = "appgw-url-map-path"
       default_backend_address_pool_name  = url_path_map.value.default_backend_address_pool_name
       default_backend_http_settings_name = url_path_map.value.default_backend_http_settings_name
-      default_rewrite_rule_set_name      = length(var.app_gw_rewrite_rules) > 0 ? var.app_gw_rewrite_rules[0].name : null
+      default_rewrite_rule_set_name      = length(var.app_gw_rewrite_rules) > 0 ? var.app_gw_rewrite_rules[0].ruleset_name : null
       dynamic "path_rule" {
         for_each = [for p in url_path_map.value.path_rule : {
           name                       = p.name
