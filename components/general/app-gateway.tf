@@ -142,6 +142,30 @@ resource "azurerm_application_gateway" "ag" {
       }
     }
   }
+
+rewrite_rule_set {
+    name = "Test-Rewrites"
+    rewrite_rule {
+      name          = "robots.txt"
+      rule_sequence = 100
+      condition {
+        variable    = "var_uri_path"
+        pattern     = "/robots.txt"
+        ignore_case = true
+        negate      = false
+      }
+      request_header_configuration {
+        header_name  = "Content-Type"
+        header_value = "test/plain"
+      }
+      url {
+        components = "path_only"
+        path       = "/jira/robots.txt"
+        reroute    = true
+      }
+    }
+  }
+
   depends_on = [azurerm_role_assignment.identity]
 }
 
