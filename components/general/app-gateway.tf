@@ -155,7 +155,7 @@ resource "azurerm_application_gateway" "ag" {
         ignore_case = true
         negate      = false
       }
-      request_header_configuration {
+      response_header_configuration {
         header_name  = "Content-Type"
         header_value = "test/plain"
       }
