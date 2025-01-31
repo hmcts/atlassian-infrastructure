@@ -1164,8 +1164,8 @@ app_gw_rewrite_rules = [
     }
   },
   {
-    ruleset_name  = "Test-Rewrites"
-    name          = "test-jh.txt"
+    ruleset_name  = "Test-Set02"
+    name          = "test2-jh.txt"
     rule_sequence = 101
     condition = {
       variable    = "var_uri_path"
