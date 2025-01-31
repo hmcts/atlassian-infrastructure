@@ -1162,25 +1162,5 @@ app_gw_rewrite_rules = [
       path       = "/jira/robots.txt"
       reroute    = true
     }
-  },
-  {
-    ruleset_name  = "Test-Set02"
-    name          = "test2-jh.txt"
-    rule_sequence = 101
-    condition = {
-      variable    = "var_uri_path"
-      pattern     = "/robots.txt"
-      ignore_case = true
-      negate      = false
-    }
-    response_header_configuration = {
-      header_name  = "Content-Type"
-      header_value = "text/plain"
-    }
-    url = {
-      components = "path_only"
-      path       = "/jira/robots.txt"
-      reroute    = true
-    }
   }
 ]
