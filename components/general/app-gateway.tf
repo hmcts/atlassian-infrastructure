@@ -144,31 +144,34 @@ resource "azurerm_application_gateway" "ag" {
     }
   }
 
-  dynamic "rewrite_rule_set" {
-    for_each = var.enable_rewrite_rule_set ? [1] : []
-    content {
-      name = "Test-Rewrites"
-      rewrite_rule {
-        name          = "robots.txt"
-        rule_sequence = 100
+dynamic "rewrite_rule_set" {
+  for_each = var.enable_rewrite_rule_set ? [1] : []
+  content {
+    name = "Test-Rewrites"
+    dynamic "rewrite_rule" {
+      for_each = var.app_gw_rewrite_rules
+      content {
+        name          = rewrite_rule.value.name
+        rule_sequence = rewrite_rule.value.rule_sequence
         condition {
-          variable    = "var_uri_path"
-          pattern     = "/robots.txt"
-          ignore_case = true
-          negate      = false
+          variable    = rewrite_rule.value.condition.variable
+          pattern     = rewrite_rule.value.condition.pattern
+          ignore_case = rewrite_rule.value.condition.ignore_case
+          negate      = rewrite_rule.value.condition.negate
         }
         response_header_configuration {
-          header_name  = "Content-Type"
-          header_value = "test/plain"
+          header_name  = rewrite_rule.value.response_header_configuration.header_name
+          header_value = rewrite_rule.value.response_header_configuration.header_value
         }
         url {
-          components = "path_only"
-          path       = "/jira/robots.txt"
-          reroute    = true
+          components = rewrite_rule.value.url.components
+          path       = rewrite_rule.value.url.path
+          reroute    = rewrite_rule.value.url.reroute
         }
       }
     }
   }
+}
 
   depends_on = [azurerm_role_assignment.identity]
 }

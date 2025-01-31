@@ -1143,3 +1143,24 @@ waf_custom_rules = [
 app_action = "status" # change this to "status" or "stop" in order to stop the jira
 
 enable_rewrite_rule_set = true # Enables the rewrite rule set on Application Gateway when set to "true"
+
+rewrite_rules = [
+  {
+    name          = "robots.txt"
+    rule_sequence = 100
+    condition = {
+      variable    = "var_uri_path"
+      pattern     = "/robots.txt"
+      ignore_case = true
+      negate      = false
+    }
+    response_header_configuration = {
+      header_name  = "Content-Type"
+      header_value = "text/plain"
+    }
+    url = {
+      components = "path_only"
+      path       = "/jira/robots.txt"
+      reroute    = true
+    }
+  }

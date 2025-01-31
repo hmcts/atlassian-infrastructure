@@ -101,3 +101,27 @@ variable "enable_rewrite_rule_set" {
   type        = bool
   default     = false
 }
+
+variable "app_gw_rewrite_rules" {
+  description = "List of rewrite rules"
+  type = list(object({
+    name          = string
+    rule_sequence = number
+    condition = object({
+      variable    = string
+      pattern     = string
+      ignore_case = bool
+      negate      = bool
+    })
+    response_header_configuration = object({
+      header_name  = string
+      header_value = string
+    })
+    url = object({
+      components = string
+      path       = string
+      reroute    = bool
+    })
+  }))
+  default = []
+}
