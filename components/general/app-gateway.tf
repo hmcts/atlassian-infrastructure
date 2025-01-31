@@ -143,7 +143,7 @@ resource "azurerm_application_gateway" "ag" {
     }
   }
 
-rewrite_rule_set {
+  rewrite_rule_set {
     name = "Test-Rewrites"
     rewrite_rule {
       name          = "robots.txt"
