@@ -125,7 +125,7 @@ resource "azurerm_application_gateway" "ag" {
       name                               = "appgw-url-map-path"
       default_backend_address_pool_name  = url_path_map.value.default_backend_address_pool_name
       default_backend_http_settings_name = url_path_map.value.default_backend_http_settings_name
-      default_rewrite_rule_set_name      = "Test-Rewrites"
+      default_rewrite_rule_set_name      = var.enable_rewrite_rule_set ? "Test-Rewrites" : null
       dynamic "path_rule" {
         for_each = [for p in url_path_map.value.path_rule : {
           name                       = p.name
@@ -144,25 +144,28 @@ resource "azurerm_application_gateway" "ag" {
     }
   }
 
-  rewrite_rule_set {
-    name = "Test-Rewrites"
-    rewrite_rule {
-      name          = "robots.txt"
-      rule_sequence = 100
-      condition {
-        variable    = "var_uri_path"
-        pattern     = "/robots.txt"
-        ignore_case = true
-        negate      = false
-      }
-      response_header_configuration {
-        header_name  = "Content-Type"
-        header_value = "test/plain"
-      }
-      url {
-        components = "path_only"
-        path       = "/jira/robots.txt"
-        reroute    = true
+  dynamic "rewrite_rule_set" {
+    for_each = var.enable_rewrite_rule_set ? [1] : []
+    content {
+      name = "Test-Rewrites"
+      rewrite_rule {
+        name          = "robots.txt"
+        rule_sequence = 100
+        condition {
+          variable    = "var_uri_path"
+          pattern     = "/robots.txt"
+          ignore_case = true
+          negate      = false
+        }
+        response_header_configuration {
+          header_name  = "Content-Type"
+          header_value = "test/plain"
+        }
+        url {
+          components = "path_only"
+          path       = "/jira/robots.txt"
+          reroute    = true
+        }
       }
     }
   }

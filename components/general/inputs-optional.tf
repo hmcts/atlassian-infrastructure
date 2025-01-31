@@ -95,3 +95,9 @@ variable "app_action" {
   type        = string
   default     = "status"
 }
+
+variable "enable_rewrite_rule_set" {
+  description = "Flag to enable or disable the rewrite rule set"
+  type        = bool
+  default     = false
+}
