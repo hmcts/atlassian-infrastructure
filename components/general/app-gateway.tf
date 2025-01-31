@@ -125,6 +125,7 @@ resource "azurerm_application_gateway" "ag" {
       name                               = "appgw-url-map-path"
       default_backend_address_pool_name  = url_path_map.value.default_backend_address_pool_name
       default_backend_http_settings_name = url_path_map.value.default_backend_http_settings_name
+      default_rewrite_rule_set_name      = length(var.app_gw_rewrite_rules) > 0 ? var.app_gw_rewrite_rules[0].ruleset_name : null
       dynamic "path_rule" {
         for_each = [for p in url_path_map.value.path_rule : {
           name                       = p.name
@@ -142,6 +143,33 @@ resource "azurerm_application_gateway" "ag" {
       }
     }
   }
+
+  rewrite_rule_set {
+    name = var.app_gw_rewrite_rules[0].ruleset_name
+    dynamic "rewrite_rule" {
+      for_each = var.app_gw_rewrite_rules
+      content {
+        name          = rewrite_rule.value.name
+        rule_sequence = rewrite_rule.value.rule_sequence
+        condition {
+          variable    = rewrite_rule.value.condition.variable
+          pattern     = rewrite_rule.value.condition.pattern
+          ignore_case = rewrite_rule.value.condition.ignore_case
+          negate      = rewrite_rule.value.condition.negate
+        }
+        response_header_configuration {
+          header_name  = rewrite_rule.value.response_header_configuration.header_name
+          header_value = rewrite_rule.value.response_header_configuration.header_value
+        }
+        url {
+          components = rewrite_rule.value.url.components
+          path       = rewrite_rule.value.url.path
+          reroute    = rewrite_rule.value.url.reroute
+        }
+      }
+    }
+  }
+
   depends_on = [azurerm_role_assignment.identity]
 }
 

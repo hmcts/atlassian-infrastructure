@@ -95,3 +95,28 @@ variable "app_action" {
   type        = string
   default     = "status"
 }
+
+variable "app_gw_rewrite_rules" {
+  description = "List of rewrite rules"
+  type = list(object({
+    ruleset_name  = string
+    name          = string
+    rule_sequence = number
+    condition = object({
+      variable    = string
+      pattern     = string
+      ignore_case = bool
+      negate      = bool
+    })
+    response_header_configuration = object({
+      header_name  = string
+      header_value = string
+    })
+    url = object({
+      components = string
+      path       = string
+      reroute    = bool
+    })
+  }))
+  default = []
+}
