@@ -1,6 +1,5 @@
 env             = "nonprod"
 subscription_id = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
-cnp_vault_sub   = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 
 vnets = {
   atlassian-int-nonprod-vnet = {
