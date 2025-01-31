@@ -96,15 +96,10 @@ variable "app_action" {
   default     = "status"
 }
 
-variable "enable_rewrite_rule_set" {
-  description = "Flag to enable or disable the rewrite rule set"
-  type        = bool
-  default     = false
-}
-
 variable "app_gw_rewrite_rules" {
   description = "List of rewrite rules"
   type = list(object({
+    ruleset_name  = string
     name          = string
     rule_sequence = number
     condition = object({
