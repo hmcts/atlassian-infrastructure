@@ -1142,5 +1142,5 @@ waf_custom_rules = [
 
 app_action = "status" # change this to "status" or "stop" in order to stop the jira
 
-enable_rewrite_rule_set = true # Enables the rewrite rule set on Application Gateway when set to "true"
+enable_rewrite_rule_set = false # Enables the rewrite rule set on Application Gateway when set to "true"
 
