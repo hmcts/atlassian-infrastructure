@@ -1163,3 +1163,7 @@ app_gw_rewrite_rules = [
     }
   }
 ]
+
+#Flex server configuration
+flex_server_storage_mb = 262144
+flex_server_storage_tier = "P15"

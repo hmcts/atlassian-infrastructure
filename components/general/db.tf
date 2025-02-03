@@ -128,12 +128,29 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   sku_name            = "MO_Standard_E8s_v3" # Memory Optimized SKU
   delegated_subnet_id = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres"]
 
-  storage_mb = 262144 #Closest alternative to previous 200GB on single server
+  storage_mb        = var.flex_server_storage_mb #Closest alternative to previous 200GB on single server
+  storage_tier      = var.flex_server_storage_tier
+  auto_grow_enabled = false
+
+  authentication {
+    active_directory_auth_enabled = false
+    tenant_id                     = data.azurerm_client_config.current.tenant_id
+    password_auth_enabled         = true
+  }
 
   administrator_login           = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value
   administrator_password        = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-PASS.value
   version                       = "11"
   public_network_access_enabled = false
+
+  maintenance_window {
+    day_of_week  = "0"
+    start_hour   = "03"
+    start_minute = "00"
+  }
+
+  backup_retention_days        = var.flex_server_backup_retention_days
+  geo_redundant_backup_enabled = var.flex_server_geo_redundant_backups
 
   lifecycle {
     ignore_changes = [
