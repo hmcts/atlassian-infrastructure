@@ -125,7 +125,7 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   name                = "atlassian-${var.env}-flex-server"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
-  sku_name            = "MO_Standard_E8s_v3" # Memory Optimized SKU
+  sku_name            = var.flex_server_sku_name # Memory Optimized SKU
   delegated_subnet_id = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres"]
 
   storage_mb        = var.flex_server_storage_mb #Closest alternative to previous 200GB on single server
