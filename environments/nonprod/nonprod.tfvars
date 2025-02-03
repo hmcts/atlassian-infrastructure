@@ -1,6 +1,5 @@
 env             = "nonprod"
 subscription_id = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
-cnp_vault_sub   = "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 
 vnets = {
   atlassian-int-nonprod-vnet = {
@@ -1142,3 +1141,25 @@ waf_custom_rules = [
 
 app_action = "status" # change this to "status" or "stop" in order to stop the jira
 
+app_gw_rewrite_rules = [
+  {
+    ruleset_name  = "Test-Rewrites"
+    name          = "robots.txt"
+    rule_sequence = 100
+    condition = {
+      variable    = "var_uri_path"
+      pattern     = "/robots.txt"
+      ignore_case = true
+      negate      = false
+    }
+    response_header_configuration = {
+      header_name  = "Content-Type"
+      header_value = "text/plain"
+    }
+    url = {
+      components = "path_only"
+      path       = "/jira/robots.txt"
+      reroute    = true
+    }
+  }
+]
