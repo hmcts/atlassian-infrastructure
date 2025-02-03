@@ -151,7 +151,7 @@ resource "azurerm_private_endpoint" "postgres_flex_private_endpoint" {
 
   private_service_connection {
     name                           = "postgres-flex-psc"
-    private_connection_resource_id = azurerm_postgresql_server.atlassian-flex-server.id
+    private_connection_resource_id = azurerm_postgresql_flexible_server.atlassian-flex-server.id
     is_manual_connection           = false
     subresource_names              = ["postgresqlServer"]
   }
