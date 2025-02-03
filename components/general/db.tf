@@ -126,6 +126,7 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   sku_name            = "MO_Standard_E8s_v3" # Memory Optimized SKU
+  delegated_subnet_id = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres"]
 
   storage_mb = 262144 #Closest alternative to previous 200GB on single server
 
@@ -140,24 +141,5 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
     ]
   }
 
-  tags = module.ctags.common_tags
-}
-
-resource "azurerm_private_endpoint" "postgres_flex_private_endpoint" {
-  name                = "atlassian-${var.env}-postgres-flex-pe"
-  location            = azurerm_resource_group.atlassian_rg.location
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
-  subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres"]
-
-  private_service_connection {
-    name                           = "postgres-flex-psc"
-    private_connection_resource_id = azurerm_postgresql_flexible_server.atlassian-flex-server.id
-    is_manual_connection           = false
-    subresource_names              = ["postgresqlServer"]
-  }
-  private_dns_zone_group {
-    name                 = local.zone_name
-    private_dns_zone_ids = [local.private_dns_zone_id]
-  }
   tags = module.ctags.common_tags
 }
