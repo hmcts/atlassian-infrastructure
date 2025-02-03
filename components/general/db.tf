@@ -125,7 +125,7 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flexible-server" {
   name                = "atlassian-${var.env}-server"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
-  sku_name            = "Standard_E8s_v3" # Memory Optimized SKU
+  sku_name            = "MO_Standard_E8s_v3" # Memory Optimized SKU
 
   storage_mb = 262144 #Closest alternative to previous 200GB on single server
 
