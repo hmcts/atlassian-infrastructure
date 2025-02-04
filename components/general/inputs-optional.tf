@@ -120,3 +120,30 @@ variable "app_gw_rewrite_rules" {
   }))
   default = []
 }
+
+variable "flex_server_sku_name" {
+  description = "The SKU name for the PostgreSQL Flexible Server"
+  default     = "MO_Standard_E8s_v3"
+}
+
+variable "flex_server_storage_mb" {
+  description = "The max storage allowed for the PostgreSQL Flexible Server"
+  default     = 262144
+}
+
+variable "flex_server_storage_tier" {
+  description = "The storage tier for the PostgreSQL Flexible Server"
+  default     = "P15"
+}
+
+variable "flex_server_backup_retention_days" {
+  description = "The number of days to retain backups for the PostgreSQL Flexible Server"
+  default     = 7
+}
+
+variable "flex_server_geo_redundant_backups" {
+  description = "Enable geo-redundant backups for the PostgreSQL Flexible Server"
+  default     = false
+}
+
+
