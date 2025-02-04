@@ -24,6 +24,12 @@ vnets = {
         name_override     = "atlassian-int-subnet-postgres"
         address_prefixes  = ["10.0.4.0/26"]
         service_endpoints = ["Microsoft.Sql"]
+        delegations = {
+          flexibleserver = {
+            service_name = "Microsoft.DBforPostgreSQL/flexibleServers"
+            actions      = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
+          }
+        }
       }
     }
   }
