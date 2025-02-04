@@ -3,8 +3,8 @@ locals {
   zone_name           = "privatelink.postgres.database.azure.com"
   zone_resource_group = "core-infra-intsvc-rg"
   app_names           = toset(["jira", "crowd", "confluence"])
-  DB_SERVER           = "jdbc:postgresql://atlassian-${var.env}-server.postgres.database.azure.com:5432"
-  DB_USER             = "${data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value}@atlassian-${var.env}-server"
+  DB_SERVER           = "jdbc:postgresql://atlassian-${var.env}-flex-server.postgres.database.azure.com:5432"
+  DB_USER             = "${data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value}@atlassian-${var.env}-flex-server"
 }
 
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-PASS" {
@@ -128,6 +128,7 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   sku_name            = var.flex_server_sku_name # Memory Optimized SKU
   delegated_subnet_id = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres-flex"]
   private_dns_zone_id = local.private_dns_zone_id
+  zone                = "1"
 
   storage_mb        = var.flex_server_storage_mb #Closest alternative to previous 200GB on single server
   storage_tier      = var.flex_server_storage_tier
