@@ -25,6 +25,16 @@ vnets = {
         address_prefixes  = ["10.0.4.0/26"]
         service_endpoints = ["Microsoft.Sql"]
       }
+      atlassian-int-subnet-postgres-flex = {
+        name_override     = "atlassian-int-subnet-postgres-flex"
+        address_prefixes  = ["10.0.5.0/28"]
+        delegations = {
+          flexibleserver = {
+            service_name = "Microsoft.DBforPostgreSQL/flexibleServers"
+            actions      = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
+          }
+        }
+      }
     }
   }
   atlassian-dmz-nonprod-vnet = {
