@@ -144,6 +144,11 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   version                       = "11"
   public_network_access_enabled = false
 
+  high_availability {
+    mode                       = "ZoneRedundant"
+    standby_availability_zone  = "1" # Specify the standby availability zone
+  }
+
   maintenance_window {
     day_of_week  = "0"
     start_hour   = "03"
