@@ -128,6 +128,7 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   sku_name            = var.flex_server_sku_name # Memory Optimized SKU
   delegated_subnet_id = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres-flex"]
   private_dns_zone_id = local.private_dns_zone_id
+  zone                          = "1"
 
   storage_mb        = var.flex_server_storage_mb #Closest alternative to previous 200GB on single server
   storage_tier      = var.flex_server_storage_tier
@@ -143,11 +144,6 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   administrator_password        = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-PASS.value
   version                       = "11"
   public_network_access_enabled = false
-
-  high_availability {
-    mode                      = "ZoneRedundant"
-    standby_availability_zone = "1" # Specify the standby availability zone
-  }
 
   maintenance_window {
     day_of_week  = "0"
