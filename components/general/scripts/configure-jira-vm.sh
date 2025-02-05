@@ -56,7 +56,7 @@ nameserver 168.63.129.16"
 echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
 log_entry "Updated resolv.conf"
 
-# Update dbconfig.xml in multiple locations
+# Update dbconfig.xml
 for file in /var/atlassian/application_data/jira_shared/dbconfig.xml /opt/atlassian/jira/data/dbconfig.xml; do
   sed -i "s|<url>.*</url>|<url>${DB_URL}</url>|" $file
   sed -i "s|<username>.*</username>|<username>${DB_USERNAME}</username>|" $file
