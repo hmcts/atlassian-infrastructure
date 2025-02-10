@@ -593,7 +593,7 @@ autoShutdown         = true
 
 vms = {
   atlassian-nonprod-jira-01 = {
-    computer_name      = "prdatl01ajra01.cp.cjs.hmcts.net"
+    computer_name      = "atlassian-nonprod-jira-01"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-jira-01-nic-ae42a8594ebb446cb08f04a919d15177"
     os_disk_name       = "atlassiannonprodjira01-osdisk-20250115-102743"
