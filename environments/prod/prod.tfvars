@@ -61,6 +61,9 @@ vnets = {
   }
 }
 
+ss-env = "ss-prod"
+ss-env-sub = "5ca62022-6aa2-4cee-aaa7-e7536c8d566c"
+
 
 network_security_groups = {
   atlassian-int-subnet-app-nsg = {
