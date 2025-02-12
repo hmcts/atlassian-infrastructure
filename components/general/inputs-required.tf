@@ -19,12 +19,12 @@ variable "vnets" {
 
 variable "ss-env" {
   description = "vnet required for peering"
-  type        = "string"
+  type        = string
 }
 
 variable "ss-env-sub" {
   description = "subscription required for peering"
-  type        = "string"
+  type        = string
 }
 
 

@@ -60,6 +60,8 @@ vnets = {
   }
 }
 
+ss-env     = "ss-stg"
+ss-env-sub = "74dacd4f-a248-45bb-a2f0-af700dc4cf68"
 
 network_security_groups = {
   atlassian-int-subnet-app-nsg = {
