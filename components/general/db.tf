@@ -4,7 +4,6 @@ locals {
   zone_resource_group = "core-infra-intsvc-rg"
   app_names           = toset(["jira", "crowd", "confluence"])
   DB_SERVER           = "jdbc:postgresql://atlassian-${var.env}-flex-server.postgres.database.azure.com:5432"
-  DB_USER             = "${data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value}@atlassian-${var.env}-flex-server"
 }
 
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-PASS" {
