@@ -28,11 +28,28 @@ if [ "$ENV" == "nonprod" ]; then
   sed -i '/glusterfs/c\10.0.4.150:/crowd_shared /var/atlassian/application-data/crowd_shared glusterfs defaults 0 0' /etc/fstab
   mount -a
   log_entry "Mounted glusterfs"
-  # Update crowd server.xml to replace tools.hmcts.net with staging.tools.hmcts.net
+  # Update crowd server.xml to replace tools.hmcts.net with prod-temp.tools.hmcts.net
   sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="staging.tools.hmcts.net"/g' /opt/crowd/apache-tomcat/conf/server.xml
   log_entry "Updated server.xml"
 
   mounting "crowd" "/var/atlassian/application-data/crowd_shared"
+elif [ "$ENV" == "prod" ]; then
+  update_hosts_file_prod
+  log_entry "Added entries in the hosts file"
+
+  # Replace glusterfs entry in /etc/fstab
+  sed -i '/glusterfs/c\10.1.4.150:/crowd_shared /var/atlassian/application-data/crowd_shared glusterfs defaults 0 0' /etc/fstab
+  mount -a
+  log_entry "Mounted glusterfs"
+
+  #TO BE REMOVED FOR PRODUCTION DEPLOY AFTER TESTING
+  # Update crowd server.xml to replace tools.hmcts.net with prod-temp.tools.hmcts.net
+  sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="prod-temp.tools.hmcts.net"/g' /opt/crowd/apache-tomcat/conf/server.xml
+  log_entry "Updated server.xml"
+
+  mounting "crowd" "/var/atlassian/application-data/crowd_shared"
+
+
 else
   echo "No environment specified"
 fi

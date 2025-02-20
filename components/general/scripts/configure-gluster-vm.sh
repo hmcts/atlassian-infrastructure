@@ -14,6 +14,10 @@ if [ "$ENV" == "nonprod" ]; then
   # Remove Dynatrace
   /opt/dynatrace/oneagent/agent/uninstall.sh
   log_entry "Uninstalled Dynatrace"
+elif [ "$ENV" == "prod" ]; then
+  update_hosts_file_prod
+  log_entry "Added entries in the hosts file"
+
 else
   echo "No environment specified"
 fi

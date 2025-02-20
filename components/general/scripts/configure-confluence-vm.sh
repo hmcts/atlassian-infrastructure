@@ -44,6 +44,27 @@ if [ "$ENV" == "nonprod" ]; then
     sed -i 's/^#\(CATALINA_OPTS="-Datlassian.mail.senddisabled=true -Datlassian.mail.fetchdisabled=true \(.*\)\)$/\1/' /opt/atlassian/confluence/install/bin/setenv.sh
 
     log_entry "Uncomment the line with mail senddisabled to disable mail"
+
+elif [ "$ENV" == "prod" ]; then
+  update_hosts_file_prod
+  log_entry "Added entries in the hosts file"
+  # Replace glusterfs entry in /etc/fstab
+  sed -i '/glusterfs/c\10.1.4.150:/confluence_shared /var/atlassian/application_data/confluence_shared glusterfs defaults 0 0' /etc/fstab
+  mount -a
+  log_entry "Mounted glusterfs"
+  
+  #TO BE REMOVED FOR PRODUCTION DEPLOY AFTER TESTING
+  # Update confluence server.xml to replace tools.hmcts.net with prod-temp.tools.hmcts.net
+  sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="prod-temp.tools.hmcts.net"/g' /opt/atlassian/confluence/install/conf/server.xml
+  log_entry "Updated server.xml"
+
+  mounting "confluence" "/var/atlassian/application_data/confluence_shared/"
+
+  #TO BE REMOVED FOR PRODUCTION DEPLOY AFTER TESTING
+  # Uncomment the line with mail senddisabled
+  sed -i 's/^#\(CATALINA_OPTS="-Datlassian.mail.senddisabled=true -Datlassian.mail.fetchdisabled=true \(.*\)\)$/\1/' /opt/atlassian/confluence/install/bin/setenv.sh
+
+  log_entry "Uncomment the line with mail senddisabled to disable mail"
 else
   echo "No environment specified"
 fi
