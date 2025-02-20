@@ -25,3 +25,9 @@ provider "azurerm" {
   features {}
   subscription_id = var.ss-env-sub #DTS-SHAREDSERVICES-STG | DTS-SHAREDSERVICES-PROD
 }
+
+provider "azurerm" {
+  alias = "cft-mgmt"
+  features {}
+  subscription_id = "ed302caf-ec27-4c64-a05e-85731c3ce90e" #Reform-CFT-Mgmt
+}

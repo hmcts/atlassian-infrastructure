@@ -22,6 +22,22 @@ update_hosts_file_staging() {
 echo "${HOST_ENTRIES}" > /etc/hosts
 }
 
+update_hosts_file_prod() {
+    HOST_ENTRIES="127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.1.4.196 atlassian-prod-jira-01
+10.1.4.197 atlassian-prod-jira-02
+10.1.4.198 atlassian-prod-jira-03
+10.1.4.199 atlassian-prod-confluence-02
+10.1.4.200 atlassian-prod-confluence-04
+10.1.4.201 atlassian-prod-crowd-01 prdatl01lbcrd01
+10.1.4.202 atlassian-prod-gluster-01
+10.1.4.203 atlassian-prod-gluster-02
+10.1.4.204 atlassian-prod-gluster-03"
+
+echo "${HOST_ENTRIES}" > /etc/hosts
+}
+
 log_entry() {
   LOG_FILE="/tmp/configure-file.log"
   if [ ! -f $LOG_FILE ]; then

@@ -40,3 +40,24 @@ resource "azurerm_virtual_network_peering" "ss-env-vnet-to-int" {
   allow_virtual_network_access = "true"
   allow_forwarded_traffic      = "true"
 }
+
+resource "azurerm_virtual_network_peering" "int-to-vpn" {
+  name                      = "atlassian-int-${var.env}-vnet-to-core-infra-vnet-mgmt"
+  resource_group_name       = azurerm_resource_group.atlassian_rg.name
+  virtual_network_name      = "atlassian-int-${var.env}-vnet"
+  remote_virtual_network_id = "/subscriptions/ed302caf-ec27-4c64-a05e-85731c3ce90e/resourceGroups/rg-mgmt/providers/Microsoft.Network/virtualNetworks/core-infra-vnet-mgmt"
+
+  allow_virtual_network_access = "true"
+  allow_forwarded_traffic      = "true"
+}
+
+resource "azurerm_virtual_network_peering" "vpn-to-int" {
+  provider                  = azurerm.cft-mgmt
+  name                      = "core-infra-vnet-mgmt-to-atlassian-int-${var.env}-vnet"
+  resource_group_name       = "rg-mgmt"
+  virtual_network_name      = "core-infra-vnet-mgmt"
+  remote_virtual_network_id = module.networking.vnet_ids["atlassian-int-${var.env}-vnet"]
+
+  allow_virtual_network_access = "true"
+  allow_forwarded_traffic      = "true"
+}
