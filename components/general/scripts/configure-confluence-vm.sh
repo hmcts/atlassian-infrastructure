@@ -22,6 +22,10 @@ chmod -R u+rw /opt/atlassian
 
 log_entry "Changed ownership of /opt/atlassian to confluence:confluence"
 
+# Remove Dynatrace
+/opt/dynatrace/oneagent/agent/uninstall.sh
+log_entry "Uninstalled Dynatrace"
+
 # # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging
@@ -34,16 +38,13 @@ if [ "$ENV" == "nonprod" ]; then
   sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="staging.tools.hmcts.net"/g' /opt/atlassian/confluence/install/conf/server.xml
   log_entry "Updated server.xml"
 
-    # Remove Dynatrace
-    /opt/dynatrace/oneagent/agent/uninstall.sh
-    log_entry "Uninstalled Dynatrace"
 
-    mounting "confluence" "/var/atlassian/application_data/confluence_shared/"
+  mounting "confluence" "/var/atlassian/application_data/confluence_shared/"
 
-    # Uncomment the line with mail senddisabled
-    sed -i 's/^#\(CATALINA_OPTS="-Datlassian.mail.senddisabled=true -Datlassian.mail.fetchdisabled=true \(.*\)\)$/\1/' /opt/atlassian/confluence/install/bin/setenv.sh
+  # Uncomment the line with mail senddisabled
+  sed -i 's/^#\(CATALINA_OPTS="-Datlassian.mail.senddisabled=true -Datlassian.mail.fetchdisabled=true \(.*\)\)$/\1/' /opt/atlassian/confluence/install/bin/setenv.sh
 
-    log_entry "Uncomment the line with mail senddisabled to disable mail"
+  log_entry "Uncomment the line with mail senddisabled to disable mail"
 
 elif [ "$ENV" == "prod" ]; then
   update_hosts_file_prod

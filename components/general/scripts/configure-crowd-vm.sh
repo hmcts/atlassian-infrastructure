@@ -20,6 +20,10 @@ chmod -R u+rw /opt/crowd
 
 log_entry "Changed ownership of /opt/crowd to crowd:crowd"
 
+# Remove Dynatrace
+/opt/dynatrace/oneagent/agent/uninstall.sh
+log_entry "Uninstalled Dynatrace"
+
 # # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging

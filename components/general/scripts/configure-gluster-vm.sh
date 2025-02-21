@@ -6,14 +6,15 @@ source /tmp/functions.sh
 
 ENV=$4
 
+# Remove Dynatrace
+/opt/dynatrace/oneagent/agent/uninstall.sh
+log_entry "Uninstalled Dynatrace"
+
 # # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging
   log_entry "Added entries in the hosts file"
 
-  # Remove Dynatrace
-  /opt/dynatrace/oneagent/agent/uninstall.sh
-  log_entry "Uninstalled Dynatrace"
 elif [ "$ENV" == "prod" ]; then
   update_hosts_file_prod
   log_entry "Added entries in the hosts file"

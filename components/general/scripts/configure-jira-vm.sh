@@ -21,6 +21,10 @@ chmod -R u+rw /opt/atlassian/jira
 # chmod -R u+rw /var/atlassian/application_data/jira_shared
 log_entry "Changed ownership of /opt/atlassian/jira to jira:jira"
 
+# Remove Dynatrace
+/opt/dynatrace/oneagent/agent/uninstall.sh
+log_entry "Uninstalled Dynatrace"
+
 # # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging
@@ -29,10 +33,6 @@ if [ "$ENV" == "nonprod" ]; then
   sed -i '/glusterfs/c\10.0.4.150:/jira_shared /var/atlassian/application_data/jira_shared glusterfs defaults 0 0' /etc/fstab
   mount -a
   log_entry "Mounted glusterfs"
-
-  # Remove Dynatrace
-  /opt/dynatrace/oneagent/agent/uninstall.sh
-  log_entry "Uninstalled Dynatrace"
 
   # Update Jira server.xml to replace tools.hmcts.net with staging.tools.hmcts.net
   for file2 in /opt/atlassian/jira/conf/server.xml /opt/atlassian/jira/data/customisations/conf/server.xml /opt/atlassian/jira/install/conf/server.xml; do
