@@ -1,6 +1,6 @@
 #!/bin/bash
 # set -x
-#ensuring run
+#ensuring run 1
 # Set up the database connection
 export PGPORT=5432
 export PGHOST="${POSTGRES_HOST}"
