@@ -50,6 +50,7 @@ variable "data_disks" {
     storage_account_type = string
     caching              = string
     lun                  = number
+    source_resource_id   = optional(string)
   }))
 }
 
