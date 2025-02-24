@@ -653,7 +653,7 @@ vms = {
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-prod-gluster-01-nic-e45cc4e490274206be27bf6edb146c83"
     os_disk_name       = "atlassianprodgluster01-osdisk-20250212-150320"
-    private_ip_address = "10.1.4.202"
+    private_ip_address = "10.1.4.132"
     app                = "gluster"
   }
 
@@ -662,7 +662,7 @@ vms = {
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-prod-gluster-02-nic-35bec6dd7ccd4bbbb1b0393bd3ab92b1"
     os_disk_name       = "atlassianprodgluster02-osdisk-20250212-150340"
-    private_ip_address = "10.1.4.203"
+    private_ip_address = "10.1.4.133"
     app                = "gluster"
   }
 
@@ -671,7 +671,7 @@ vms = {
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-prod-gluster-03-nic-2d04cbd8ac8440a4a21334adcd93ab95"
     os_disk_name       = "atlassianprodgluster03-osdisk-20250212-150358"
-    private_ip_address = "10.1.4.204"
+    private_ip_address = "10.1.4.134"
     app                = "gluster"
   }
 }
@@ -825,7 +825,7 @@ nics = {
       primary = {
         name                  = "b4b4121007314a22b48b788692df2a12"
         private_ip_allocation = "Static"
-        private_ip_address    = "10.1.4.202"
+        private_ip_address    = "10.1.4.132"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-dat"
       }
     }
@@ -836,7 +836,7 @@ nics = {
       primary = {
         name                  = "f385dc90c5a7494ca49ef799471455ae"
         private_ip_allocation = "Static"
-        private_ip_address    = "10.1.4.203"
+        private_ip_address    = "10.1.4.133"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-dat"
       }
     }
@@ -847,7 +847,7 @@ nics = {
       primary = {
         name                  = "389f654c117346ab908f499cc9a35140"
         private_ip_allocation = "Static"
-        private_ip_address    = "10.1.4.204"
+        private_ip_address    = "10.1.4.134"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-dat"
       }
     }

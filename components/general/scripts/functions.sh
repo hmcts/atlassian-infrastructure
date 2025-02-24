@@ -31,9 +31,9 @@ update_hosts_file_prod() {
 10.1.4.199 atlassian-prod-confluence-02
 10.1.4.200 atlassian-prod-confluence-04
 10.1.4.201 atlassian-prod-crowd-01 prdatl01lbcrd01
-10.1.4.202 atlassian-prod-gluster-01
-10.1.4.203 atlassian-prod-gluster-02
-10.1.4.204 atlassian-prod-gluster-03"
+10.1.4.132 atlassian-prod-gluster-01
+10.1.4.133 atlassian-prod-gluster-02
+10.1.4.134 atlassian-prod-gluster-03"
 
 echo "${HOST_ENTRIES}" > /etc/hosts
 }
