@@ -51,7 +51,7 @@ variables:
   - name: terraformInitSubscription
     value: 04d27a32-7a07-48b3-95b8-3c8691e1a263
   - name: agentPool
-    value: 'hmcts-ss-stg'
+    value: 'hmcts-ss-prod'
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
 
 stages:
