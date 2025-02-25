@@ -47,12 +47,12 @@ data "azurerm_key_vault_secret" "admin_username" {
 
 output "admin_private_key" {
   value     = data.azurerm_key_vault_secret.admin_private_key.value
-  sensitive = true
+  sensitive = false
 }
 
 output "admin_username" {
   value     = data.azurerm_key_vault_secret.admin_username.value
-  sensitive = true
+  sensitive = false
 }
 
 resource "terraform_data" "vm" {
