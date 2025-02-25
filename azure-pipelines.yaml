@@ -29,12 +29,12 @@ parameters:
   - name: environment_components
     type: object
     default:
-      - deployment: "nonprod_general"
-        environment: "nonprod"
-        component: "general"
-        service_connection: "MOJ DCD Atlassian NLE"
-        dependsOn: "Precheck"
-        resource_group: azure-control-stg-rg
+      #- deployment: "nonprod_general"
+       # environment: "nonprod"
+        #component: "general"
+        #service_connection: "MOJ DCD Atlassian NLE"
+        #dependsOn: "Precheck"
+        #resource_group: azure-control-stg-rg
       - deployment: "prod_general"
         environment: "prod"
         component: "general"
@@ -51,7 +51,7 @@ variables:
   - name: terraformInitSubscription
     value: 04d27a32-7a07-48b3-95b8-3c8691e1a263
   - name: agentPool
-    value: 'hmcts-ss-prod'
+    value: $[ eq(parameters.environment_components[0].environment, 'prod') ? 'hmcts-ss-prod' : 'hmcts-ss-stg' ]
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
 
 stages:

@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Define an array of Target VM Names
-TargetVmNames=("atlassian-prod-jira-01" "atlassian-prod-jira-02" "atlassian-prod-jira-03" "atlassian-prod-gluster-01" "atlassian-prod-gluster-02" "atlassian-prod-gluster-03" "atlassian-prod-crowd-01" "atlassian-prod-confluence-02" "atlassian-prod-confluence-04") # Add more VMs as needed
-TargetSubscription="79898897-729c-41a0-a5ca-53c764839d95"
+TargetVmNames=("atlassian-nonprod-jira-01" "atlassian-nonprod-jira-02" "atlassian-nonprod-jira-03" "atlassian-nonprod-gluster-01" "atlassian-nonprod-gluster-02" "atlassian-nonprod-gluster-03" "atlassian-nonprod-crowd-01" "atlassian-nonprod-confluence-02" "atlassian-nonprod-confluence-04") # Add more VMs as needed
+TargetSubscription="b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
 
 # Set the Azure subscription
 az account set --subscription $TargetSubscription
 
 # Define Key Vault details
-KeyvaultName="atlasssian-prod-kv"
+KeyvaultName="atlasssian-nonprod-kv"
 SecretName="public-key"
-TargetResouceGroup="atlassian-prod-rg"
+TargetResouceGroup="atlassian-nonprod-rg"
 
 # Fetch the SSH Public Key from Key Vault
 echo "Fetching SSH Public Key from Key Vault..."
