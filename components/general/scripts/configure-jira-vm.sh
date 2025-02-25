@@ -18,8 +18,8 @@ log_entry "Executed systemctl $APP_ACTION jira"
 # Grant permissions to Jira user
 chown -R jira:jira /opt/atlassian/jira
 chmod -R u+rw /opt/atlassian/jira
-# chown -R jira:jira /var/atlassian/application_data/jira_shared
-# chmod -R u+rw /var/atlassian/application_data/jira_shared
+chown -R jira:jira /var/atlassian/application_data/jira_shared/node-status/
+chmod -R u+rw /var/atlassian/application_data/jira_shared/node-status/
 log_entry "Changed ownership of /opt/atlassian/jira to jira:jira"
 
 # # Update /etc/hosts
