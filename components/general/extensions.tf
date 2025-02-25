@@ -17,6 +17,7 @@ module "vm-bootstrap" {
   install_endpoint_protection = var.install_endpoint_protection
   run_command                 = var.run_command
   os_type                     = var.os_type
+  env                         = var.environment == "prod" ? var.environment : "nonprod"
 
   dynatrace_hostgroup = var.dynatrace_hostgroup
 
