@@ -65,16 +65,16 @@ resource "terraform_data" "vm" {
     type     = "ssh"
     host     = each.value.private_ip_address
     user     = data.azurerm_key_vault_secret.admin_username.value
-    password = data.azurerm_key_vault_secret.admin_password.value
+    private_key = data.azurerm_key_vault_secret.admin_private_key.value
   }
 
   provisioner "file" {
-    source      = "${path.module}/scripts/configure-${each.value.app}-vm.sh"
+    source      = "./scripts/configure-${each.value.app}-vm.sh"
     destination = "/tmp/configure-${each.value.app}-vm.sh"
   }
 
   provisioner "file" {
-    source      = "${path.module}/scripts/functions.sh"
+    source      = "./scripts/functions.sh"
     destination = "/tmp/functions.sh"
   }
   provisioner "remote-exec" {
