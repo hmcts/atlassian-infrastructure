@@ -164,24 +164,6 @@ variable "dynatrace_network_zone" {
   default     = "azure.cft"
 }
 
-variable "dynatrace_tenant_id" {
-  description = "The tenant ID of your Dynatrace environment."
-  type        = string
-  default     = "ebe20728" #non-prod"yrk32651"
-}
-
-variable "dynatrace_token" {
-  description = "The API token of your Dynatrace environment."
-  type        = string
-  default     = ""
-}
-
-variable "dynatrace_server" {
-  description = "The server URL, if you want to configure an alternative communication endpoint."
-  type        = string
-  default     = null
-}
-
 variable "install_dynatrace_oneagent" {
   type    = string
   default = true
