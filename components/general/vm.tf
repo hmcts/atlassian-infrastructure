@@ -45,6 +45,14 @@ data "azurerm_key_vault_secret" "admin_username" {
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
+output "admin_private_key" {
+  value = data.azurerm_key_vault_secret.admin_private_key.value
+}
+
+output "admin_username" {
+  value = data.azurerm_key_vault_secret.admin_username.value
+}
+
 resource "terraform_data" "vm" {
   for_each = { for k, v in var.vms : k => v if can(regex("(jira|crowd|gluster|confluence)", k)) }
 
