@@ -40,19 +40,14 @@ data "azurerm_key_vault_secret" "admin_private_key" {
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
-data "azurerm_key_vault_secret" "admin_username" {
-  name         = "vm-admin-username"
+data "azurerm_key_vault_secret" "admin_password" {
+  name         = "vm-admin-password"
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
-output "admin_private_key" {
-  value     = nonsensitive(data.azurerm_key_vault_secret.admin_private_key.value)
-  sensitive = false
-}
-
-output "admin_username" {
-  value     = nonsensitive(data.azurerm_key_vault_secret.admin_username.value)
-  sensitive = false
+data "azurerm_key_vault_secret" "admin_username" {
+  name         = "vm-admin-username"
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
 resource "terraform_data" "vm" {
@@ -70,7 +65,7 @@ resource "terraform_data" "vm" {
     type        = "ssh"
     host        = each.value.private_ip_address
     user        = data.azurerm_key_vault_secret.admin_username.value
-    private_key = data.azurerm_key_vault_secret.admin_private_key.value
+    password    = data.azurerm_key_vault_secret.admin_password.value
   }
 
   provisioner "file" {
