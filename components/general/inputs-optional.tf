@@ -152,18 +152,6 @@ variable "azure_monitor_settings" {
   default     = null
 }
 
-variable "dynatrace_hostgroup" {
-  description = "Define the hostgroup to which the VM belongs."
-  type        = string
-  default     = "PRD_DTS_AT_A"
-}
-
-variable "dynatrace_network_zone" {
-  description = "the network zone the oneagent is attached to i.e azure.cft"
-  type        = string
-  default     = "azure.cft"
-}
-
 variable "install_dynatrace_oneagent" {
   type    = string
   default = true
