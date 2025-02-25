@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -x
-#run.
+#run
 source /tmp/functions.sh
 
 ENV=$4
