@@ -3,12 +3,10 @@ trigger:
     include:
       - master
 
-
 pr:
   branches:
     include:
       - master
-
 
 resources:
   repositories:
@@ -26,22 +24,16 @@ parameters:
       - plan
       - apply
       - destroy
+
   - name: environment_components
     type: object
     default:
-      #- deployment: "nonprod_general"
-       # environment: "nonprod"
-        #component: "general"
-        #service_connection: "MOJ DCD Atlassian NLE"
-        #dependsOn: "Precheck"
-        #resource_group: azure-control-stg-rg
       - deployment: "prod_general"
         environment: "prod"
         component: "general"
         service_connection: "MOJ DCD Atlassian LVE"
         resource_group: azure-control-prod-rg
         dependsOn: "nonprod_general"
-    
 
 variables:
   - name: timeoutInMinutes
@@ -55,9 +47,9 @@ variables:
 stages:
   - stage: Precheck
     jobs:
-      - job:
+      - job: PrecheckJob
         pool:
-            name: $[eq('${{ parameters.environment_components[0].environment }}', 'prod') ? 'hmcts-ss-prod' : 'hmcts-ss-stg']
+          name: $[ eq('${{ parameters.environment_components[0].environment }}', 'prod') ? 'hmcts-ss-prod' : 'hmcts-ss-stg' ]
         steps:
           - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
             parameters:
@@ -65,13 +57,14 @@ stages:
               keyvaultSecret: "azure-devops-sp-token"
               serviceConnection: "azurerm-sandbox"
               overrideAction: ${{ parameters.overrideAction }}
+
   - ${{ each deployment in parameters.environment_components }}:
       - stage: ${{ deployment.deployment }}
         dependsOn: ${{ deployment.dependsOn }}
         jobs:
           - job: TerraformPlanApply
             pool:
-              name: $[eq('${{ parameters.environment_components[0].environment }}', 'prod') ? 'hmcts-ss-prod' : 'hmcts-ss-stg']
+              name: $[ eq('${{ deployment.environment }}', 'prod') ? 'hmcts-ss-prod' : 'hmcts-ss-stg' ]
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
