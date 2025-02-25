@@ -26,6 +26,37 @@ resource "azurerm_virtual_machine" "vm" {
   tags = module.ctags.common_tags
 }
 
+module "vm-bootstrap" {
+  providers = {
+    azurerm     = azurerm
+    azurerm.cnp = azurerm.cnp
+    azurerm.soc = azurerm.soc
+    azurerm.dcr = azurerm.dcr
+  }
+
+
+  count  = var.install_dynatrace_oneagent == true
+  source = "git::https://github.com/hmcts/terraform-module-vm-bootstrap.git?ref=master"
+
+  virtual_machine_type        = "vm"
+  virtual_machine_id          = azurerm_virtual_machine.vm.id
+  env                         = var.environment == "prod" ? var.environment : "nonprod"
+  install_dynatrace_oneagent  = var.install_dynatrace_oneagent
+  install_azure_monitor       = var.install_azure_monitor
+  install_nessus_agent        = var.install_nessus_agent
+  install_splunk_uf           = var.install_splunk_uf
+  install_endpoint_protection = var.install_endpoint_protection
+  run_command                 = var.run_command
+  os_type                     = var.os_type
+
+  dynatrace_hostgroup = var.dynatrace_hostgroup
+  dynatrace_server    = var.dynatrace_server
+  dynatrace_tenant_id = var.dynatrace_tenant_id
+  dynatrace_token     = var.dynatrace_token
+
+  common_tags = var.tags
+}
+
 resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
   for_each = var.data_disks
 

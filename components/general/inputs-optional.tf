@@ -146,4 +146,73 @@ variable "flex_server_geo_redundant_backups" {
   default     = false
 }
 
+variable "azure_monitor_settings" {
+  description = "The settings passed to the Azure Monitor extension, these are specified as a JSON object in a string."
+  type        = string
+  default     = null
+}
 
+variable "dynatrace_hostgroup" {
+  description = "Define the hostgroup to which the VM belongs."
+  type        = string
+  default     = "PRD_DTS_AT_A"
+}
+
+variable "dynatrace_network_zone" {
+  description = "the network zone the oneagent is attached to i.e azure.cft"
+  type        = string
+  default     = "azure.cft"
+}
+
+variable "dynatrace_tenant_id" {
+  description = "The tenant ID of your Dynatrace environment."
+  type        = string
+  default     = "ebe20728" #non-prod"yrk32651"
+}
+
+variable "dynatrace_token" {
+  description = "The API token of your Dynatrace environment."
+  type        = string
+  default     = ""
+}
+
+variable "dynatrace_server" {
+  description = "The server URL, if you want to configure an alternative communication endpoint."
+  type        = string
+  default     = null
+}
+
+variable "install_dynatrace_oneagent" {
+  type    = string
+  default = true
+}
+
+variable "install_azure_monitor" {
+  type    = string
+  default = false
+}
+
+variable "install_nessus_agent" {
+  type    = string
+  default = false
+}
+
+variable "install_splunk_uf " {
+  type    = string
+  default = false
+}
+
+variable "install_endpoint_protection" {
+  type    = string
+  default = false
+}
+
+variable "run_command" {
+  type    = string
+  default = false
+}
+
+variable "os_type" {
+  type    = string
+  default = "linux"
+}
