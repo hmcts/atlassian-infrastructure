@@ -153,32 +153,32 @@ variable "azure_monitor_settings" {
 }
 
 variable "install_dynatrace_oneagent" {
-  type    = string
+  type    = bool
   default = true
 }
 
 variable "install_azure_monitor" {
-  type    = string
+  type    = bool
   default = false
 }
 
 variable "install_nessus_agent" {
-  type    = string
+  type    = bool
   default = false
 }
 
 variable "install_splunk_uf" {
-  type    = string
+  type    = bool
   default = false
 }
 
 variable "install_endpoint_protection" {
-  type    = string
+  type    = bool
   default = false
 }
 
 variable "run_command" {
-  type    = string
+  type    = bool
   default = false
 }
 
