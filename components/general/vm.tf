@@ -62,10 +62,10 @@ resource "terraform_data" "vm" {
   ]
 
   connection {
-    type        = "ssh"
-    host        = each.value.private_ip_address
-    user        = data.azurerm_key_vault_secret.admin_username.value
-    password    = data.azurerm_key_vault_secret.admin_password.value
+    type     = "ssh"
+    host     = each.value.private_ip_address
+    user     = data.azurerm_key_vault_secret.admin_username.value
+    password = data.azurerm_key_vault_secret.admin_password.value
   }
 
   provisioner "file" {
