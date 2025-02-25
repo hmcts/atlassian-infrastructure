@@ -167,7 +167,7 @@ variable "install_nessus_agent" {
   default = false
 }
 
-variable "install_splunk_uf " {
+variable "install_splunk_uf" {
   type    = string
   default = false
 }

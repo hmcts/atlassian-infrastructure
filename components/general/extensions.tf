@@ -1,4 +1,10 @@
 module "vm-bootstrap" {
+  providers = {
+    azurerm     = azurerm
+    azurerm.cnp = azurerm.cnp
+    azurerm.soc = azurerm.soc
+    azurerm.dcr = azurerm.dcr
+  }
   count  = var.install_dynatrace_oneagent == true
   source = "git::https://github.com/hmcts/terraform-module-vm-bootstrap.git?ref=master"
 
