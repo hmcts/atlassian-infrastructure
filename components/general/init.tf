@@ -2,8 +2,9 @@ terraform {
   required_version = ">= 1.9"
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 4.9.0"
+      source                = "hashicorp/azurerm"
+      version               = ">= 4.9.0"
+      configuration_aliases = [azurerm.cnp, azurerm.soc, azurerm.dcr]
     }
   }
   backend "azurerm" {}
