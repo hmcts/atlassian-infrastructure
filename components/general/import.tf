@@ -30,7 +30,7 @@ import {
 }
 
 # VNET LINK IMPORTS
-import {
-  to = azurerm_private_dns_zone_virtual_network_link.postgres_dns_zone_vnet_link
-  id = "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.postgres.database.azure.com/virtualNetworkLinks/atlassian-nonprod-postgres-dns-vnet-link"
-}
+#import {
+ # to = azurerm_private_dns_zone_virtual_network_link.postgres_dns_zone_vnet_link
+  #id = "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.postgres.database.azure.com/virtualNetworkLinks/atlassian-nonprod-postgres-dns-vnet-link"
+#}
