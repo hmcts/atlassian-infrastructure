@@ -50,8 +50,6 @@ variables:
     value: atlassian
   - name: terraformInitSubscription
     value: 04d27a32-7a07-48b3-95b8-3c8691e1a263
-  - name: agentPool
-    value: $[ eq(parameters.environment_components[0].environment, 'prod') ? 'hmcts-ss-prod' : 'hmcts-ss-stg' ]
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
 
 stages:
@@ -59,7 +57,7 @@ stages:
     jobs:
       - job:
         pool:
-            name: ${{ variables.agentPool }}
+            name: $[eq('${{ parameters.environment_components[0].environment }}', 'prod') ? 'hmcts-ss-prod' : 'hmcts-ss-stg']
         steps:
           - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
             parameters:
@@ -73,7 +71,7 @@ stages:
         jobs:
           - job: TerraformPlanApply
             pool:
-              name: ${{ variables.agentPool }}
+              name: $[eq('${{ parameters.environment_components[0].environment }}', 'prod') ? 'hmcts-ss-prod' : 'hmcts-ss-stg']
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
