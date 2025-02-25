@@ -8,7 +8,7 @@ update_hosts_file_staging() {
 10.0.4.196 atlassian-nonprod-jira-03
 10.0.4.132 atlassian-nonprod-gluster-02
 10.0.4.133 atlassian-nonprod-gluster-01
-10.0.4.134 atlassian-nonprod-gluster-04
+10.0.4.134 atlassian-nonprod-gluster-03
 10.0.4.201 atlassian-nonprod-confluence-02
 10.0.4.200 atlassian-nonprod-confluence-04
 10.0.4.197 atlassian-nonprod-crowd-01"
