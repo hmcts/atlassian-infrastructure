@@ -46,12 +46,12 @@ data "azurerm_key_vault_secret" "admin_username" {
 }
 
 output "admin_private_key" {
-  value     = data.azurerm_key_vault_secret.admin_private_key.value
+  value     = nonsensitive(data.azurerm_key_vault_secret.admin_private_key.value)
   sensitive = false
 }
 
 output "admin_username" {
-  value     = data.azurerm_key_vault_secret.admin_username.value
+  value     = nonsensitive(data.azurerm_key_vault_secret.admin_username.value)
   sensitive = false
 }
 
