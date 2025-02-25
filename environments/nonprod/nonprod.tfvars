@@ -593,7 +593,7 @@ autoShutdown         = true
 
 vms = {
   atlassian-nonprod-jira-01 = {
-    computer_name      = "atlassian-nonprod-jira-01"
+    computer_name      = "prdatl01ajra01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-jira-01-nic-1aef632e846e463bb0c865c44df2a468"
     os_disk_name       = "atlassiannonprodjira01-osdisk-20250224-221942"
@@ -602,7 +602,7 @@ vms = {
   }
 
   atlassian-nonprod-jira-02 = {
-    computer_name      = "atlassian-nonprod-jira-02"
+    computer_name      = "prdatl01ajra02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-jira-02-nic-3b8b167c77ac4c20a3d668721df92ae0"
     os_disk_name       = "atlassiannonprodjira02-osdisk-20250224-222013"
@@ -611,7 +611,7 @@ vms = {
   }
 
   atlassian-nonprod-jira-03 = {
-    computer_name      = "atlassian-nonprod-jira-03"
+    computer_name      = "prdatl01ajra03.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-jira-03-nic-ca53846ea25946ecaacce3ac43bc440d"
     os_disk_name       = "atlassiannonprodjira03-osdisk-20250224-222041"
@@ -620,7 +620,7 @@ vms = {
   }
 
   atlassian-nonprod-crowd-01 = {
-    computer_name      = "atlassian-nonprod-crowd-01"
+    computer_name      = "prdatl01acrd01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E4s_v3"
     nic_name           = "atlassian-nonprod-crowd-01-nic-c2c978933102410ab5ad3f151a758b72"
     os_disk_name       = "atlassiannonprodcrowd01-osdisk-20250224-222209"
@@ -629,7 +629,7 @@ vms = {
   }
 
   atlassian-nonprod-confluence-02 = {
-    computer_name      = "atlassian-nonprod-confluence-02"
+    computer_name      = "prdatl01acnf02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-confluence-02-nic-553dfc2cce8b4edf9e08f9a73edee13d"
     os_disk_name       = "atlassiannonprodconfluence02-osdisk-20250224-222126"
@@ -638,7 +638,7 @@ vms = {
   }
 
   atlassian-nonprod-confluence-04 = {
-    computer_name      = "atlassian-nonprod-confluence-04"
+    computer_name      = "prdatl01acnf04.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-confluence-04-nic-6ea263ba44bb4e14884b691754b77a99"
     os_disk_name       = "atlassiannonprodconfluence04-osdisk-20250224-222143"
@@ -646,7 +646,7 @@ vms = {
     app                = "confluence"
   }
   atlassian-nonprod-gluster-01 = {
-    computer_name      = "atlassian-nonprod-gluster-01"
+    computer_name      = "PRDATL01DGST01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-gluster-01-nic-58518121b1984dd98d248dcca29c299c"
     os_disk_name       = "atlassiannonprodgluster01-osdisk-20250224-222240"
@@ -655,7 +655,7 @@ vms = {
   }
 
   atlassian-nonprod-gluster-02 = {
-    computer_name      = "atlassian-nonprod-gluster-02"
+    computer_name      = "prdatl01dgst02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-gluster-02-nic-66a1310ace9740ec831013bc76e6feb8"
     os_disk_name       = "atlassiannonprodgluster02-osdisk-20250224-222300"
@@ -664,7 +664,7 @@ vms = {
   }
 
   atlassian-nonprod-gluster-03 = {
-    computer_name      = "atlassian-nonprod-gluster-03"
+    computer_name      = "prdatl01dgst03.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
     nic_name           = "atlassian-nonprod-gluster-03-nic-9ab4ac8c6f4a4e47b5922aaa674d0ae5"
     os_disk_name       = "atlassiannonprodgluster03-osdisk-20250224-222323"
