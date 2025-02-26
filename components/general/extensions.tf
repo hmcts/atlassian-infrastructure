@@ -9,7 +9,7 @@ module "vm-bootstrap" {
   source = "git::https://github.com/hmcts/terraform-module-vm-bootstrap.git?ref=master"
 
   virtual_machine_type        = "vm"
-  virtual_machine_id          = azurerm_virtual_machine.vm.id
+  virtual_machine_id          = azurerm_virtual_machine.vm[each.key].id
   install_dynatrace_oneagent  = var.install_dynatrace_oneagent
   install_azure_monitor       = var.install_azure_monitor
   install_nessus_agent        = var.install_nessus_agent
@@ -17,9 +17,7 @@ module "vm-bootstrap" {
   install_endpoint_protection = var.install_endpoint_protection
   run_command                 = var.run_command
   os_type                     = var.os_type
-  env                         = var.environment == "prod" ? var.environment : "nonprod"
+  env                         = var.env == "prod" ? var.environment : "nonprod"
 
-  dynatrace_hostgroup = var.dynatrace_hostgroup
-
-  common_tags = var.tags
+  common_tags = module.ctags.common_tags
 }
