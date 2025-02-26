@@ -1,7 +1,6 @@
 #!/bin/bash
 # Updating hash.
 set -x
-
 source /tmp/functions.sh
 
 ENV=$4
