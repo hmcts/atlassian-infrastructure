@@ -1,4 +1,6 @@
 module "vm-bootstrap" {
+  for_each = var.vms
+
   providers = {
     azurerm     = azurerm
     azurerm.cnp = azurerm.cnp
