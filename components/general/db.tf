@@ -42,7 +42,7 @@ resource "azurerm_private_endpoint" "postgres_private_endpoint" {
   name                = "atlassian-${var.env}-postgres-pe"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
-  subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres-flex"]
+  subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres"]
 
   private_service_connection {
     name                           = "postgres-psc"
