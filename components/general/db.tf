@@ -161,3 +161,24 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
 
   tags = module.ctags.common_tags
 }
+
+resource "terraform_data" "atlassian-flex-server" {
+  for_each = local.app_names
+
+  triggers_replace = [
+    azurerm_postgresql_flexible_server.atlassian-flex-server.id,
+    azurerm_key_vault_secret.postgres_password[each.key].id,
+    azurerm_key_vault_secret.postgres_username[each.key].id
+  ]
+  provisioner "local-exec" {
+    command = "./scripts/configure-postgres.sh"
+    environment = {
+      POSTGRES_HOST  = azurerm_postgresql_flexible_server.atlassian-flex-server.fqdn
+      ADMIN_USER     = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value
+      ADMIN_PASSWORD = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-PASS.value
+      DATABASE_NAME  = "${each.key}-db-${var.env}"
+      USER           = "${each.key}_user"
+      PASSWORD       = random_password.postgres_password[each.key].result
+    }
+  }
+}
