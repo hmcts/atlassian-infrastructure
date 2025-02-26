@@ -17,7 +17,7 @@ module "vm-bootstrap" {
   install_endpoint_protection = var.install_endpoint_protection
   run_command                 = var.run_command
   os_type                     = var.os_type
-  env                         = var.env == "prod" ? var.environment : "nonprod"
+  env                         = var.env == "prod" ? var.env : "nonprod"
 
   common_tags = module.ctags.common_tags
 }
