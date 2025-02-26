@@ -143,7 +143,7 @@ network_security_groups = {
         protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "22"
-        source_address_prefixes    = ["10.148.16.0/20", "10.148.0.0/20"]
+        source_address_prefixes    = ["10.144.16.0/20", "10.144.0.0/20"]
         destination_address_prefix = "*"
       }
       "allow_mail_outbound" = {
@@ -258,7 +258,7 @@ network_security_groups = {
         protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "22"
-        source_address_prefixes    = ["10.148.16.0/20", "10.148.0.0/20"]
+        source_address_prefixes    = ["10.144.16.0/20", "10.144.0.0/20"]
         destination_address_prefix = "*"
       }
       "postgres_private" = {
