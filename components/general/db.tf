@@ -98,7 +98,7 @@ resource "terraform_data" "postgres" {
     azurerm_key_vault_secret.postgres_username[each.key].id
   ]
   provisioner "local-exec" {
-    command = "${path.module}/scripts/configure-postgres.sh"
+    command = "./scripts/configure-postgres.sh"
     environment = {
       POSTGRES_HOST  = azurerm_postgresql_server.atlassian-server.fqdn
       ADMIN_USER     = "${data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value}@atlassian-${var.env}-server"
