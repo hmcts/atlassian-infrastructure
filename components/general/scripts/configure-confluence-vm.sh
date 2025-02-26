@@ -3,7 +3,6 @@
 set -x
 
 source /tmp/functions.sh
-#run
 
 # Access the variables
 DB_URL=$1
