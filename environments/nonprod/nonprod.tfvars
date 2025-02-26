@@ -583,7 +583,7 @@ url_path_map = [
 ssl_certificates = [
   {
     name                = "staging.tools.hmcts.net"
-    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/staging-tools-hmcts-net/3cc18d7133de4c1390cf00df4c5326f5"
+    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/staging-tools-hmcts-net"
   }
 ]
 
