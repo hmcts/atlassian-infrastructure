@@ -66,7 +66,6 @@ resource "terraform_data" "vm" {
     host        = each.value.private_ip_address
     user        = data.azurerm_key_vault_secret.admin_username.value
     private_key = data.azurerm_key_vault_secret.admin_private_key.value
-    timeout     = "15m"
   }
 
   provisioner "file" {
