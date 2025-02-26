@@ -9,8 +9,8 @@ update_hosts_file_staging() {
 10.0.4.199 PRDATL01AJRA02.CP.CJS.HMCTS.NET prdatl01ajra02
 10.0.4.196 PRDATL01AJRA03.cp.cjs.hmcts.net PRDATL01AJRA03
 10.0.4.196 PRDATL01AJRA03.CP.CJS.HMCTS.NET prdatl01ajra03
-10.0.4.132 PRDATL01DGST01.cp.cjs.hmcts.net prdatl01dgst01
-10.0.4.133 PRDATL01DGST02.cp.cjs.hmcts.net prdatl01dgst02
+10.0.4.133 PRDATL01DGST01.cp.cjs.hmcts.net prdatl01dgst01
+10.0.4.132 PRDATL01DGST02.cp.cjs.hmcts.net prdatl01dgst02
 10.0.4.134 PRDATL01DGST03.cp.cjs.hmcts.net prdatl01dgst03
 10.0.4.197 PRDATL01ACRD01.cp.cjs.hmcts.net PRDATL01ACRD01
 10.0.4.197 PRDATL01ACRD01.CP.CJS.HMCTS.NET prdatl01acrd01
