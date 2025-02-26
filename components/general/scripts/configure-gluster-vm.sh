@@ -30,6 +30,7 @@ if [ "$ENV" == "nonprod"]; then
   log_entry "Updated resolv.conf"
   
 elif [ "$ENV" == "prod"]; then
+  log_entry "Updating resolv.conf"
   # Update /etc/resolv.conf
   RESOLV_CONF_ENTRIES="search e3aqxhxo1fvubo0wzweg4zp0eg.zx.internal.cloudapp.net
   nameserver 168.63.129.16"
