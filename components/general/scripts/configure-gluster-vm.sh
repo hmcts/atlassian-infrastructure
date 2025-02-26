@@ -35,4 +35,7 @@ elif [ "$ENV" == "prod" ]; then
   nameserver 168.63.129.16"
   echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
   log_entry "Updated resolv.conf"
+
+else
+  log_entry "No environment specified"
 fi
