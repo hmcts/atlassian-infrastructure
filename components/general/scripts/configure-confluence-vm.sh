@@ -1,5 +1,5 @@
 #!/bin/bash
-# Updating hash
+# Updating hash.
 set -x
 
 source /tmp/functions.sh
