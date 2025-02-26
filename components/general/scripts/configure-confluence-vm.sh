@@ -74,11 +74,20 @@ fi
 sed -i '/Datlassian.recovery.password/s/^/#/' /opt/atlassian/confluence/install/bin/setenv.sh
 log_entry "Comment out the line containing Datlassian.recovery.password"
 
-# Update /etc/resolv.conf
-RESOLV_CONF_ENTRIES="search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net
-nameserver 168.63.129.16"
-echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
-log_entry "Updated resolv.conf"
+if [ "$ENV" == "nonprod"]; then
+  # Update /etc/resolv.conf
+  RESOLV_CONF_ENTRIES="search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net
+  nameserver 168.63.129.16"
+  echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
+  log_entry "Updated resolv.conf"
+  
+elif [ "$ENV" == "prod"]; then
+  # Update /etc/resolv.conf
+  RESOLV_CONF_ENTRIES="search e3aqxhxo1fvubo0wzweg4zp0eg.zx.internal.cloudapp.net
+  nameserver 168.63.129.16"
+  echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
+  log_entry "Updated resolv.conf"
+fi
 
 # Update dbconfig.xml
 for file in /var/atlassian/application_data/confluence_shared/confluence.cfg.xml /opt/atlassian/confluence/data/confluence.cfg.xml; do

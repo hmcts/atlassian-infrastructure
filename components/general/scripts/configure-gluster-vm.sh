@@ -22,9 +22,17 @@ else
   echo "No environment specified"
 fi
 
-# Update /etc/resolv.conf
-RESOLV_CONF_ENTRIES="search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net
-nameserver 168.63.129.16"
-echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
-
-log_entry "Updated resolv.conf"
+if [ "$ENV" == "nonprod"]; then
+  # Update /etc/resolv.conf
+  RESOLV_CONF_ENTRIES="search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net
+  nameserver 168.63.129.16"
+  echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
+  log_entry "Updated resolv.conf"
+  
+elif [ "$ENV" == "prod"]; then
+  # Update /etc/resolv.conf
+  RESOLV_CONF_ENTRIES="search e3aqxhxo1fvubo0wzweg4zp0eg.zx.internal.cloudapp.net
+  nameserver 168.63.129.16"
+  echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
+  log_entry "Updated resolv.conf"
+fi
