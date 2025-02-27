@@ -684,7 +684,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01ajra01.cp.cjs.hmcts.net_8566286297458822223/restorePoints/AzureBackup_20250226_023503/disks/Temp?id=cbc2d318-a1b7-4e89-b9ef-419bef1d942f"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Storage/storageAccounts/atlassianprod"
   }
 
 
