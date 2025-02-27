@@ -684,7 +684,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf02.cp.cjs.hmcts.net_8566286296656763634/restorePoints/AzureBackup_20250212_023715/disks/VD-ATL01ACNF02-02-DATA?id=1e9255c6-17ce-46b4-9a1f-318a4e0dbc12"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01ajra01.cp.cjs.hmcts.net_8566286297458822223/restorePoints/AzureBackup_20250226_023503/disks/Temp?id=cbc2d318-a1b7-4e89-b9ef-419bef1d942f"
   }
 
 
