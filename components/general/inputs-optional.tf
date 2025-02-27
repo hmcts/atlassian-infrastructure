@@ -186,3 +186,8 @@ variable "os_type" {
   type    = string
   default = "linux"
 }
+
+variable "dynatrace_hostgroup" {
+  type    = string
+  default = "PRD_DTS_AT_A"
+}
