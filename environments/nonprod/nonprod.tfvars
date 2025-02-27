@@ -683,6 +683,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
+    storage_account_id   = data.azurerm_storage_account.storage_account.id
   }
 
   atlassiannonprodconfluence02-datadisk-000-20250224-222126 = {
@@ -692,6 +693,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
+    storage_account_id   = data.azurerm_storage_account.storage_account.id
   }
 
   atlassiannonprodconfluence04-datadisk-000-20250224-222143 = {
@@ -701,6 +703,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
+    storage_account_id   = data.azurerm_storage_account.storage_account.id
   }
 
   atlassiannonprodgluster01-datadisk-000-20250224-222240 = {
@@ -710,6 +713,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
+    storage_account_id   = data.azurerm_storage_account.storage_account.id
   }
 
 
@@ -720,6 +724,7 @@ data_disks = {
     storage_account_type = "StandardSSD_LRS"
     lun                  = 1
     caching              = "None"
+    storage_account_id   = data.azurerm_storage_account.storage_account.id
   }
 
 
@@ -730,6 +735,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
+    storage_account_id   = data.azurerm_storage_account.storage_account.id
   }
 
 
@@ -740,6 +746,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
+    storage_account_id   = data.azurerm_storage_account.storage_account.id
   }
 }
 
