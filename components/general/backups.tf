@@ -15,7 +15,7 @@ resource "azurerm_backup_policy_vm" "vm-backup-policy" {
 
   name                = "${var.product}-${var.env}-vm-backup-policy"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
-  recovery_vault_name = azurerm_recovery_services_vault.rsv.name
+  recovery_vault_name = azurerm_recovery_services_vault.rsv[count.index].name
 
   backup {
     frequency = "Daily"
