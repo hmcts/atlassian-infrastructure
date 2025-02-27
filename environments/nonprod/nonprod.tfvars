@@ -683,7 +683,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    storage_account_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Storage/storageAccounts/atlassianprod"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
   atlassiannonprodconfluence02-datadisk-000-20250224-222126 = {
@@ -693,7 +693,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    storage_account_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Storage/storageAccounts/atlassianprod"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
   atlassiannonprodconfluence04-datadisk-000-20250224-222143 = {
@@ -703,7 +703,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    storage_account_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Storage/storageAccounts/atlassianprod"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
   atlassiannonprodgluster01-datadisk-000-20250224-222240 = {
@@ -713,7 +713,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    storage_account_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Storage/storageAccounts/atlassianprod"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
 
@@ -724,7 +724,7 @@ data_disks = {
     storage_account_type = "StandardSSD_LRS"
     lun                  = 1
     caching              = "None"
-    storage_account_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Storage/storageAccounts/atlassianprod"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
 
@@ -735,7 +735,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    storage_account_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Storage/storageAccounts/atlassianprod"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
 
@@ -746,7 +746,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    storage_account_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Storage/storageAccounts/atlassianprod"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 }
 
