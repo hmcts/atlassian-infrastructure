@@ -31,7 +31,7 @@ parameters:
       - deployment: "nonprod_general"
         environment: "nonprod"
         component: "general"
-        service_connection: "MOJ DCD Atlassian LVE"
+        service_connection: "MOJ DCD Atlassian NLE"
         resource_group: azure-control-stg-rg
         dependsOn: "Precheck"
         agentPool: "hmcts-ss-stg"
