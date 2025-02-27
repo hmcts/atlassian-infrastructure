@@ -32,7 +32,7 @@ parameters:
         environment: "nonprod"
         component: "general"
         service_connection: "MOJ DCD Atlassian LVE"
-        resource_group: azure-control-nonprod-rg
+        resource_group: azure-control-stg-rg
         dependsOn: "Precheck"
         agentPool: "hmcts-ss-stg"
 
