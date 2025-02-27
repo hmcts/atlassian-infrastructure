@@ -1,8 +1,12 @@
-az account set --subscription 79898897-729c-41a0-a5ca-53c764839d95
+#!/bin/bash
 
-TargetSubnetName=atlassian-int-subnet-app #eg "atlassian-int-subnet-dat"
-TargetVmName=atlassian-prod-confluence-04 # eg "atlassian-nonprod-gluster-03"
-ItemName=PRDATL01ACNF04.cp.cjs.hmcts.net # eg"PRDATL01DGST03.cp.cjs.hmcts.net"
+# Set the Azure subscription
+az account set --subscription "79898897-729c-41a0-a5ca-53c764839d95"
+
+# Define variables
+TargetSubnetName="atlassian-int-subnet-app" # eg "atlassian-int-subnet-dat"
+TargetVmName="atlassian-prod-jira-01" # eg "atlassian-nonprod-gluster-03"
+ItemName="PRDATL01AJRA01.cp.cjs.hmcts.net" # eg "PRDATL01DGST03.cp.cjs.hmcts.net"
 
 VaultName="BK-PRD-ATL-INT-01"
 SourceResourceGroup="RG-PRD-ATL-INT-01"
@@ -12,16 +16,25 @@ TargetSubscription="79898897-729c-41a0-a5ca-53c764839d95"
 StorageAccountName="atlassianprod"
 TargetVNetName="atlassian-int-prod-vnet"
 
-# az backup container list --resource-group $SourceResourceGroup --vault-name $VaultName --backup-management-type AzureIaasVM --query '[].{Name:name, ItemName:properties.friendlyName}' -o table
-
+# Get the container name
 ContainerName=$(az backup container list --resource-group $SourceResourceGroup --vault-name $VaultName --backup-management-type AzureIaasVM --query "[?properties.friendlyName=='$ItemName'].{Name:name}" -o tsv)
 
-# az backup recoverypoint list --vault-name $VaultName --resource-group $SourceResourceGroup --container-name $ContainerName --item-name $ItemName --query '[].{Name:properties.recoveryPointTime, ID:name}' -o table
+# Debugging: Print the container name
+echo "ContainerName: $ContainerName"
 
+# Get the recovery point name
 RecoverypointName=$(az backup recoverypoint list --vault-name $VaultName --resource-group $SourceResourceGroup --container-name $ContainerName --item-name $ItemName --query '[0].name' -o tsv)
 
-echo $RecoverypointName
+# Debugging: Print the recovery point name
+echo "RecoverypointName: $RecoverypointName"
 
+# Check if the recovery point name is empty
+if [ -z "$RecoverypointName" ]; then
+  echo "Error: RecoverypointName is empty. Exiting."
+  exit 1
+fi
+
+# Restore the disks
 az backup restore restore-disks \
     --resource-group $SourceResourceGroup \
     --vault-name $VaultName \

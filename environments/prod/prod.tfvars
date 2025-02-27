@@ -598,8 +598,8 @@ vms = {
   atlassian-prod-jira-01 = {
     computer_name      = "prdatl01ajra01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-jira-01-nic-65a0bea220ca4b1db7d067addb11436d"
-    os_disk_name       = "atlassianprodjira01-osdisk-20250212-144738"
+    nic_name           = "atlassian-prod-jira-01-nic-fa6deec7117648fc82e83da31a083a2d"
+    os_disk_name       = "atlassianprodjira01-osdisk-20250226-170818"
     private_ip_address = "10.1.4.196"
     app                = "jira"
   }
@@ -677,7 +677,7 @@ vms = {
 }
 
 data_disks = {
-  atlassianprodjira01-datadisk-000-20250212-144738 = {
+  atlassianprodjira01-datadisk-000-20250226-170818 = {
     vm_name              = "atlassian-prod-jira-01"
     disk_size_gb         = 100
     create_option        = "Restore"
@@ -753,10 +753,10 @@ data_disks = {
 }
 
 nics = {
-  atlassian-prod-jira-01-nic-65a0bea220ca4b1db7d067addb11436d = {
+  atlassian-prod-jira-01-nic-fa6deec7117648fc82e83da31a083a2d = {
     ip_configuration = {
       primary = {
-        name                  = "b7601ed728e847a8b1c0c7a8b4a47564"
+        name                  = "7e0736805c7e479db2cc1199a640d931"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.196"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-app"
