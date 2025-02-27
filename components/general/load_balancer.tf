@@ -1,5 +1,5 @@
 resource "azurerm_lb" "azlb" {
-  name                = "atlassian-${var.env}-lb-glusterfs"
+  name                = "${var.product}-${var.env}-lb-glusterfs"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
   sku                 = "Standard"
@@ -15,7 +15,7 @@ resource "azurerm_lb" "azlb" {
 
 resource "azurerm_lb_backend_address_pool" "azlb_backend" {
   loadbalancer_id = azurerm_lb.azlb.id
-  name            = "atlassian-${var.env}-lb-glusterfs-backend-pool"
+  name            = "${var.product}-${var.env}-lb-glusterfs-backend-pool"
 }
 
 resource "azurerm_lb_backend_address_pool_address" "azlb_backend_address" {

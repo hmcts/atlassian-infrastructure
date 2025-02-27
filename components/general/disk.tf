@@ -12,6 +12,6 @@ resource "azurerm_managed_disk" "data_disk" {
 }
 
 data "azurerm_storage_account" "storage_account" {
-  name                = "atlassian${var.env}"
+  name                = "${var.product}${var.env}"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
 }

@@ -18,7 +18,7 @@ data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-USER" {
 }
 
 resource "azurerm_postgresql_server" "atlassian-server" {
-  name                = "atlassian-${var.env}-server"
+  name                = "${var.product}-${var.env}-server"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   sku_name            = "MO_Gen5_8" # Memory Optimized SKU
@@ -40,7 +40,7 @@ resource "azurerm_postgresql_server" "atlassian-server" {
   tags = module.ctags.common_tags
 }
 resource "azurerm_private_endpoint" "postgres_private_endpoint" {
-  name                = "atlassian-${var.env}-postgres-pe"
+  name                = "${var.product}-${var.env}-postgres-pe"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres"]
@@ -60,7 +60,7 @@ resource "azurerm_private_endpoint" "postgres_private_endpoint" {
 
 resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_vnet_link" {
   provider              = azurerm.dns
-  name                  = "atlassian-${var.env}-postgres-dns-vnet-link"
+  name                  = "${var.product}-${var.env}-postgres-dns-vnet-link"
   resource_group_name   = local.zone_resource_group
   virtual_network_id    = module.networking.vnet_ids["atlassian-int-nonprod-vnet"]
   private_dns_zone_name = local.zone_name
@@ -122,7 +122,7 @@ data "azurerm_key_vault_secret" "POSTGRES-FLEX-SERVER-USER" {
 }
 
 resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
-  name                = "atlassian-${var.env}-flex-server"
+  name                = "${var.product}-${var.env}-flex-server"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   sku_name            = var.flex_server_sku_name # Memory Optimized SKU
