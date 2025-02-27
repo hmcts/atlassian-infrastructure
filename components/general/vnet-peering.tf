@@ -67,6 +67,7 @@ resource "azurerm_virtual_network_peering" "ss-env-vnet-to-int" {
 }
 
 resource "azurerm_virtual_network_peering" "int-to-vpn" {
+  count                     = var.env == "prod" ? 1 : 0
   name                      = "atlassian-int-${var.env}-vnet-to-core-infra-vnet-mgmt"
   resource_group_name       = azurerm_resource_group.atlassian_rg.name
   virtual_network_name      = "atlassian-int-${var.env}-vnet"
@@ -77,6 +78,7 @@ resource "azurerm_virtual_network_peering" "int-to-vpn" {
 }
 
 resource "azurerm_virtual_network_peering" "vpn-to-int" {
+  count                     = var.env == "prod" ? 1 : 0
   provider                  = azurerm.cft-mgmt
   name                      = "core-infra-vnet-mgmt-to-atlassian-int-${var.env}-vnet"
   resource_group_name       = "rg-mgmt"
