@@ -46,7 +46,7 @@ variable "autoShutdown" {
 variable "product" {
   description = "The name of the product."
   type        = string
-  default     = var.product
+  default     = "atlassian"
 }
 
 variable "builtFrom" {
