@@ -39,12 +39,6 @@ data "azurerm_key_vault_secret" "admin_private_key" {
   name         = "test-private-key"
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
-
-data "azurerm_key_vault_secret" "admin_password" {
-  name         = "vm-admin-password"
-  key_vault_id = azurerm_key_vault.atlassian_kv.id
-}
-
 data "azurerm_key_vault_secret" "admin_username" {
   name         = "vm-admin-username"
   key_vault_id = azurerm_key_vault.atlassian_kv.id
