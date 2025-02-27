@@ -7,7 +7,3 @@ module "ctags" {
   product      = var.product
   autoShutdown = var.autoShutdown
 }
-
-variable "product" {
-  default = "atlassian"
-}
