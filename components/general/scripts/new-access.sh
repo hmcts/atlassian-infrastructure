@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Define an array of Target VM Names
-#TargetVmNames=("atlassian-prod-jira-01" "atlassian-prod-jira-02" "atlassian-prod-jira-03" "atlassian-prod-gluster-01" "atlassian-prod-gluster-02" "atlassian-prod-gluster-03" "atlassian-prod-crowd-01" "atlassian-prod-confluence-02" "atlassian-prod-confluence-04") # Add more VMs as needed
-TargetVmNames=("atlassian-prod-jira-01")
+TargetVmNames=("atlassian-prod-jira-01" "atlassian-prod-jira-02" "atlassian-prod-jira-03" "atlassian-prod-gluster-01" "atlassian-prod-gluster-02" "atlassian-prod-gluster-03" "atlassian-prod-crowd-01" "atlassian-prod-confluence-02" "atlassian-prod-confluence-04") # Add more VMs as needed
 TargetSubscription="79898897-729c-41a0-a5ca-53c764839d95"
 
 # Set the Azure subscription
