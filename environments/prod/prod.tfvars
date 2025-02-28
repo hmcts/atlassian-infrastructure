@@ -684,7 +684,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01ajra01.cp.cjs.hmcts.net_8566286297458822223/restorePoints/AzureBackup_20250226_023503/disks/Temp?id=cbc2d318-a1b7-4e89-b9ef-419bef1d942f"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01ajra01.cp.cjs.hmcts.net_8566286297458822223/restorePoints/AzureBackup_20250228_053608/disks/Temp?id=3a85bb24-e859-4e79-8b72-6a5dbf00d3ec"
   }
 
   atlassianprodconfluence02-datadisk-000-20250228-221025 = {
@@ -694,7 +694,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf02.cp.cjs.hmcts.net_8566286296656763634/restorePoints/AzureBackup_20250212_023715/disks/VD-ATL01ACNF02-02-DATA?id=1e9255c6-17ce-46b4-9a1f-318a4e0dbc12"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf02.cp.cjs.hmcts.net_8566286296656763634/restorePoints/AzureBackup_20250228_053507/disks/VD-ATL01ACNF02-02-DATA?id=b65ee2bd-fe6f-469b-a6ea-39b4c5fe6c38"
   }
 
   atlassianprodconfluence04-datadisk-000-20250228-221041 = {
@@ -704,7 +704,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf04.cp.cjs.hmcts.net_8566286296174594913/restorePoints/AzureBackup_20250212_023645/disks/VD-ATL01ACNF04-02-DATA?id=65dddc20-2d76-47cb-a5d5-f63bfebedfe6"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf04.cp.cjs.hmcts.net_8566286296174594913/restorePoints/AzureBackup_20250228_053522/disks/VD-ATL01ACNF04-02-DATA?id=f68ef3ee-ec61-4387-b54a-0aeb3fb56d1b"
   }
 
   atlassianprodgluster01-datadisk-000-20250228-221117 = {
@@ -714,7 +714,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst01.cp.cjs.hmcts.net_8566286296963951295/restorePoints/AzureBackup_20250212_023302/disks/VD-PRD-ATL01DGST01-02-DATA?id=3852dcf1-a9f7-43cb-9f61-58db316319dc"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst01.cp.cjs.hmcts.net_8566286296963951295/restorePoints/AzureBackup_20250228_053642/disks/VD-PRD-ATL01DGST01-02-DATA?id=ab88a997-d627-4eca-b966-a56a5824e5c3"
   }
 
 
@@ -725,7 +725,7 @@ data_disks = {
     storage_account_type = "StandardSSD_LRS"
     lun                  = 1
     caching              = "None"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst01.cp.cjs.hmcts.net_8566286296963951295/restorePoints/AzureBackup_20250212_023302/disks/VD-PRD-ATLJCC-01-WAL?id=54335017-d7cc-4ab2-a7bb-1d4cd12e2bd4"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst01.cp.cjs.hmcts.net_8566286296963951295/restorePoints/AzureBackup_20250228_053642/disks/VD-PRD-ATLJCC-01-WAL?id=aecf4973-54c9-4d97-9b5c-16da5f124726"
   }
 
 
@@ -736,7 +736,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst02.cp.cjs.hmcts.net_8566286296193198296/restorePoints/AzureBackup_20250212_023455/disks/VD-PRD-ATL01DGST02-02-DATA?id=8b806186-1132-4af7-aec4-ba10dc6d6925"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst02.cp.cjs.hmcts.net_8566286296193198296/restorePoints/AzureBackup_20250228_053704/disks/VD-PRD-ATL01DGST02-02-DATA?id=d4e1d261-303d-493c-9342-baba9d4083a0"
   }
 
 
@@ -747,7 +747,7 @@ data_disks = {
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst03.cp.cjs.hmcts.net_8566286297280434440/restorePoints/AzureBackup_20250212_024015/disks/VD-PRD-ATL01DGST03-02-DATA?id=67448cae-59bb-4dbc-bd62-ae6b05be404b"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst03.cp.cjs.hmcts.net_8566286297280434440/restorePoints/AzureBackup_20250228_053718/disks/VD-PRD-ATL01DGST03-02-DATA?id=5d0e82fa-26db-4a48-813a-f244ac4cf93d"
   }
 }
 
