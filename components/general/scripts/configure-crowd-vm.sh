@@ -3,7 +3,7 @@ set -x
 
 source /tmp/functions.sh
 
-# Access the variables
+# Access the variables.
 DB_URL=$1
 DB_USERNAME=$2
 DB_PASSWORD=$3
@@ -19,19 +19,20 @@ chmod -R u+rw /opt/crowd
 
 log_entry "Changed ownership of /opt/crowd to crowd:crowd"
 
-# Remove Dynatrace
-/opt/dynatrace/oneagent/agent/uninstall.sh
-log_entry "Uninstalled Dynatrace"
-
 # # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
+
+  # Remove Dynatrace
+  /opt/dynatrace/oneagent/agent/uninstall.sh
+  log_entry "Uninstalled Dynatrace"
+  
   update_hosts_file_staging
   log_entry "Added entries in the hosts file"
   # Replace glusterfs entry in /etc/fstab
   sed -i '/glusterfs/c\10.0.4.150:/crowd_shared /var/atlassian/application-data/crowd_shared glusterfs defaults 0 0' /etc/fstab
   mount -a
   log_entry "Mounted glusterfs"
-  # Update crowd server.xml to replace tools.hmcts.net with prod-temp.tools.hmcts.net
+  # Update crowd server.xml to replace tools.hmcts.net with staging.tools.hmcts.net
   sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="staging.tools.hmcts.net"/g' /opt/crowd/apache-tomcat/conf/server.xml
   log_entry "Updated server.xml"
 
@@ -45,13 +46,7 @@ elif [ "$ENV" == "prod" ]; then
   mount -a
   log_entry "Mounted glusterfs"
 
-  #TO BE REMOVED FOR PRODUCTION DEPLOY AFTER TESTING
-  # Update crowd server.xml to replace tools.hmcts.net with prod-temp.tools.hmcts.net
-  sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="prod-temp.tools.hmcts.net"/g' /opt/crowd/apache-tomcat/conf/server.xml
-  log_entry "Updated server.xml"
-
   mounting "crowd" "/var/atlassian/application-data/crowd_shared"
-
 
 else
   echo "No environment specified"

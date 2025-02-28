@@ -4,10 +4,6 @@ source /tmp/functions.sh
 
 ENV=$4
 
-# Remove Dynatrace
-/opt/dynatrace/oneagent/agent/uninstall.sh
-log_entry "Uninstalled Dynatrace"
-
 # # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
   update_hosts_file_staging
@@ -22,6 +18,10 @@ else
 fi
 
 if [ "$ENV" == "nonprod" ]; then
+  # Remove Dynatrace.
+  /opt/dynatrace/oneagent/agent/uninstall.sh
+  log_entry "Uninstalled Dynatrace"
+
   # Update /etc/resolv.conf
   RESOLV_CONF_ENTRIES="search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net
   nameserver 168.63.129.16"

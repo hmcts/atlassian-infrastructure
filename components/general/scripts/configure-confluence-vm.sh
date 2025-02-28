@@ -3,7 +3,7 @@ set -x
 
 source /tmp/functions.sh
 
-# Access the variables
+# Access the variables.
 DB_URL=$1
 DB_USERNAME=$2
 DB_PASSWORD=$3
@@ -21,12 +21,12 @@ chmod -R u+rw /opt/atlassian
 
 log_entry "Changed ownership of /opt/atlassian to confluence:confluence"
 
-# Remove Dynatrace
-/opt/dynatrace/oneagent/agent/uninstall.sh
-log_entry "Uninstalled Dynatrace"
-
 # # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
+  # Remove Dynatrace
+  /opt/dynatrace/oneagent/agent/uninstall.sh
+  log_entry "Uninstalled Dynatrace"
+
   update_hosts_file_staging
   log_entry "Added entries in the hosts file"
   # Replace glusterfs entry in /etc/fstab
@@ -52,26 +52,12 @@ elif [ "$ENV" == "prod" ]; then
   sed -i '/glusterfs/c\10.1.4.150:/confluence_shared /var/atlassian/application_data/confluence_shared glusterfs defaults 0 0' /etc/fstab
   mount -a
   log_entry "Mounted glusterfs"
-  
-  #TO BE REMOVED FOR PRODUCTION DEPLOY AFTER TESTING
-  # Update confluence server.xml to replace tools.hmcts.net with prod-temp.tools.hmcts.net
-  sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="prod-temp.tools.hmcts.net"/g' /opt/atlassian/confluence/install/conf/server.xml
-  log_entry "Updated server.xml"
 
   mounting "confluence" "/var/atlassian/application_data/confluence_shared/"
 
-  #TO BE REMOVED FOR PRODUCTION DEPLOY AFTER TESTING
-  # Uncomment the line with mail senddisabled
-  sed -i 's/^#\(CATALINA_OPTS="-Datlassian.mail.senddisabled=true -Datlassian.mail.fetchdisabled=true \(.*\)\)$/\1/' /opt/atlassian/confluence/install/bin/setenv.sh
-
-  log_entry "Uncomment the line with mail senddisabled to disable mail"
 else
   echo "No environment specified"
 fi
-
-# Comment out the line containing Datlassian.recovery.password
-sed -i '/Datlassian.recovery.password/s/^/#/' /opt/atlassian/confluence/install/bin/setenv.sh
-log_entry "Comment out the line containing Datlassian.recovery.password"
 
 if [ "$ENV" == "nonprod" ]; then
   # Update /etc/resolv.conf

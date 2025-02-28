@@ -460,12 +460,12 @@ backend_address_pools = [
   },
   {
     name                      = "appgw-backend-pool-crd"
-    backend_pool_ip_addresses = ["10.1.4.201"]
+    backend_pool_ip_addresses = ["10.1.4.199"]
     backend_pool_fqdns        = []
   },
   {
     name                      = "appgw-backend-pool-cnf"
-    backend_pool_ip_addresses = ["10.1.4.199", "10.1.4.200"]
+    backend_pool_ip_addresses = ["10.1.4.200", "10.1.4.201"]
     backend_pool_fqdns        = []
   }
 ]
@@ -541,7 +541,7 @@ http_listeners = [
   {
     name                 = "appgw-http-listener"
     ssl_enabled          = true
-    ssl_certificate_name = "prod-temp.tools.hmcts.net"
+    ssl_certificate_name = "tools.hmcts.net"
   }
 ]
 
@@ -585,8 +585,8 @@ url_path_map = [
 
 ssl_certificates = [
   {
-    name                = "prod-temp.tools.hmcts.net"
-    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/prod-temp-tools-hmcts-net/0bd3aa7f88c844a9bbd1f36843dc74ba"
+    name                = "tools.hmcts.net"
+    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/tools-hmcts-net"
   }
 ]
 
@@ -598,8 +598,8 @@ vms = {
   atlassian-prod-jira-01 = {
     computer_name      = "prdatl01ajra01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-jira-01-nic-fa6deec7117648fc82e83da31a083a2d"
-    os_disk_name       = "atlassianprodjira01-osdisk-20250226-170818"
+    nic_name           = "atlassian-prod-jira-01-nic-0fad0fe6e8d94210be9488435aa28b09"
+    os_disk_name       = "atlassianprodjira01-osdisk-20250228-220516"
     private_ip_address = "10.1.4.196"
     app                = "jira"
   }
@@ -607,8 +607,8 @@ vms = {
   atlassian-prod-jira-02 = {
     computer_name      = "prdatl01ajra02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-jira-02-nic-b39b1d56680647e392d292169bdc103a"
-    os_disk_name       = "atlassianprodjira02-osdisk-20250212-145428"
+    nic_name           = "atlassian-prod-jira-02-nic-b0cfdcf4e4de498ea2a5bc53c79cfeed"
+    os_disk_name       = "atlassianprodjira02-osdisk-20250228-220712"
     private_ip_address = "10.1.4.197"
     app                = "jira"
   }
@@ -616,8 +616,8 @@ vms = {
   atlassian-prod-jira-03 = {
     computer_name      = "prdatl01ajra03.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-jira-03-nic-f7610403fbc349e2911f962dda033772"
-    os_disk_name       = "atlassianprodjira03-osdisk-20250212-145617"
+    nic_name           = "atlassian-prod-jira-03-nic-4b4dcb7535b74ab79a40c21ae805c7d0"
+    os_disk_name       = "atlassianprodjira03-osdisk-20250228-220737"
     private_ip_address = "10.1.4.198"
     app                = "jira"
   }
@@ -625,34 +625,34 @@ vms = {
   atlassian-prod-crowd-01 = {
     computer_name      = "prdatl01acrd01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E4s_v3"
-    nic_name           = "atlassian-prod-crowd-01-nic-3361e72e986e41d6b5eb6a21cbbcd112"
-    os_disk_name       = "atlassianprodcrowd01-osdisk-20250212-150223"
-    private_ip_address = "10.1.4.201"
+    nic_name           = "atlassian-prod-crowd-01-nic-b4d13bce7fa44641a6a44c8f191ddc25"
+    os_disk_name       = "atlassianprodcrowd01-osdisk-20250228-220949"
+    private_ip_address = "10.1.4.199"
     app                = "crowd"
   }
 
   atlassian-prod-confluence-02 = {
     computer_name      = "prdatl01acnf02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-confluence-02-nic-5beb0ec997f04da6be7e9d937327ce20"
-    os_disk_name       = "atlassianprodconfluence02-osdisk-20250212-150643"
-    private_ip_address = "10.1.4.199"
+    nic_name           = "atlassian-prod-confluence-02-nic-c76f35248e73463ba673913dbd6e2a56"
+    os_disk_name       = "atlassianprodconfluence02-osdisk-20250228-221025"
+    private_ip_address = "10.1.4.200"
     app                = "confluence"
   }
 
   atlassian-prod-confluence-04 = {
     computer_name      = "prdatl01acnf04.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-confluence-04-nic-8ba484c6cb594b3d90819fb0966a46f9"
-    os_disk_name       = "atlassianprodconfluence04-osdisk-20250212-150702"
-    private_ip_address = "10.1.4.200"
+    nic_name           = "atlassian-prod-confluence-04-nic-fe70ffff677e4b70b231293c054a5914"
+    os_disk_name       = "atlassianprodconfluence04-osdisk-20250228-221041"
+    private_ip_address = "10.1.4.201"
     app                = "confluence"
   }
   atlassian-prod-gluster-01 = {
     computer_name      = "prdatl01dgst01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-gluster-01-nic-e45cc4e490274206be27bf6edb146c83"
-    os_disk_name       = "atlassianprodgluster01-osdisk-20250212-150320"
+    nic_name           = "atlassian-prod-gluster-01-nic-1c8cb6fa1a7a488db7cb7a70c181164f"
+    os_disk_name       = "atlassianprodgluster01-osdisk-20250228-221117"
     private_ip_address = "10.1.4.132"
     app                = "gluster"
   }
@@ -660,8 +660,8 @@ vms = {
   atlassian-prod-gluster-02 = {
     computer_name      = "prdatl01dgst02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-gluster-02-nic-35bec6dd7ccd4bbbb1b0393bd3ab92b1"
-    os_disk_name       = "atlassianprodgluster02-osdisk-20250212-150340"
+    nic_name           = "atlassian-prod-gluster-02-nic-cd44e7ead6654137a23f3daefc5f00f6"
+    os_disk_name       = "atlassianprodgluster02-osdisk-20250228-221141"
     private_ip_address = "10.1.4.133"
     app                = "gluster"
   }
@@ -669,94 +669,93 @@ vms = {
   atlassian-prod-gluster-03 = {
     computer_name      = "prdatl01dgst03.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-prod-gluster-03-nic-2d04cbd8ac8440a4a21334adcd93ab95"
-    os_disk_name       = "atlassianprodgluster03-osdisk-20250212-150358"
+    nic_name           = "atlassian-prod-gluster-03-nic-33273cfe1f254cc5819f2639fc68cc3d"
+    os_disk_name       = "atlassianprodgluster03-osdisk-20250228-221204"
     private_ip_address = "10.1.4.134"
     app                = "gluster"
   }
 }
 
 data_disks = {
-  atlassianprodjira01-datadisk-000-20250226-170818 = {
+  atlassianprodjira01-datadisk-000-20250228-220516 = {
     vm_name              = "atlassian-prod-jira-01"
     disk_size_gb         = 100
     create_option        = "Restore"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01ajra01.cp.cjs.hmcts.net_8566286297458822223/restorePoints/AzureBackup_20250226_023503/disks/Temp?id=cbc2d318-a1b7-4e89-b9ef-419bef1d942f"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01ajra01.cp.cjs.hmcts.net_8566286297458822223/restorePoints/AzureBackup_20250228_053608/disks/Temp?id=3a85bb24-e859-4e79-8b72-6a5dbf00d3ec"
   }
 
-
-  atlassianprodconfluence02-datadisk-000-20250212-150643 = {
+  atlassianprodconfluence02-datadisk-000-20250228-221025 = {
     vm_name              = "atlassian-prod-confluence-02"
     disk_size_gb         = 128
     create_option        = "Restore"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf02.cp.cjs.hmcts.net_8566286296656763634/restorePoints/AzureBackup_20250212_023715/disks/VD-ATL01ACNF02-02-DATA?id=1e9255c6-17ce-46b4-9a1f-318a4e0dbc12"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf02.cp.cjs.hmcts.net_8566286296656763634/restorePoints/AzureBackup_20250228_053507/disks/VD-ATL01ACNF02-02-DATA?id=b65ee2bd-fe6f-469b-a6ea-39b4c5fe6c38"
   }
 
-  atlassianprodconfluence04-datadisk-000-20250212-150702 = {
+  atlassianprodconfluence04-datadisk-000-20250228-221041 = {
     vm_name              = "atlassian-prod-confluence-04"
     disk_size_gb         = 128
     create_option        = "Restore"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf04.cp.cjs.hmcts.net_8566286296174594913/restorePoints/AzureBackup_20250212_023645/disks/VD-ATL01ACNF04-02-DATA?id=65dddc20-2d76-47cb-a5d5-f63bfebedfe6"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01acnf04.cp.cjs.hmcts.net_8566286296174594913/restorePoints/AzureBackup_20250228_053522/disks/VD-ATL01ACNF04-02-DATA?id=f68ef3ee-ec61-4387-b54a-0aeb3fb56d1b"
   }
 
-  atlassianprodgluster01-datadisk-000-20250212-150320 = {
+  atlassianprodgluster01-datadisk-000-20250228-221117 = {
     vm_name              = "atlassian-prod-gluster-01"
     disk_size_gb         = 4000
     create_option        = "Restore"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst01.cp.cjs.hmcts.net_8566286296963951295/restorePoints/AzureBackup_20250212_023302/disks/VD-PRD-ATL01DGST01-02-DATA?id=3852dcf1-a9f7-43cb-9f61-58db316319dc"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst01.cp.cjs.hmcts.net_8566286296963951295/restorePoints/AzureBackup_20250228_053642/disks/VD-PRD-ATL01DGST01-02-DATA?id=ab88a997-d627-4eca-b966-a56a5824e5c3"
   }
 
 
-  atlassianprodgluster01-datadisk-001-20250212-150320 = {
+  atlassianprodgluster01-datadisk-001-20250228-221117 = {
     vm_name              = "atlassian-prod-gluster-01"
     disk_size_gb         = 1024
     create_option        = "Restore"
     storage_account_type = "StandardSSD_LRS"
     lun                  = 1
     caching              = "None"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst01.cp.cjs.hmcts.net_8566286296963951295/restorePoints/AzureBackup_20250212_023302/disks/VD-PRD-ATLJCC-01-WAL?id=54335017-d7cc-4ab2-a7bb-1d4cd12e2bd4"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst01.cp.cjs.hmcts.net_8566286296963951295/restorePoints/AzureBackup_20250228_053642/disks/VD-PRD-ATLJCC-01-WAL?id=aecf4973-54c9-4d97-9b5c-16da5f124726"
   }
 
 
-  atlassianprodgluster02-datadisk-000-20250212-150340 = {
+  atlassianprodgluster02-datadisk-000-20250228-221141 = {
     vm_name              = "atlassian-prod-gluster-02"
     disk_size_gb         = 4000
     create_option        = "Restore"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst02.cp.cjs.hmcts.net_8566286296193198296/restorePoints/AzureBackup_20250212_023455/disks/VD-PRD-ATL01DGST02-02-DATA?id=8b806186-1132-4af7-aec4-ba10dc6d6925"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst02.cp.cjs.hmcts.net_8566286296193198296/restorePoints/AzureBackup_20250228_053704/disks/VD-PRD-ATL01DGST02-02-DATA?id=d4e1d261-303d-493c-9342-baba9d4083a0"
   }
 
 
-  atlassianprodgluster03-datadisk-000-20250212-150358 = {
+  atlassianprodgluster03-datadisk-000-20250228-221204 = {
     vm_name              = "atlassian-prod-gluster-03"
     disk_size_gb         = 4000
     create_option        = "Restore"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
-    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst03.cp.cjs.hmcts.net_8566286297280434440/restorePoints/AzureBackup_20250212_024015/disks/VD-PRD-ATL01DGST03-02-DATA?id=67448cae-59bb-4dbc-bd62-ae6b05be404b"
+    source_resource_id   = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/AzureBackupRG_uksouth_1/providers/Microsoft.Compute/restorePointCollections/AzureBackup_prdatl01dgst03.cp.cjs.hmcts.net_8566286297280434440/restorePoints/AzureBackup_20250228_053718/disks/VD-PRD-ATL01DGST03-02-DATA?id=5d0e82fa-26db-4a48-813a-f244ac4cf93d"
   }
 }
 
 nics = {
-  atlassian-prod-jira-01-nic-fa6deec7117648fc82e83da31a083a2d = {
+  atlassian-prod-jira-01-nic-0fad0fe6e8d94210be9488435aa28b09 = {
     ip_configuration = {
       primary = {
-        name                  = "7e0736805c7e479db2cc1199a640d931"
+        name                  = "705e02155ab44798b99713fe52224b8e"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.196"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-app"
@@ -764,10 +763,10 @@ nics = {
     }
   }
 
-  atlassian-prod-jira-02-nic-b39b1d56680647e392d292169bdc103a = {
+  atlassian-prod-jira-02-nic-b0cfdcf4e4de498ea2a5bc53c79cfeed = {
     ip_configuration = {
       primary = {
-        name                  = "c9c9a5b64f2a42f5bc758087db9cad22"
+        name                  = "a8aef35e1a1c47e8b91afcb8a99efed2"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.197"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-app"
@@ -775,10 +774,10 @@ nics = {
     }
   }
 
-  atlassian-prod-jira-03-nic-f7610403fbc349e2911f962dda033772 = {
+  atlassian-prod-jira-03-nic-4b4dcb7535b74ab79a40c21ae805c7d0 = {
     ip_configuration = {
       primary = {
-        name                  = "9c27e91327924f0c869e2c5be79771c7"
+        name                  = "1a576ffad2c14fb5a687585c4609cbd1"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.198"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-app"
@@ -786,33 +785,22 @@ nics = {
     }
   }
 
-  atlassian-prod-crowd-01-nic-3361e72e986e41d6b5eb6a21cbbcd112 = {
+  atlassian-prod-crowd-01-nic-b4d13bce7fa44641a6a44c8f191ddc25 = {
     ip_configuration = {
       primary = {
-        name                  = "87d25b169c5c45e6949531faacfc505b"
-        private_ip_allocation = "Static"
-        private_ip_address    = "10.1.4.201"
-        subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-app"
-      }
-    }
-
-  }
-
-  atlassian-prod-confluence-02-nic-5beb0ec997f04da6be7e9d937327ce20 = {
-    ip_configuration = {
-      primary = {
-        name                  = "259e29b50e684373a1588e96ec4c14ed"
+        name                  = "576b6dbf5ebb40f2946f7cded01a4175"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.199"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-app"
       }
     }
+
   }
 
-  atlassian-prod-confluence-04-nic-8ba484c6cb594b3d90819fb0966a46f9 = {
+  atlassian-prod-confluence-02-nic-c76f35248e73463ba673913dbd6e2a56 = {
     ip_configuration = {
       primary = {
-        name                  = "2962b1467cba4c7eb61310406a78473f"
+        name                  = "4fef97ab3bdc4ae89b78b8337f00025a"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.200"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-app"
@@ -820,10 +808,21 @@ nics = {
     }
   }
 
-  atlassian-prod-gluster-01-nic-e45cc4e490274206be27bf6edb146c83 = {
+  atlassian-prod-confluence-04-nic-fe70ffff677e4b70b231293c054a5914 = {
     ip_configuration = {
       primary = {
-        name                  = "b4b4121007314a22b48b788692df2a12"
+        name                  = "910ffe84a80d4a0eae29aacc0a3d4db7"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.1.4.201"
+        subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-app"
+      }
+    }
+  }
+
+  atlassian-prod-gluster-01-nic-1c8cb6fa1a7a488db7cb7a70c181164f = {
+    ip_configuration = {
+      primary = {
+        name                  = "110ff079767845b292b33fd6d57aa25f"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.132"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-dat"
@@ -831,10 +830,10 @@ nics = {
     }
   }
 
-  atlassian-prod-gluster-02-nic-35bec6dd7ccd4bbbb1b0393bd3ab92b1 = {
+  atlassian-prod-gluster-02-nic-cd44e7ead6654137a23f3daefc5f00f6 = {
     ip_configuration = {
       primary = {
-        name                  = "f385dc90c5a7494ca49ef799471455ae"
+        name                  = "e55df150a16144c4a648c9ba1b0a6958"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.133"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-dat"
@@ -842,10 +841,10 @@ nics = {
     }
   }
 
-  atlassian-prod-gluster-03-nic-2d04cbd8ac8440a4a21334adcd93ab95 = {
+  atlassian-prod-gluster-03-nic-33273cfe1f254cc5819f2639fc68cc3d = {
     ip_configuration = {
       primary = {
-        name                  = "389f654c117346ab908f499cc9a35140"
+        name                  = "1844d64e71f74fcfbe3314949966908d"
         private_ip_allocation = "Static"
         private_ip_address    = "10.1.4.134"
         subnet_name           = "atlassian-int-prod-vnet-atlassian-int-subnet-dat"
@@ -1193,7 +1192,7 @@ waf_custom_rules = [
   }
 ]
 
-app_action = "status" # change this to "status" or "stop" in order to stop the jira
+app_action = "stop" # change this to "status" or "stop" in order to stop the jira
 
 app_gw_rewrite_rules = [
   {
