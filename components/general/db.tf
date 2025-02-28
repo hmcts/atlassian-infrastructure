@@ -4,7 +4,6 @@ locals {
   zone_resource_group = "core-infra-intsvc-rg"
   app_names           = toset(["jira", "crowd", "confluence"])
   DB_SERVER           = "jdbc:postgresql://atlassian-${var.env}-flex-server.postgres.database.azure.com:5432"
-  DB_USER             = "${data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value}@atlassian-${var.env}-flex-server"
 }
 
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-PASS" {
@@ -62,7 +61,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_vnet
   provider              = azurerm.dns
   name                  = "${var.product}-${var.env}-postgres-dns-vnet-link"
   resource_group_name   = local.zone_resource_group
-  virtual_network_id    = module.networking.vnet_ids["atlassian-int-nonprod-vnet"]
+  virtual_network_id    = module.networking.vnet_ids["atlassian-int-${var.env}-vnet"]
   private_dns_zone_name = local.zone_name
 }
 
@@ -99,7 +98,7 @@ resource "terraform_data" "postgres" {
     azurerm_key_vault_secret.postgres_username[each.key].id
   ]
   provisioner "local-exec" {
-    command = "${path.module}/scripts/configure-postgres.sh"
+    command = "./scripts/configure-postgres.sh"
     environment = {
       POSTGRES_HOST  = azurerm_postgresql_server.atlassian-server.fqdn
       ADMIN_USER     = "${data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value}@atlassian-${var.env}-server"
@@ -161,4 +160,25 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   }
 
   tags = module.ctags.common_tags
+}
+
+resource "terraform_data" "atlassian-flex-server" {
+  for_each = local.app_names
+
+  triggers_replace = [
+    azurerm_postgresql_flexible_server.atlassian-flex-server.id,
+    azurerm_key_vault_secret.postgres_password[each.key].id,
+    azurerm_key_vault_secret.postgres_username[each.key].id
+  ]
+  provisioner "local-exec" {
+    command = "./scripts/configure-postgres.sh"
+    environment = {
+      POSTGRES_HOST  = azurerm_postgresql_flexible_server.atlassian-flex-server.fqdn
+      ADMIN_USER     = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value
+      ADMIN_PASSWORD = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-PASS.value
+      DATABASE_NAME  = "${each.key}-db-${var.env}"
+      USER           = "${each.key}_user"
+      PASSWORD       = random_password.postgres_password[each.key].result
+    }
+  }
 }

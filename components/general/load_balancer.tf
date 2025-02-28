@@ -22,7 +22,7 @@ resource "azurerm_lb_backend_address_pool_address" "azlb_backend_address" {
   for_each                = var.lb_backend_addresses
   name                    = each.value.name
   backend_address_pool_id = azurerm_lb_backend_address_pool.azlb_backend.id
-  virtual_network_id      = module.networking.vnet_ids["atlassian-int-nonprod-vnet"]
+  virtual_network_id      = module.networking.vnet_ids["atlassian-int-${var.env}-vnet"]
   ip_address              = each.value.ip
 }
 

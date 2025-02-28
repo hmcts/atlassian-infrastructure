@@ -1,5 +1,5 @@
 resource "azurerm_recovery_services_vault" "rsv" {
-  count               = var.env == "nonprod" ? 1 : 0
+  count               = var.env == "prod" ? 1 : 0
   name                = "${var.product}-${var.env}-rsv"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
@@ -11,7 +11,7 @@ resource "azurerm_recovery_services_vault" "rsv" {
 }
 
 resource "azurerm_backup_policy_vm" "vm-backup-policy" {
-  count = var.env == "nonprod" ? 1 : 0
+  count = var.env == "prod" ? 1 : 0
 
   name                = "${var.product}-${var.env}-vm-backup-policy"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
@@ -50,7 +50,7 @@ resource "azurerm_backup_policy_vm" "vm-backup-policy" {
 }
 
 resource "azurerm_backup_protected_vm" "vm-backup" {
-  for_each            = { for k, v in var.vms : k => v if var.env == "nonprod" }
+  for_each            = { for k, v in var.vms : k => v if var.env == "prod" }
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   recovery_vault_name = azurerm_recovery_services_vault.rsv[0].name
   source_vm_id        = azurerm_virtual_machine.vm[each.key].id

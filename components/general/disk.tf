@@ -5,13 +5,9 @@ resource "azurerm_managed_disk" "data_disk" {
   resource_group_name  = azurerm_resource_group.atlassian_rg.name
   location             = "UK South"
   storage_account_type = each.value.storage_account_type
-  storage_account_id   = data.azurerm_storage_account.storage_account.id
   create_option        = each.value.create_option
+  source_resource_id   = each.value.source_resource_id
+  storage_account_id   = each.value.storage_account_id
 
   tags = module.ctags.common_tags
-}
-
-data "azurerm_storage_account" "storage_account" {
-  name                = "${var.product}${var.env}"
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
 }

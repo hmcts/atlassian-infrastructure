@@ -27,7 +27,7 @@ resource "azurerm_key_vault" "atlassian_kv" {
       ]
       }, {
       tenant_id      = data.azurerm_client_config.current.tenant_id
-      object_id      = "345d18cb-dabd-48f4-80fc-ea735abf14f1" # DTS Bootstrap (sub:moj dcd atlassian nle)
+      object_id      = data.azurerm_client_config.current.object_id
       application_id = null
 
       certificate_permissions = []
