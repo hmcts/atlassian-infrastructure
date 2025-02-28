@@ -76,7 +76,6 @@ resource "terraform_data" "vm" {
   provisioner "file" {
     source      = "./scripts/robots_template.txt"
     destination = "/tmp/robots_template.txt"
-    when        = each.value.app == "jira" ? "create" : "never"
   }
 
   provisioner "remote-exec" {
