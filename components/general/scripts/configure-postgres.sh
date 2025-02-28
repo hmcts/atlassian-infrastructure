@@ -33,3 +33,10 @@ if [ "${DATABASE_NAME}" = "jira-db-nonprod" ]; then
   DISABLE_EMAIL="UPDATE propertynumber SET propertyvalue = 1 WHERE \"id\" = (SELECT \"id\" FROM \"propertyentry\" WHERE \"property_key\" = 'jira.mail.send.disabled');"
   psql "sslmode=require" -c "${DISABLE_EMAIL}"
 fi
+
+#TO BE REMOVED FOR PRODUCTION DEPLOY AFTER TESTING
+# Disable emails if DATABASE_NAME is jira-db-prod
+if [ "${DATABASE_NAME}" = "jira-db-prod" ]; then
+  DISABLE_EMAIL="UPDATE propertynumber SET propertyvalue = 1 WHERE \"id\" = (SELECT \"id\" FROM \"propertyentry\" WHERE \"property_key\" = 'jira.mail.send.disabled');"
+  psql "sslmode=require" -c "${DISABLE_EMAIL}"
+fi

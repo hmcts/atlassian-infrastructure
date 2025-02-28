@@ -39,7 +39,6 @@ data "azurerm_key_vault_secret" "admin_private_key" {
   name         = "test-private-key"
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
-
 data "azurerm_key_vault_secret" "admin_username" {
   name         = "vm-admin-username"
   key_vault_id = azurerm_key_vault.atlassian_kv.id
@@ -61,15 +60,16 @@ resource "terraform_data" "vm" {
     host        = each.value.private_ip_address
     user        = data.azurerm_key_vault_secret.admin_username.value
     private_key = data.azurerm_key_vault_secret.admin_private_key.value
+    timeout     = "15m"
   }
 
   provisioner "file" {
-    source      = "${path.module}/scripts/configure-${each.value.app}-vm.sh"
+    source      = "./scripts/configure-${each.value.app}-vm.sh"
     destination = "/tmp/configure-${each.value.app}-vm.sh"
   }
 
   provisioner "file" {
-    source      = "${path.module}/scripts/functions.sh"
+    source      = "./scripts/functions.sh"
     destination = "/tmp/functions.sh"
   }
   provisioner "remote-exec" {
