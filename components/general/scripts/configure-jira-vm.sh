@@ -103,12 +103,6 @@ log_entry "Updating robots.txt"
 ROBOTS_FILE="/opt/atlassian/jira/install/atlassian-jira/robots.txt"
 TEMPLATE_FILE="/tmp/robots_template.txt"
 
-# Compare the existing robots.txt with the template
-if [ -f "$ROBOTS_FILE" ] && cmp -s "$ROBOTS_FILE" "$TEMPLATE_FILE"; then
-    log_entry "No changes detected for robots.txt"
-    exit 0
-fi
-
 # Replace robots.txt with the template content
 cp "$TEMPLATE_FILE" "$ROBOTS_FILE"
 
