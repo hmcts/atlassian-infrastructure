@@ -49,10 +49,10 @@ resource "azurerm_backup_policy_vm" "vm-backup-policy" {
   }
 }
 
-resource "azurerm_backup_protected_vm" "vm-backup" {
-  for_each            = { for k, v in var.vms : k => v if var.env == "prod" }
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
-  recovery_vault_name = azurerm_recovery_services_vault.rsv[0].name
-  source_vm_id        = azurerm_virtual_machine.vm[each.key].id
-  backup_policy_id    = azurerm_backup_policy_vm.vm-backup-policy[0].id
-}
+# resource "azurerm_backup_protected_vm" "vm-backup" {
+#   for_each            = { for k, v in var.vms : k => v if var.env == "prod" }
+#   resource_group_name = azurerm_resource_group.atlassian_rg.name
+#   recovery_vault_name = azurerm_recovery_services_vault.rsv[0].name
+#   source_vm_id        = azurerm_virtual_machine.vm[each.key].id
+#   backup_policy_id    = azurerm_backup_policy_vm.vm-backup-policy[0].id
+# }
