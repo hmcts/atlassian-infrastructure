@@ -98,5 +98,24 @@ for file in /var/atlassian/application_data/jira_shared/dbconfig.xml /opt/atlass
 done
 log_entry "Updated dbconfig.xml"
 
+# Update robots.txt
+log_entry "Updating robots.txt"
+ROBOTS_FILE="/opt/atlassian/jira/install/atlassian-jira/robots.txt"
+TEMPLATE_FILE="/tmp/robots_template.txt"
+
+# Compare the existing robots.txt with the template
+if [ -f "$ROBOTS_FILE" ] && cmp -s "$ROBOTS_FILE" "$TEMPLATE_FILE"; then
+    log_entry "No changes detected for robots.txt"
+    exit 0
+fi
+
+# Replace robots.txt with the template content
+cp "$TEMPLATE_FILE" "$ROBOTS_FILE"
+
+# Ensure proper permissions
+chmod 644 "$ROBOTS_FILE"
+
+log_entry "robots.txt updated from template file"
+
 systemctl start jira
 log_entry "started jira"

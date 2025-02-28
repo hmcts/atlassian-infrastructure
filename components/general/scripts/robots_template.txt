@@ -1,0 +1,4 @@
+# This is a robots.txt file
+# Disallow all crawling
+User-agent: *
+Disallow: /
