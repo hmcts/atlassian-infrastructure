@@ -78,7 +78,7 @@ resource "terraform_data" "vm" {
     destination = "/tmp/robots_template.txt"
     when        = each.value.app == "jira" ? "create" : "never"
   }
-  
+
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/configure-${each.value.app}-vm.sh",
