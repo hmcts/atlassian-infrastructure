@@ -3,7 +3,7 @@ set -x
 
 source /tmp/functions.sh
 
-# Access the variables.
+# Access the variables
 DB_URL=$1
 DB_USERNAME=$2
 DB_PASSWORD=$3
@@ -20,12 +20,12 @@ chown -R jira:jira /var/atlassian/application_data/jira_shared/node-status/
 chmod -R u+rw /var/atlassian/application_data/jira_shared/node-status/
 log_entry "Changed ownership of /opt/atlassian/jira to jira:jira"
 
-# Remove Dynatrace
-/opt/dynatrace/oneagent/agent/uninstall.sh
-log_entry "Uninstalled Dynatrace"
-
 # # Update /etc/hosts
 if [ "$ENV" == "nonprod" ]; then
+  # Remove Dynatrace.
+  /opt/dynatrace/oneagent/agent/uninstall.sh
+  log_entry "Uninstalled Dynatrace"
+
   update_hosts_file_staging
   log_entry "Added entries in the hosts file"
   # Replace glusterfs entry in /etc/fstab
