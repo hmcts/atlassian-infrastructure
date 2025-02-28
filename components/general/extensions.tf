@@ -23,4 +23,5 @@ module "vm-bootstrap" {
   dynatrace_custom_hostname   = azurerm_virtual_machine.vm_test[count.index].name
 
   common_tags = module.ctags.common_tags
+  depends_on  = [azurerm_virtual_machine.vm_test]
 }
