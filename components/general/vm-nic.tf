@@ -26,7 +26,7 @@ resource "azurerm_network_interface" "nic_test" {
   ip_configuration {
     name = "atlassian_nonprod_test"
 
-    subnet_id                     = module.networking.subnet_ids["atlassian-int-subnet-app"]
+    subnet_id                     = module.networking.subnet_ids["atlassian-int-nonprod-vnet-atlassian-int-subnet-app"]
     private_ip_address_allocation = "Static"
     private_ip_address            = "10.0.4.202"
   }
