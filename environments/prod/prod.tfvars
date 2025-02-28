@@ -541,7 +541,7 @@ http_listeners = [
   {
     name                 = "appgw-http-listener"
     ssl_enabled          = true
-    ssl_certificate_name = "prod-temp.tools.hmcts.net"
+    ssl_certificate_name = "tools.hmcts.net"
   }
 ]
 
@@ -585,8 +585,8 @@ url_path_map = [
 
 ssl_certificates = [
   {
-    name                = "prod-temp.tools.hmcts.net"
-    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/prod-temp-tools-hmcts-net/0bd3aa7f88c844a9bbd1f36843dc74ba"
+    name                = "tools.hmcts.net"
+    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/tools-hmcts-net"
   }
 ]
 
@@ -1193,7 +1193,7 @@ waf_custom_rules = [
   }
 ]
 
-app_action = "status" # change this to "status" or "stop" in order to stop the jira
+app_action = "stop" # change this to "status" or "stop" in order to stop the jira
 
 app_gw_rewrite_rules = [
   {

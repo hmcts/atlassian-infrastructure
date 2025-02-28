@@ -53,17 +53,10 @@ elif [ "$ENV" == "prod" ]; then
   mount -a
   log_entry "Mounted glusterfs"
 
-  #TO BE REMOVED FOR PRODUCTION DEPLOY AFTER TESTING
-  # Update Jira server.xml to replace tools.hmcts.net with staging.tools.hmcts.net
-  for file2 in /opt/atlassian/jira/conf/server.xml /opt/atlassian/jira/data/customisations/conf/server.xml /opt/atlassian/jira/install/conf/server.xml; do
-      sed -i 's/proxyName="tools\.hmcts\.net"/proxyName="prod-temp.tools.hmcts.net"/g' $file2
-      log_entry "Updated server.xml"
-  done
-
   # Import SSL certificate
 
-  openssl s_client -connect tools.hmcts.net:443 -servername prod-temp.tools.hmcts.net < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /opt/atlassian/jira/jre/public.crt
-  /opt/atlassian/jira/jre/bin/keytool -importcert -alias prod-temp.tools.hmcts.net -keystore /opt/atlassian/jira/jre/lib/security/cacerts -file /opt/atlassian/jira/jre/public.crt -storepass changeit -noprompt
+  openssl s_client -connect tools.hmcts.net:443 -servername tools.hmcts.net < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /opt/atlassian/jira/jre/public.crt
+  /opt/atlassian/jira/jre/bin/keytool -importcert -alias tools.hmcts.net -keystore /opt/atlassian/jira/jre/lib/security/cacerts -file /opt/atlassian/jira/jre/public.crt -storepass changeit -noprompt
   log_entry "Imported SSL certificate"
 
 else
