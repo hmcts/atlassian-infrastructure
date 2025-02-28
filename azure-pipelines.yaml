@@ -35,12 +35,12 @@ parameters:
         service_connection: "MOJ DCD Atlassian NLE"
         dependsOn: "Precheck"
         resource_group: azure-control-stg-rg
-      # - deployment: "prod_general"
-      #   environment: "prod"
-      #   component: "general"
-      #   service_connection: "MOJ DCD Atlassian LVE"
-      #   resource_group: azure-control-stg-rg
-      #   dependsOn: "nonprod_general"
+      - deployment: "prod_general"
+        environment: "prod"
+        component: "general"
+        service_connection: "MOJ DCD Atlassian LVE"
+        resource_group: azure-control-stg-rg
+        dependsOn: "nonprod_general"
     
 
 variables:
