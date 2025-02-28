@@ -60,6 +60,8 @@ vnets = {
   }
 }
 
+ss-env     = "stg"
+ss-env-sub = "74dacd4f-a248-45bb-a2f0-af700dc4cf68"
 
 network_security_groups = {
   atlassian-int-subnet-app-nsg = {
@@ -583,7 +585,7 @@ url_path_map = [
 ssl_certificates = [
   {
     name                = "staging.tools.hmcts.net"
-    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/staging-tools-hmcts-net/c3c238f558e1464c80d41aeebbba4cea"
+    key_vault_secret_id = "https://acmedtssdsprod.vault.azure.net/secrets/staging-tools-hmcts-net"
   }
 ]
 
@@ -595,8 +597,8 @@ vms = {
   atlassian-nonprod-jira-01 = {
     computer_name      = "prdatl01ajra01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-jira-01-nic-ae42a8594ebb446cb08f04a919d15177"
-    os_disk_name       = "atlassiannonprodjira01-osdisk-20250115-102743"
+    nic_name           = "atlassian-nonprod-jira-01-nic-1aef632e846e463bb0c865c44df2a468"
+    os_disk_name       = "atlassiannonprodjira01-osdisk-20250224-221942"
     private_ip_address = "10.0.4.198"
     app                = "jira"
   }
@@ -604,8 +606,8 @@ vms = {
   atlassian-nonprod-jira-02 = {
     computer_name      = "prdatl01ajra02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-jira-02-nic-69fb98d7b08e4fd7a5cfd2d52d7a551e"
-    os_disk_name       = "atlassiannonprodjira02-osdisk-20250115-102817"
+    nic_name           = "atlassian-nonprod-jira-02-nic-3b8b167c77ac4c20a3d668721df92ae0"
+    os_disk_name       = "atlassiannonprodjira02-osdisk-20250224-222013"
     private_ip_address = "10.0.4.199"
     app                = "jira"
   }
@@ -613,8 +615,8 @@ vms = {
   atlassian-nonprod-jira-03 = {
     computer_name      = "prdatl01ajra03.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-jira-03-nic-dc5e66a89abe413a9b6552cb7917a1fb"
-    os_disk_name       = "atlassiannonprodjira03-osdisk-20250115-102620"
+    nic_name           = "atlassian-nonprod-jira-03-nic-ca53846ea25946ecaacce3ac43bc440d"
+    os_disk_name       = "atlassiannonprodjira03-osdisk-20250224-222041"
     private_ip_address = "10.0.4.196"
     app                = "jira"
   }
@@ -622,8 +624,8 @@ vms = {
   atlassian-nonprod-crowd-01 = {
     computer_name      = "prdatl01acrd01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E4s_v3"
-    nic_name           = "atlassian-nonprod-crowd-01-nic-6fab8d5cad484bbd8527a72a388d91d2"
-    os_disk_name       = "atlassiannonprodcrowd01-osdisk-20250115-103215"
+    nic_name           = "atlassian-nonprod-crowd-01-nic-c2c978933102410ab5ad3f151a758b72"
+    os_disk_name       = "atlassiannonprodcrowd01-osdisk-20250224-222209"
     private_ip_address = "10.0.4.197"
     app                = "crowd"
   }
@@ -631,8 +633,8 @@ vms = {
   atlassian-nonprod-confluence-02 = {
     computer_name      = "prdatl01acnf02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-confluence-02-nic-b84332a810274e879a33a6f38a7df04a"
-    os_disk_name       = "atlassiannonprodconfluence02-osdisk-20250115-103537"
+    nic_name           = "atlassian-nonprod-confluence-02-nic-553dfc2cce8b4edf9e08f9a73edee13d"
+    os_disk_name       = "atlassiannonprodconfluence02-osdisk-20250224-222126"
     private_ip_address = "10.0.4.201"
     app                = "confluence"
   }
@@ -640,112 +642,119 @@ vms = {
   atlassian-nonprod-confluence-04 = {
     computer_name      = "prdatl01acnf04.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-confluence-04-nic-4613cc6b09804b27aca60fa089ef0cb3"
-    os_disk_name       = "atlassiannonprodconfluence04-osdisk-20250115-103905"
+    nic_name           = "atlassian-nonprod-confluence-04-nic-6ea263ba44bb4e14884b691754b77a99"
+    os_disk_name       = "atlassiannonprodconfluence04-osdisk-20250224-222143"
     private_ip_address = "10.0.4.200"
     app                = "confluence"
   }
   atlassian-nonprod-gluster-01 = {
     computer_name      = "PRDATL01DGST01.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-gluster-01-nic-9d7a4faa7a584b8a93625c8a890aaaa2"
-    os_disk_name       = "atlassiannonprodgluster01-osdisk-20250115-110018"
-    private_ip_address = "10.0.4.132"
+    nic_name           = "atlassian-nonprod-gluster-01-nic-58518121b1984dd98d248dcca29c299c"
+    os_disk_name       = "atlassiannonprodgluster01-osdisk-20250224-222240"
+    private_ip_address = "10.0.4.133"
     app                = "gluster"
   }
 
   atlassian-nonprod-gluster-02 = {
     computer_name      = "prdatl01dgst02.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-gluster-02-nic-5d520339a4a3439ea10b42309dd60d89"
-    os_disk_name       = "atlassiannonprodgluster02-osdisk-20250115-110126"
-    private_ip_address = "10.0.4.133"
+    nic_name           = "atlassian-nonprod-gluster-02-nic-66a1310ace9740ec831013bc76e6feb8"
+    os_disk_name       = "atlassiannonprodgluster02-osdisk-20250224-222300"
+    private_ip_address = "10.0.4.132"
     app                = "gluster"
   }
 
   atlassian-nonprod-gluster-03 = {
     computer_name      = "prdatl01dgst03.cp.cjs.hmcts.net"
     vm_size            = "Standard_E8s_v3"
-    nic_name           = "atlassian-nonprod-gluster-03-nic-789c1d7bf88c4ff2a65e0bffd22dd45c"
-    os_disk_name       = "atlassiannonprodgluster03-osdisk-20250115-110154"
+    nic_name           = "atlassian-nonprod-gluster-03-nic-9ab4ac8c6f4a4e47b5922aaa674d0ae5"
+    os_disk_name       = "atlassiannonprodgluster03-osdisk-20250224-222323"
     private_ip_address = "10.0.4.134"
     app                = "gluster"
   }
 }
 
 data_disks = {
-  atlassiannonprodjira01-datadisk-000-20250115-102743 = {
+  atlassiannonprodjira01-datadisk-000-20250224-221942 = {
     vm_name              = "atlassian-nonprod-jira-01"
     disk_size_gb         = 100
     create_option        = "Import"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
-  atlassiannonprodconfluence02-datadisk-000-20250115-103537 = {
+  atlassiannonprodconfluence02-datadisk-000-20250224-222126 = {
     vm_name              = "atlassian-nonprod-confluence-02"
     disk_size_gb         = 128
     create_option        = "Import"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
-  atlassiannonprodconfluence04-datadisk-000-20250115-103905 = {
+  atlassiannonprodconfluence04-datadisk-000-20250224-222143 = {
     vm_name              = "atlassian-nonprod-confluence-04"
     disk_size_gb         = 128
     create_option        = "Import"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadOnly"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
-  atlassiannonprodgluster01-datadisk-000-20250115-110018 = {
+  atlassiannonprodgluster01-datadisk-000-20250224-222240 = {
     vm_name              = "atlassian-nonprod-gluster-01"
     disk_size_gb         = 4000
     create_option        = "Import"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
 
-  atlassiannonprodgluster01-datadisk-001-20250115-110018 = {
+  atlassiannonprodgluster01-datadisk-001-20250224-222240 = {
     vm_name              = "atlassian-nonprod-gluster-01"
     disk_size_gb         = 1024
     create_option        = "Import"
     storage_account_type = "StandardSSD_LRS"
     lun                  = 1
     caching              = "None"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
 
-  atlassiannonprodgluster02-datadisk-000-20250115-110126 = {
+  atlassiannonprodgluster02-datadisk-000-20250224-222300 = {
     vm_name              = "atlassian-nonprod-gluster-02"
     disk_size_gb         = 4000
     create_option        = "Import"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 
 
-  atlassiannonprodgluster03-datadisk-000-20250115-110154 = {
+  atlassiannonprodgluster03-datadisk-000-20250224-222323 = {
     vm_name              = "atlassian-nonprod-gluster-03"
     disk_size_gb         = 4000
     create_option        = "Import"
     storage_account_type = "Premium_LRS"
     lun                  = 0
     caching              = "ReadWrite"
+    storage_account_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Storage/storageAccounts/atlassiannonprod"
   }
 }
 
 nics = {
-  atlassian-nonprod-jira-01-nic-ae42a8594ebb446cb08f04a919d15177 = {
+  atlassian-nonprod-jira-01-nic-1aef632e846e463bb0c865c44df2a468 = {
     ip_configuration = {
       primary = {
-        name                  = "a046c86bfaf340a0ac67759518ed0593"
+        name                  = "15cab1b4897a4ac9b2b9609e9dfcb9d3"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.198"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
@@ -753,10 +762,10 @@ nics = {
     }
   }
 
-  atlassian-nonprod-jira-02-nic-69fb98d7b08e4fd7a5cfd2d52d7a551e = {
+  atlassian-nonprod-jira-02-nic-3b8b167c77ac4c20a3d668721df92ae0 = {
     ip_configuration = {
       primary = {
-        name                  = "956345df6048440383d8d7e13ece98e2"
+        name                  = "ad6c7aea06754daeaa903697817b69e0"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.199"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
@@ -764,10 +773,10 @@ nics = {
     }
   }
 
-  atlassian-nonprod-jira-03-nic-dc5e66a89abe413a9b6552cb7917a1fb = {
+  atlassian-nonprod-jira-03-nic-ca53846ea25946ecaacce3ac43bc440d = {
     ip_configuration = {
       primary = {
-        name                  = "67d33c61f79440fcb3344fc02673bdae"
+        name                  = "656935d0ebdc476d942e23e98cbe8e6a"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.196"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
@@ -775,10 +784,10 @@ nics = {
     }
   }
 
-  atlassian-nonprod-crowd-01-nic-6fab8d5cad484bbd8527a72a388d91d2 = {
+  atlassian-nonprod-crowd-01-nic-c2c978933102410ab5ad3f151a758b72 = {
     ip_configuration = {
       primary = {
-        name                  = "2833ba74d709498988492fa0ee9c3e95"
+        name                  = "ed7171ee73704af491d838098ff08312"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.197"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
@@ -787,10 +796,10 @@ nics = {
 
   }
 
-  atlassian-nonprod-confluence-02-nic-b84332a810274e879a33a6f38a7df04a = {
+  atlassian-nonprod-confluence-02-nic-553dfc2cce8b4edf9e08f9a73edee13d = {
     ip_configuration = {
       primary = {
-        name                  = "ddadbc2efc734bc7bcc236336026b501"
+        name                  = "97c496ce65ee471f90f7a7efdadaa86d"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.201"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
@@ -798,10 +807,10 @@ nics = {
     }
   }
 
-  atlassian-nonprod-confluence-04-nic-4613cc6b09804b27aca60fa089ef0cb3 = {
+  atlassian-nonprod-confluence-04-nic-6ea263ba44bb4e14884b691754b77a99 = {
     ip_configuration = {
       primary = {
-        name                  = "720ee19ebf504fe69bf991d77c94bfbc"
+        name                  = "808f990dff6b45b99ffa22a99ebf5aa3"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.200"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-app"
@@ -809,21 +818,10 @@ nics = {
     }
   }
 
-  atlassian-nonprod-gluster-01-nic-9d7a4faa7a584b8a93625c8a890aaaa2 = {
+  atlassian-nonprod-gluster-01-nic-58518121b1984dd98d248dcca29c299c = {
     ip_configuration = {
       primary = {
-        name                  = "b9eac8ecb6a44fd9b0c6a4c244fa77ec"
-        private_ip_allocation = "Static"
-        private_ip_address    = "10.0.4.132"
-        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
-      }
-    }
-  }
-
-  atlassian-nonprod-gluster-02-nic-5d520339a4a3439ea10b42309dd60d89 = {
-    ip_configuration = {
-      primary = {
-        name                  = "dbd462d9274e49bda9025e3fc2034dc8"
+        name                  = "15f696f79e5f490f8e31971603eaf833"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.133"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
@@ -831,10 +829,21 @@ nics = {
     }
   }
 
-  atlassian-nonprod-gluster-03-nic-789c1d7bf88c4ff2a65e0bffd22dd45c = {
+  atlassian-nonprod-gluster-02-nic-66a1310ace9740ec831013bc76e6feb8 = {
     ip_configuration = {
       primary = {
-        name                  = "213e090d693745268e3483f55897a2e4"
+        name                  = "bc7146dc6ec1432ca82107bb0bcd11ad"
+        private_ip_allocation = "Static"
+        private_ip_address    = "10.0.4.132"
+        subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
+      }
+    }
+  }
+
+  atlassian-nonprod-gluster-03-nic-9ab4ac8c6f4a4e47b5922aaa674d0ae5 = {
+    ip_configuration = {
+      primary = {
+        name                  = "2d33caa8b0b84031880958208fd8cffd"
         private_ip_allocation = "Static"
         private_ip_address    = "10.0.4.134"
         subnet_name           = "atlassian-int-nonprod-vnet-atlassian-int-subnet-dat"
@@ -850,11 +859,11 @@ frontend_private_ip_address = "10.0.4.150"
 lb_backend_addresses = {
   lb_address_1 = {
     name = "atlassian-nonprod-gluster-01"
-    ip   = "10.0.4.132"
+    ip   = "10.0.4.133"
   }
   lb_address_2 = {
     name = "atlassian-nonprod-gluster-02"
-    ip   = "10.0.4.133"
+    ip   = "10.0.4.132"
   }
   lb_address_3 = {
     name = "atlassian-nonprod-gluster-03"
@@ -1186,13 +1195,13 @@ app_action = "status" # change this to "status" or "stop" in order to stop the j
 
 app_gw_rewrite_rules = [
   {
-    ruleset_name  = "Test-Rewrites"
+    ruleset_name  = "Staging-Rewrites"
     name          = "robots.txt"
     rule_sequence = 100
     condition = {
       variable    = "var_uri_path"
       pattern     = "/robots.txt"
-      ignore_case = true
+      ignore_case = false
       negate      = false
     }
     response_header_configuration = {

@@ -17,6 +17,18 @@ variable "vnets" {
   }))
 }
 
+variable "ss-env" {
+  description = "vnet required for peering"
+  type        = string
+}
+
+variable "ss-env-sub" {
+  description = "subscription required for peering"
+  type        = string
+}
+
+
+
 variable "vms" {
   description = "List of VMs to create"
   type = map(object({
@@ -38,6 +50,8 @@ variable "data_disks" {
     storage_account_type = string
     caching              = string
     lun                  = number
+    source_resource_id   = optional(string)
+    storage_account_id   = optional(string)
   }))
 }
 

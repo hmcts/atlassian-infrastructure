@@ -3,12 +3,10 @@ trigger:
     include:
       - master
 
-
 pr:
   branches:
     include:
       - master
-
 
 resources:
   repositories:
@@ -26,6 +24,7 @@ parameters:
       - plan
       - apply
       - destroy
+
   - name: environment_components
     type: object
     default:
@@ -33,15 +32,17 @@ parameters:
         environment: "nonprod"
         component: "general"
         service_connection: "MOJ DCD Atlassian NLE"
-        dependsOn: "Precheck"
         resource_group: azure-control-stg-rg
+        dependsOn: "Precheck"
+        agentPool: "hmcts-ss-stg"
+        
       - deployment: "prod_general"
         environment: "prod"
         component: "general"
         service_connection: "MOJ DCD Atlassian LVE"
-        resource_group: azure-control-stg-rg
+        resource_group: azure-control-prod-rg
         dependsOn: "nonprod_general"
-    
+        agentPool: "hmcts-ss-prod"
 
 variables:
   - name: timeoutInMinutes
@@ -50,16 +51,14 @@ variables:
     value: atlassian
   - name: terraformInitSubscription
     value: 04d27a32-7a07-48b3-95b8-3c8691e1a263
-  - name: agentPool
-    value: 'hmcts-ss-stg'
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
 
 stages:
   - stage: Precheck
     jobs:
-      - job:
+      - job: PrecheckJob
         pool:
-            name: ${{ variables.agentPool }}
+          name: ${{ parameters.environment_components[0].agentPool }}  # Get the precomputed agentPool value
         steps:
           - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
             parameters:
@@ -67,13 +66,14 @@ stages:
               keyvaultSecret: "azure-devops-sp-token"
               serviceConnection: "azurerm-sandbox"
               overrideAction: ${{ parameters.overrideAction }}
+
   - ${{ each deployment in parameters.environment_components }}:
       - stage: ${{ deployment.deployment }}
         dependsOn: ${{ deployment.dependsOn }}
         jobs:
           - job: TerraformPlanApply
             pool:
-              name: ${{ variables.agentPool }}
+              name: ${{ deployment.agentPool }}  # Uses precomputed agentPool value
             timeoutInMinutes: ${{ variables.timeoutInMinutes }}
             steps:
               - template: steps/terraform.yaml@cnp-azuredevops-libraries
