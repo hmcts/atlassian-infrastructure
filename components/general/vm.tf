@@ -32,8 +32,8 @@ resource "azurerm_virtual_machine" "vm_test" {
   location                     = "UK South"
   resource_group_name          = azurerm_resource_group.atlassian_rg.name
   vm_size                      = "Standard_E8s_v3"
-  network_interface_ids        = [azurerm_network_interface.nic_test.id]
-  primary_network_interface_id = azurerm_network_interface.nic_test.id
+  network_interface_ids        = [azurerm_network_interface.nic_test[count.index].id]
+  primary_network_interface_id = azurerm_network_interface.nic_test[count.index].id
 
   storage_os_disk {
     name              = "atlassian_test_disk"
