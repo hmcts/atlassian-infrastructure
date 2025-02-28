@@ -1,6 +1,6 @@
 resource "azurerm_application_gateway" "ag" {
 
-  name                = "atlassian-${var.env}-app-gateway"
+  name                = "${var.product}-${var.env}-app-gateway"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
   tags                = module.ctags.common_tags
@@ -176,7 +176,7 @@ resource "azurerm_application_gateway" "ag" {
 
 
 resource "azurerm_user_assigned_identity" "identity" {
-  name                = "atlassian-${var.env}-app-gateway-identity"
+  name                = "${var.product}-${var.env}-app-gateway-identity"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
 
@@ -193,7 +193,7 @@ resource "azurerm_role_assignment" "identity" {
 
 resource "azurerm_web_application_firewall_policy" "waf_policy" {
 
-  name                = "atlassian-${var.env}-app-gateway-waf-policy"
+  name                = "${var.product}-${var.env}-app-gateway-waf-policy"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
   location            = var.location
   tags                = module.ctags.common_tags

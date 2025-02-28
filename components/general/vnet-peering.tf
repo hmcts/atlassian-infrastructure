@@ -10,11 +10,10 @@ resource "azurerm_virtual_network_peering" "int-to-dmz" {
 }
 
 resource "azurerm_virtual_network_peering" "dmz-to-int" {
-  name                      = "atlassian-dmz-${var.env}-vnet-to-atlassian-int-${var.env}-vnet"
-  resource_group_name       = azurerm_resource_group.atlassian_rg.name
-  virtual_network_name      = "atlassian-dmz-${var.env}-vnet"
-  remote_virtual_network_id = module.networking.vnet_ids["atlassian-int-${var.env}-vnet"]
-
+  name                         = "atlassian-dmz-${var.env}-vnet-to-atlassian-int-${var.env}-vnet"
+  resource_group_name          = azurerm_resource_group.atlassian_rg.name
+  virtual_network_name         = "atlassian-dmz-${var.env}-vnet"
+  remote_virtual_network_id    = module.networking.vnet_ids["atlassian-int-${var.env}-vnet"]
   allow_virtual_network_access = "true"
   allow_forwarded_traffic      = "true"
 }
