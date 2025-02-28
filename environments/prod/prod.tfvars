@@ -1197,7 +1197,7 @@ app_action = "status" # change this to "status" or "stop" in order to stop the j
 
 app_gw_rewrite_rules = [
   {
-    ruleset_name  = "Test-Rewrites"
+    ruleset_name  = "Prod-Rewrites"
     name          = "robots.txt"
     rule_sequence = 100
     condition = {
