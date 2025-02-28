@@ -1203,7 +1203,7 @@ app_gw_rewrite_rules = [
     condition = {
       variable    = "var_uri_path"
       pattern     = "/robots.txt"
-      ignore_case = true
+      ignore_case = false
       negate      = false
     }
     response_header_configuration = {
