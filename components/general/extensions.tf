@@ -19,7 +19,7 @@ module "vm-bootstrap" {
   run_command                 = var.run_command
   os_type                     = var.os_type
   env                         = var.env == "prod" ? var.env : "nonprod"
-  custom_hostname             = azurerm_virtual_machine.vm[each.key].name
+  dynatrace_custom_hostname   = azurerm_virtual_machine.vm[each.key].name
 
   common_tags = module.ctags.common_tags
 }
