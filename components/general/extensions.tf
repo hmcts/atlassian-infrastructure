@@ -1,5 +1,6 @@
 module "vm-bootstrap" {
-  for_each = var.install_dynatrace_oneagent ? var.vms : {}
+  #   for_each = var.install_dynatrace_oneagent ? var.vms : {}
+  count = var.env == "nonprod" ? 1 : 0
 
   providers = {
     azurerm     = azurerm
@@ -10,7 +11,7 @@ module "vm-bootstrap" {
   source = "git::https://github.com/hmcts/terraform-module-vm-bootstrap.git?ref=DTSPO-24291-updating-dynatrace-settings"
 
   virtual_machine_type        = "vm"
-  virtual_machine_id          = azurerm_virtual_machine.vm[each.key].id
+  virtual_machine_id          = azurerm_virtual_machine.vm_test.id
   install_dynatrace_oneagent  = var.install_dynatrace_oneagent
   install_azure_monitor       = var.install_azure_monitor
   install_nessus_agent        = var.install_nessus_agent
@@ -19,7 +20,7 @@ module "vm-bootstrap" {
   run_command                 = var.run_command
   os_type                     = var.os_type
   env                         = var.env == "prod" ? var.env : "nonprod"
-  dynatrace_custom_hostname   = azurerm_virtual_machine.vm[each.key].name
+  dynatrace_custom_hostname   = azurerm_virtual_machine.vm_test.name
 
   common_tags = module.ctags.common_tags
 }
