@@ -1,6 +1,6 @@
 #!/bin/bash
 # set -x
-# Set up the database connection.
+# Set up the database connection
 export PGPORT=5432
 export PGHOST="${POSTGRES_HOST}"
 export PGUSER="${ADMIN_USER}"
