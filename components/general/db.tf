@@ -168,8 +168,7 @@ resource "terraform_data" "atlassian-flex-server" {
   triggers_replace = [
     azurerm_postgresql_flexible_server.atlassian-flex-server.id,
     azurerm_key_vault_secret.postgres_password[each.key].id,
-    azurerm_key_vault_secret.postgres_username[each.key].id,
-    local.DB_SERVER
+    azurerm_key_vault_secret.postgres_username[each.key].id
   ]
   provisioner "local-exec" {
     command = "./scripts/configure-postgres.sh"
