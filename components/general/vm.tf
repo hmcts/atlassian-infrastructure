@@ -36,7 +36,7 @@ resource "azurerm_virtual_machine" "vm_test" {
   primary_network_interface_id = azurerm_network_interface.nic_test[count.index].id
 
   storage_os_disk {
-    name              = "atlassian_test_disk"
+    name              = "atlassiannonprodjira01-osdisk-20250224-221942"
     caching           = "ReadOnly"
     create_option     = "Attach"
     managed_disk_type = "Premium_LRS"
