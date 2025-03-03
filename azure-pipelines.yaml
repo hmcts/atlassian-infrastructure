@@ -35,7 +35,7 @@ parameters:
         resource_group: azure-control-stg-rg
         dependsOn: "Precheck"
         agentPool: "hmcts-ss-stg"
-
+        
       - deployment: "prod_general"
         environment: "prod"
         component: "general"
