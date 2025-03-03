@@ -154,7 +154,7 @@ variable "azure_monitor_settings" {
 
 variable "install_dynatrace_oneagent" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "install_azure_monitor" {

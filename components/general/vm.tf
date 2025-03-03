@@ -26,46 +26,6 @@ resource "azurerm_virtual_machine" "vm" {
   tags = module.ctags.common_tags
 }
 
-resource "azurerm_virtual_machine" "vm_test" {
-  count                        = var.env == "nonprod" ? 1 : 0
-  name                         = "atlassiannonprodtestvm"
-  location                     = "UK South"
-  resource_group_name          = azurerm_resource_group.atlassian_rg.name
-  vm_size                      = "Standard_E8s_v3"
-  network_interface_ids        = [azurerm_network_interface.nic_test[count.index].id]
-  primary_network_interface_id = azurerm_network_interface.nic_test[count.index].id
-
-  storage_image_reference {
-    publisher = "RedHat"
-    offer     = "RHEL"
-    sku       = "7.8"
-    version   = "latest"
-  }
-
-  storage_os_disk {
-    name              = "atlassiannonprodtest"
-    caching           = "ReadOnly"
-    create_option     = "FromImage"
-    managed_disk_type = "Premium_LRS"
-  }
-
-  os_profile {
-    computer_name  = "atlassiannonprodtestvm"
-    admin_username = data.azurerm_key_vault_secret.admin_username.value
-  }
-
-  os_profile_linux_config {
-    disable_password_authentication = true
-
-    ssh_keys {
-      path     = "/home/${data.azurerm_key_vault_secret.admin_username.value}/.ssh/authorized_keys"
-      key_data = data.azurerm_key_vault_secret.admin_private_key.value
-    }
-  }
-
-  tags = module.ctags.common_tags
-}
-
 resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
   for_each = var.data_disks
 
