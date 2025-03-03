@@ -146,4 +146,48 @@ variable "flex_server_geo_redundant_backups" {
   default     = false
 }
 
+variable "azure_monitor_settings" {
+  description = "The settings passed to the Azure Monitor extension, these are specified as a JSON object in a string."
+  type        = string
+  default     = null
+}
 
+variable "install_dynatrace_oneagent" {
+  type    = bool
+  default = true
+}
+
+variable "install_azure_monitor" {
+  type    = bool
+  default = false
+}
+
+variable "install_nessus_agent" {
+  type    = bool
+  default = false
+}
+
+variable "install_splunk_uf" {
+  type    = bool
+  default = false
+}
+
+variable "install_endpoint_protection" {
+  type    = bool
+  default = false
+}
+
+variable "run_command" {
+  type    = bool
+  default = false
+}
+
+variable "os_type" {
+  type    = string
+  default = "linux"
+}
+
+variable "dynatrace_hostgroup" {
+  type    = string
+  default = "PRD_DTS_AT_A"
+}
