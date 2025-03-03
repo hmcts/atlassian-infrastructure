@@ -11,16 +11,3 @@ resource "azurerm_managed_disk" "data_disk" {
 
   tags = module.ctags.common_tags
 }
-
-resource "azurerm_managed_disk" "data_disk_test" {
-  count = var.env == "nonprod" ? 1 : 0
-
-  name                 = "atlassian-nonprod-test-disk"
-  resource_group_name  = azurerm_resource_group.atlassian_rg.name
-  location             = "UK South"
-  storage_account_type = "Premium_LRS"
-  create_option        = "Copy"
-  source_resource_id   = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/disks/atlassiannonprodjira01-datadisk-000-20250224-221942"
-
-  tags = module.ctags.common_tags
-}

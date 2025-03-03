@@ -26,33 +26,6 @@ resource "azurerm_virtual_machine" "vm" {
   tags = module.ctags.common_tags
 }
 
-resource "azurerm_virtual_machine" "vm_test" {
-  count                        = var.env == "nonprod" ? 1 : 0
-  name                         = "atlassian_nonprod_test_vm"
-  location                     = "UK South"
-  resource_group_name          = azurerm_resource_group.atlassian_rg.name
-  vm_size                      = "Standard_E8s_v3"
-  network_interface_ids        = [azurerm_network_interface.nic_test[count.index].id]
-  primary_network_interface_id = azurerm_network_interface.nic_test[count.index].id
-
-  storage_os_disk {
-    name              = "atlassian-nonprod-test-disk"
-    caching           = "ReadOnly"
-    create_option     = "Attach"
-    managed_disk_type = "Premium_LRS"
-  }
-
-  tags = module.ctags.common_tags
-}
-
-resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment_test" {
-  count              = var.env == "nonprod" ? 1 : 0
-  managed_disk_id    = azurerm_managed_disk.data_disk_test[count.index].id
-  virtual_machine_id = resource.azurerm_virtual_machine.vm_test[count.index].id
-  lun                = 0
-  caching            = "ReadOnly"
-}
-
 resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
   for_each = var.data_disks
 

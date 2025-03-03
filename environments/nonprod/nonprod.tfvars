@@ -1,5 +1,6 @@
-env             = "nonprod"
-subscription_id = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
+env                        = "nonprod"
+subscription_id            = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
+install_dynatrace_oneagent = true
 
 vnets = {
   atlassian-int-nonprod-vnet = {
