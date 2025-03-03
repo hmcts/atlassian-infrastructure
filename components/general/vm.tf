@@ -49,6 +49,15 @@ resource "azurerm_virtual_machine" "vm_test" {
     managed_disk_type = "Premium_LRS"
   }
 
+  os_profile {
+    computer_name  = "atlassian_nonprod_test_vm"
+    admin_username = "test"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
+
   tags = module.ctags.common_tags
 }
 
