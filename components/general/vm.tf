@@ -19,8 +19,12 @@ resource "azurerm_virtual_machine" "vm" {
   storage_os_disk {
     name              = each.value.os_disk_name
     caching           = "ReadOnly"
-    create_option     = "Attach"
+    create_option     = "FromImage"
     managed_disk_type = "Premium_LRS"
+  }
+
+  storage_image_reference {
+    id = "RedHat:RHEL:7.8:7.8.2021051701"
   }
 
   tags = module.ctags.common_tags
