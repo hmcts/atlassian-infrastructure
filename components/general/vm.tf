@@ -35,10 +35,14 @@ resource "azurerm_virtual_machine" "vm_test" {
   network_interface_ids        = [azurerm_network_interface.nic_test[count.index].id]
   primary_network_interface_id = azurerm_network_interface.nic_test[count.index].id
 
+  storage_image_reference {
+    id = "RedHat:RHEL:7.8:7.8.2021051701"
+  }
+
   storage_os_disk {
-    name              = "atlassiannonprodjira01-osdisk-20250224-221942"
+    name              = "atlassiannonprodtest"
     caching           = "ReadOnly"
-    create_option     = "Attach"
+    create_option     = "FromImage"
     managed_disk_type = "Premium_LRS"
   }
 
