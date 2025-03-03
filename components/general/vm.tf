@@ -28,7 +28,7 @@ resource "azurerm_virtual_machine" "vm" {
 
 resource "azurerm_virtual_machine" "vm_test" {
   count                        = var.env == "nonprod" ? 1 : 0
-  name                         = "atlassian_nonprod_test_vm"
+  name                         = "atlassiannonprodtestvm"
   location                     = "UK South"
   resource_group_name          = azurerm_resource_group.atlassian_rg.name
   vm_size                      = "Standard_E8s_v3"
