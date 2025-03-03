@@ -50,7 +50,7 @@ resource "azurerm_virtual_machine" "vm_test" {
   }
 
   os_profile {
-    computer_name  = "atlassian_nonprod_test_vm"
+    computer_name  = "atlassiannonprodtestvm"
     admin_username = "atlassiantest"
   }
 
