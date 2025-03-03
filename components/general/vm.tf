@@ -36,7 +36,10 @@ resource "azurerm_virtual_machine" "vm_test" {
   primary_network_interface_id = azurerm_network_interface.nic_test[count.index].id
 
   storage_image_reference {
-    id = "RedHat:RHEL:7.8:7.8.2021051701"
+    publisher = "RedHat"
+    offer     = "RHEL"
+    sku       = "7.8"
+    version   = "latest"
   }
 
   storage_os_disk {
