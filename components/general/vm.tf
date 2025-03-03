@@ -51,11 +51,16 @@ resource "azurerm_virtual_machine" "vm_test" {
 
   os_profile {
     computer_name  = "atlassiannonprodtestvm"
-    admin_username = "atlassiantest"
+    admin_username = data.azurerm_key_vault_secret.admin_username.value
   }
 
   os_profile_linux_config {
-    disable_password_authentication = false
+    disable_password_authentication = true
+
+    ssh_keys {
+      path     = "/home/${data.azurerm_key_vault_secret.admin_username.value}/.ssh/authorized_keys"
+      key_data = data.azurerm_key_vault_secret.admin_private_key.value
+    }
   }
 
   tags = module.ctags.common_tags
