@@ -40,7 +40,6 @@ resource "azurerm_virtual_machine" "vm_test" {
     caching           = "ReadOnly"
     create_option     = "Attach"
     managed_disk_type = "Premium_LRS"
-    os_type           = "Linux"
   }
 
   tags = module.ctags.common_tags
