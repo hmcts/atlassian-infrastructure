@@ -92,6 +92,12 @@ resource "terraform_data" "vm" {
     source      = "./scripts/functions.sh"
     destination = "/tmp/functions.sh"
   }
+
+  provisioner "file" {
+    source      = "./scripts/robots_template.txt"
+    destination = "/tmp/robots_template.txt"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/configure-${each.value.app}-vm.sh",

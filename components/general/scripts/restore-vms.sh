@@ -4,9 +4,9 @@
 az account set --subscription "79898897-729c-41a0-a5ca-53c764839d95"
 
 # Define variables
-TargetSubnetName="atlassian-int-subnet-app" # eg "atlassian-int-subnet-dat"
-TargetVmName="atlassian-prod-jira-01" # eg "atlassian-nonprod-gluster-03"
-ItemName="PRDATL01AJRA01.cp.cjs.hmcts.net" # eg "PRDATL01DGST03.cp.cjs.hmcts.net"
+TargetSubnetName="atlassian-int-subnet-dat" # eg "atlassian-int-subnet-dat"
+TargetVmName="atlassian-prod-gluster-03" # eg "atlassian-nonprod-gluster-03"
+ItemName="PRDATL01DGST03.cp.cjs.hmcts.net" # eg "PRDATL01DGST03.cp.cjs.hmcts.net"
 
 VaultName="BK-PRD-ATL-INT-01"
 SourceResourceGroup="RG-PRD-ATL-INT-01"
