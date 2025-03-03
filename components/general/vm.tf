@@ -36,13 +36,21 @@ resource "azurerm_virtual_machine" "vm_test" {
   primary_network_interface_id = azurerm_network_interface.nic_test[count.index].id
 
   storage_os_disk {
-    name              = "atlassiannonprodjira01-osdisk-20250224-221942"
+    name              = "atlassian-nonprod-test-disk"
     caching           = "ReadOnly"
     create_option     = "Attach"
     managed_disk_type = "Premium_LRS"
   }
 
   tags = module.ctags.common_tags
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment_test" {
+  count              = var.env == "nonprod" ? 1 : 0
+  managed_disk_id    = azurerm_managed_disk.data_disk_test[count.index].id
+  virtual_machine_id = resource.azurerm_virtual_machine.vm_test[count.index].id
+  lun                = 0
+  caching            = "ReadOnly"
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "data_disk_attachment" {
