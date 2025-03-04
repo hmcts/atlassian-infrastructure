@@ -20,6 +20,7 @@ module "vm-bootstrap" {
   os_type                     = var.os_type
   env                         = var.env == "prod" ? var.env : "nonprod"
   dynatrace_custom_hostname   = azurerm_virtual_machine.vm[each.key].name
+  dynatrace_hostgroup         = var.dynatrace_hostgroup
 
   common_tags = module.ctags.common_tags
   depends_on  = [azurerm_virtual_machine.vm]
