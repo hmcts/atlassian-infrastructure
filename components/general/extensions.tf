@@ -7,7 +7,7 @@ module "vm-bootstrap" {
     azurerm.soc = azurerm.soc
     azurerm.dcr = azurerm.dcr
   }
-  source = "git::https://github.com/hmcts/terraform-module-vm-bootstrap.git?ref=DTSPO-24291-updating-dynatrace-settings"
+  source = "git::https://github.com/hmcts/terraform-module-vm-bootstrap.git?ref=master"
 
   virtual_machine_type        = "vm"
   virtual_machine_id          = azurerm_virtual_machine.vm[each.key].id
