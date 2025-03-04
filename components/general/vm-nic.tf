@@ -17,18 +17,3 @@ resource "azurerm_network_interface" "nic" {
 
   tags = module.ctags.common_tags
 }
-
-resource "azurerm_network_interface" "nic_test" {
-  count               = var.env == "nonprod" ? 1 : 0
-  name                = "atlassian_nonprod_test_nic"
-  location            = "UK South"
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
-  ip_configuration {
-    name = "atlassian_nonprod_test"
-
-    subnet_id                     = module.networking.subnet_ids["atlassian-int-nonprod-vnet-atlassian-int-subnet-app"]
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "10.0.4.202"
-  }
-  tags = module.ctags.common_tags
-}
