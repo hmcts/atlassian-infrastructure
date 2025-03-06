@@ -134,6 +134,7 @@ variable "backend_http_settings" {
     name                                = string
     probe_name                          = string
     cookie_based_affinity               = string
+    affinity_cookie_name                = string
     request_timeout                     = number
     port                                = number
     pick_host_name_from_backend_address = bool
