@@ -49,7 +49,7 @@ resource "azurerm_private_endpoint" "postgres_private_endpoint" {
 
   private_service_connection {
     name                           = "postgres-psc"
-    private_connection_resource_id = azurerm_postgresql_server.atlassian-server.id
+    private_connection_resource_id = azurerm_postgresql_server.atlassian-server[0].id
     is_manual_connection           = false
     subresource_names              = ["postgresqlServer"]
   }
@@ -93,17 +93,18 @@ resource "azurerm_key_vault_secret" "postgres_username" {
 }
 
 resource "terraform_data" "postgres" {
+
   for_each = local.app_names
 
   triggers_replace = [
-    azurerm_postgresql_server.atlassian-server.id,
+    azurerm_postgresql_server.atlassian-server[0].id,
     azurerm_key_vault_secret.postgres_password[each.key].id,
     azurerm_key_vault_secret.postgres_username[each.key].id
   ]
   provisioner "local-exec" {
     command = "./scripts/configure-postgres.sh"
     environment = {
-      POSTGRES_HOST  = azurerm_postgresql_server.atlassian-server.fqdn
+      POSTGRES_HOST  = azurerm_postgresql_server.atlassian-server[0].fqdn
       ADMIN_USER     = "${data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-USER.value}@atlassian-${var.env}-server"
       ADMIN_PASSWORD = data.azurerm_key_vault_secret.POSTGRES-SINGLE-SERVER-PASS.value
       DATABASE_NAME  = "${each.key}-db-${var.env}"
