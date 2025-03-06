@@ -17,6 +17,7 @@ data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-USER" {
 }
 
 resource "azurerm_postgresql_server" "atlassian-server" {
+  count               = var.env == "nonprod" ? 1 : 0
   name                = "${var.product}-${var.env}-server"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
@@ -39,6 +40,8 @@ resource "azurerm_postgresql_server" "atlassian-server" {
   tags = module.ctags.common_tags
 }
 resource "azurerm_private_endpoint" "postgres_private_endpoint" {
+  count = var.env == "nonprod" ? 1 : 0
+
   name                = "${var.product}-${var.env}-postgres-pe"
   location            = azurerm_resource_group.atlassian_rg.location
   resource_group_name = azurerm_resource_group.atlassian_rg.name
