@@ -94,7 +94,7 @@ resource "azurerm_key_vault_secret" "postgres_username" {
 
 resource "terraform_data" "postgres" {
 
-  for_each = local.app_names
+  for_each = { for k,v in local.app_names : k => v if var.env == "nonprod" }
 
   triggers_replace = [
     azurerm_postgresql_server.atlassian-server[0].id,
