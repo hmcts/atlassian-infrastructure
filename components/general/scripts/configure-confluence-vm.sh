@@ -77,6 +77,11 @@ else
   log_entry "No environment specified"
 fi
 
+# Configure NTP for nonprod environment
+if [ "$ENV" == "nonprod" ]; then
+  configure_ntp
+fi
+
 # Update dbconfig.xml
 for file in /var/atlassian/application_data/confluence_shared/confluence.cfg.xml /opt/atlassian/confluence/data/confluence.cfg.xml; do
   sed -i "s|<property name=\"hibernate.connection.url\">.*</property>|<property name=\"hibernate.connection.url\">${DB_URL}</property>|" $file
@@ -85,8 +90,6 @@ for file in /var/atlassian/application_data/confluence_shared/confluence.cfg.xml
   sed -i "s|<property name=\"confluence.cluster.peers\">.*</property>|<property name=\"confluence.cluster.peers\">${PRIVATE_IPS}</property>|" $file
 done
 log_entry "Updated dbconfig.xml"
-
-
 
 systemctl start confluence
 log_entry "started confluence"

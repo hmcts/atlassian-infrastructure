@@ -44,6 +44,19 @@ update_hosts_file_prod() {
 echo "${HOST_ENTRIES}" > /etc/hosts
 }
 
+configure_ntp() {
+    log_entry "Configuring NTP to use Azure and Ubuntu NTP servers"
+    cat <<EOL > /etc/systemd/timesyncd.conf
+[Time]
+NTP=time.windows.com
+FallbackNTP=ntp.ubuntu.com 0.ubuntu.pool.ntp.org 1.ubuntu.pool.ntp.org
+EOL
+
+    systemctl restart systemd-timesyncd
+    systemctl enable systemd-timesyncd
+    log_entry "NTP configuration updated to use Azure and Ubuntu NTP servers"
+}
+
 log_entry() {
   LOG_FILE="/tmp/configure-file.log"
   if [ ! -f $LOG_FILE ]; then
