@@ -83,6 +83,11 @@ else
   log_entry "No environment specified"
 fi
 
+# Configure NTP for nonprod environment
+if [ "$ENV" == "nonprod" ]; then
+  configure_ntp
+fi
+
 # Update dbconfig.xml
 for file in /var/atlassian/application_data/jira_shared/dbconfig.xml /opt/atlassian/jira/data/dbconfig.xml; do
   sed -i "s|<url>.*</url>|<url>${DB_URL}</url>|" $file

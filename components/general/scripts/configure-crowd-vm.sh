@@ -70,6 +70,11 @@ else
   log_entry "No environment specified"
 fi
 
+# Configure NTP for nonprod environment
+if [ "$ENV" == "nonprod" ]; then
+  configure_ntp
+fi
+
 # Update dbconfig.xml
 for file in /var/atlassian/application-data/crowd_shared/crowd-home/shared/crowd.cfg.xml; do
   sed -i "s|<property name=\"hibernate.connection.url\">.*</property>|<property name=\"hibernate.connection.url\">${DB_URL}</property>|" $file

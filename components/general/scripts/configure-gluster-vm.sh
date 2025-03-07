@@ -17,6 +17,11 @@ else
   echo "No environment specified"
 fi
 
+# Configure NTP for nonprod environment
+if [ "$ENV" == "nonprod" ]; then
+  configure_ntp
+fi
+
 if [ "$ENV" == "nonprod" ]; then
   # Remove Dynatrace.
   /opt/dynatrace/oneagent/agent/uninstall.sh
