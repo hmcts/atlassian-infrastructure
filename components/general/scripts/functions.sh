@@ -57,6 +57,21 @@ EOL
     log_entry "NTP configuration updated to use Azure and Ubuntu NTP servers"
 }
 
+update_ntp_conf() {
+    log_entry "Updating ntp.conf to use specified NTP servers"
+    cat <<EOL | sudo tee /etc/ntp.conf
+driftfile /var/lib/ntp/drift
+restrict -4 default kod notrap nomodify nopeer noquery
+restrict -6 default kod notrap nomodify nopeer noquery
+restrict 127.0.0.1
+server ntp.ubuntu.com iburst
+server time.windows.com iburst
+EOL
+
+    sudo systemctl restart ntpd
+    log_entry "ntp.conf updated and ntpd service restarted"
+}
+
 log_entry() {
   LOG_FILE="/tmp/configure-file.log"
   if [ ! -f $LOG_FILE ]; then
