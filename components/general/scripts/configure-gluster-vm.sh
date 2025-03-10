@@ -22,10 +22,15 @@ if [ "$ENV" == "nonprod" ]; then
   configure_ntp
 fi
 
+# Update ntp.conf for nonprod environments
+if [ "$ENV" == "nonprod" ]; then
+  update_ntp_conf
+fi
+
 if [ "$ENV" == "nonprod" ]; then
   # Remove Dynatrace.
-  /opt/dynatrace/oneagent/agent/uninstall.sh
-  log_entry "Uninstalled Dynatrace"
+  # /opt/dynatrace/oneagent/agent/uninstall.sh
+  # log_entry "Uninstalled Dynatrace"
 
   # Update /etc/resolv.conf
   RESOLV_CONF_ENTRIES="search ygysg2ix1xfehcfemfnemkbkwe.zx.internal.cloudapp.net

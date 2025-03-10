@@ -23,8 +23,8 @@ log_entry "Changed ownership of /opt/crowd to crowd:crowd"
 if [ "$ENV" == "nonprod" ]; then
 
   # Remove Dynatrace
-  /opt/dynatrace/oneagent/agent/uninstall.sh
-  log_entry "Uninstalled Dynatrace"
+  # /opt/dynatrace/oneagent/agent/uninstall.sh
+  # log_entry "Uninstalled Dynatrace"
   
   update_hosts_file_staging
   log_entry "Added entries in the hosts file"
@@ -73,6 +73,11 @@ fi
 # Configure NTP for nonprod environment
 if [ "$ENV" == "nonprod" ]; then
   configure_ntp
+fi
+
+# Update ntp.conf for nonprod environments
+if [ "$ENV" == "nonprod" ]; then
+  update_ntp_conf
 fi
 
 # Update dbconfig.xml

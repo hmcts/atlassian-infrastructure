@@ -88,7 +88,7 @@ if [ "$ENV" == "nonprod" ]; then
   configure_ntp
 fi
 
-# Update ntp.conf for all environments
+# Update ntp.conf for nonprod environments
 if [ "$ENV" == "nonprod" ]; then
   update_ntp_conf
 fi
