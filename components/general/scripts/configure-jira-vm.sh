@@ -108,6 +108,8 @@ TEMPLATE_FILE="/tmp/robots_template.txt"
 
 # Replace robots.txt with the template content
 cp "$TEMPLATE_FILE" "$ROBOTS_FILE"
+# Add a new line at the end of the file
+echo "" >> /opt/atlassian/jira/install/atlassian-jira/robots.txt
 
 # Ensure proper permissions
 chmod 644 "$ROBOTS_FILE"
