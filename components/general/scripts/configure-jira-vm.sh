@@ -83,7 +83,7 @@ else
   log_entry "No environment specified"
 fi
 
-# Update Timesyncd
+# Update NTP
   configure_ntp
 
 # Update ntp.conf
