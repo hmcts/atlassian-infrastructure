@@ -83,15 +83,11 @@ else
   log_entry "No environment specified"
 fi
 
-# Configure NTP for nonprod environment
-if [ "$ENV" == "nonprod" ]; then
+# Update Timesyncd
   configure_ntp
-fi
 
-# Update ntp.conf for nonprod environments
-if [ "$ENV" == "nonprod" ]; then
+# Update ntp.conf
   update_ntp_conf
-fi
 
 # Update dbconfig.xml
 for file in /var/atlassian/application_data/jira_shared/dbconfig.xml /opt/atlassian/jira/data/dbconfig.xml; do

@@ -17,15 +17,11 @@ else
   echo "No environment specified"
 fi
 
-# Configure NTP for nonprod environment
-if [ "$ENV" == "nonprod" ]; then
+# Update NTP
   configure_ntp
-fi
 
-# Update ntp.conf for nonprod environments
-if [ "$ENV" == "nonprod" ]; then
+# Update ntp.conf
   update_ntp_conf
-fi
 
 if [ "$ENV" == "nonprod" ]; then
   # Remove Dynatrace.
