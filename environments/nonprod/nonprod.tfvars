@@ -586,7 +586,6 @@ url_path_map = [
   }
 ]
 
-
 ssl_certificates = [
   {
     name                = "staging.tools.hmcts.net"
