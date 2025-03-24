@@ -46,10 +46,12 @@ data "azurerm_key_vault_secret" "admin_username" {
 }
 
 data "azurerm_key_vault" "external_kv" {
+  provider            = azurerm.sds-prod
   name                = "acmedtssdsprod"
   resource_group_name = "sds-platform-prod-rg"
 }
 data "azurerm_key_vault_certificate" "ssl_cert" {
+  provider     = azurerm.sds-prod
   name         = var.ssl_certificates[0].name
   key_vault_id = data.azurerm_key_vault.external_kv.id
 }
