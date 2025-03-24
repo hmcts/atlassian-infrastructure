@@ -52,10 +52,9 @@ data "azurerm_key_vault" "external_kv" {
 }
 data "azurerm_key_vault_certificate" "ssl_cert" {
   provider     = azurerm.sds-prod
-  name         = var.ssl_certificates[0].name
+  name         = replace(var.ssl_certificates[0].name, ".", "-")
   key_vault_id = data.azurerm_key_vault.external_kv.id
 }
-
 
 resource "terraform_data" "vm" {
   for_each = { for k, v in var.vms : k => v if can(regex("(jira|crowd|gluster|confluence)", k)) }
