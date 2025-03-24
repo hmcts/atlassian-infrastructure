@@ -50,7 +50,7 @@ data "azurerm_key_vault" "external_kv" {
   resource_group_name = "sds-platform-prod-rg"
 }
 data "azurerm_key_vault_certificate" "ssl_cert" {
-  name         = var.ssl_certificates.name
+  name         = var.ssl_certificates[0].name
   key_vault_id = data.azurerm_key_vault.external_kv.id
 }
 
