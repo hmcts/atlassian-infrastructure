@@ -36,13 +36,13 @@ parameters:
         dependsOn: "Precheck"
         agentPool: "hmcts-ss-stg"
         
-      - deployment: "prod_general"
-        environment: "prod"
-        component: "general"
-        service_connection: "MOJ DCD Atlassian LVE"
-        resource_group: azure-control-prod-rg
-        dependsOn: "nonprod_general"
-        agentPool: "hmcts-ss-prod"
+      #- deployment: "prod_general"
+       # environment: "prod"
+        #component: "general"
+        #resource_group: azure-control-prod-rg
+        #service_connection: "MOJ DCD Atlassian LVE"
+        #dependsOn: "nonprod_general"
+        #agentPool: "hmcts-ss-prod"
 
 variables:
   - name: timeoutInMinutes
