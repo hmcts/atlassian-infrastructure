@@ -114,3 +114,48 @@ cron_job="0 * * * * /bin/bash /tmp/mounting.sh"
 
 log_entry "mounting cron job has been added to run 8am daily"
 }
+
+update_ssl_cert() {
+
+# Variables
+KEYSTORE="/opt/atlassian/jira/jre/lib/security/cacerts"
+STOREPASS="changeit"
+KEYTOOL="/opt/atlassian/jira/jre/bin/keytool"
+
+CERT_DIR="/opt/atlassian/jira/jre"
+CERT_FILE_NEW="${CERT_DIR}/public.crt"
+CERT_FILE_EXISTING="${CERT_DIR}/public-existing.crt"
+
+CERT_ALIAS=$1
+
+# Fetch new certificate from remote server
+openssl s_client -connect ${CERT_ALIAS}:443 -servername ${CERT_ALIAS} < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "$CERT_FILE_NEW"
+
+if [ $? -ne 0 ] || [ ! -s "$CERT_FILE_NEW" ]; then
+    log_entry "Failed to retrieve new certificate for $CERT_ALIAS"
+    exit 1
+fi
+
+# Try exporting existing certificate (if present)
+if "$KEYTOOL" -exportcert -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -storepass "$STOREPASS" -rfc -file "$CERT_FILE_EXISTING" 2>/dev/null; then
+    if cmp -s "$CERT_FILE_NEW" "$CERT_FILE_EXISTING"; then
+        log_entry "Certificate for $CERT_ALIAS is unchanged. No update needed."
+        exit 0
+    else
+        log_entry "Certificate for $CERT_ALIAS has changed. Replacing..."
+        "$KEYTOOL" -delete -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -storepass "$STOREPASS"
+        log_entry "Removed existing certificate for $CERT_ALIAS"
+    fi
+else
+    log_entry "No existing certificate for $CERT_ALIAS. Proceeding with import."
+fi
+
+# Import new certificate
+"$KEYTOOL" -importcert -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -file "$CERT_FILE_NEW" -storepass "$STOREPASS" -noprompt
+if [ $? -eq 0 ]; then
+    log_entry "Successfully imported new certificate for $CERT_ALIAS"
+else
+    log_entry "Failed to import certificate for $CERT_ALIAS"
+    exit 1
+fi
+}

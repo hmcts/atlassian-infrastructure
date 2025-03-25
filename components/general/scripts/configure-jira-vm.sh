@@ -10,12 +10,6 @@ DB_PASSWORD=$3
 ENV=$4
 APP_ACTION=$5
 
-# Variables
-KEYSTORE="/opt/atlassian/jira/jre/lib/security/cacerts"
-CERT_FILE="/opt/atlassian/jira/jre/public.crt"
-STOREPASS="changeit"
-KEYTOOL="/opt/atlassian/jira/jre/bin/keytool"
-
 systemctl $APP_ACTION jira
 log_entry "Executed systemctl $APP_ACTION jira"
 
@@ -48,20 +42,9 @@ if [ "$ENV" == "nonprod" ]; then
   log_entry "Updated resolv.conf"
 
   # Update SSL certificate
-  CERT_ALIAS="staging.tools.hmcts.net"
+  CERT_ALIAS_INPUT="staging.tools.hmcts.net"
+  update_ssl_cert $CERT_ALIAS_INPUT
 
-  # Fetch SSL certificate
-  openssl s_client -connect ${CERT_ALIAS}:443 -servername ${CERT_ALIAS} < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "$CERT_FILE"
-
-  # Remove existing cert if present
-  if "$KEYTOOL" -list -keystore "$KEYSTORE" -storepass "$STOREPASS" -alias "$CERT_ALIAS" > /dev/null 2>&1; then
-    "$KEYTOOL" -delete -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -storepass "$STOREPASS"
-    log_entry "Removed existing certificate for alias: $CERT_ALIAS"
-  fi
-
-  # Import the new cert
-  "$KEYTOOL" -importcert -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -file "$CERT_FILE" -storepass "$STOREPASS" -noprompt
-  log_entry "Imported SSL certificate for alias: $CERT_ALIAS"
 
 elif [ "$ENV" == "prod" ]; then
   update_hosts_file_prod
@@ -79,19 +62,7 @@ elif [ "$ENV" == "prod" ]; then
 
  # Update SSL certificate
   CERT_ALIAS="tools.hmcts.net"
-
-  # Fetch SSL certificate
-  openssl s_client -connect ${CERT_ALIAS}:443 -servername ${CERT_ALIAS} < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "$CERT_FILE"
-
-  # Remove existing cert if present
-  if "$KEYTOOL" -list -keystore "$KEYSTORE" -storepass "$STOREPASS" -alias "$CERT_ALIAS" > /dev/null 2>&1; then
-    "$KEYTOOL" -delete -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -storepass "$STOREPASS"
-    log_entry "Removed existing certificate for alias: $CERT_ALIAS"
-  fi
-
-  # Import the new cert
-  "$KEYTOOL" -importcert -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -file "$CERT_FILE" -storepass "$STOREPASS" -noprompt
-  log_entry "Imported SSL certificate for alias: $CERT_ALIAS"
+  update_ssl_cert $CERT_ALIAS_INPUT
 
 else
   echo "No environment specified"
