@@ -1,5 +1,9 @@
+#General
 env                        = "nonprod"
 subscription_id            = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
+app_action = "status" # change this to "status" or "stop" in order to stop the jira
+
+#Dynatrace
 install_dynatrace_oneagent = true
 dynatrace_hostgroup        = "STG_DTS_AT_A"
 
@@ -1194,8 +1198,6 @@ waf_custom_rules = [
     action = "Allow"
   }
 ]
-
-app_action = "status" # change this to "status" or "stop" in order to stop the jira
 
 app_gw_rewrite_rules = [
   {
