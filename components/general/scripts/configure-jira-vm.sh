@@ -11,6 +11,8 @@ ENV=$4
 APP_ACTION=$5
 
 systemctl $APP_ACTION jira
+rm -f /tmp/configure-file.log
+
 log_entry "Executed systemctl $APP_ACTION jira"
 
 # Grant permissions to Jira user
