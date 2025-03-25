@@ -115,7 +115,7 @@ cron_job="0 * * * * /bin/bash /tmp/mounting.sh"
 log_entry "mounting cron job has been added to run 8am daily"
 }
 
-update_ssl_cert() {
+check_and_replace_cert() {
 
 # Variables
 KEYSTORE="/opt/atlassian/jira/jre/lib/security/cacerts"
@@ -133,7 +133,7 @@ openssl s_client -connect ${CERT_ALIAS}:443 -servername ${CERT_ALIAS} < /dev/nul
 
 if [ $? -ne 0 ] || [ ! -s "$CERT_FILE_NEW" ]; then
     log_entry "Failed to retrieve new certificate for $CERT_ALIAS"
-    exit 1
+    return 1
 fi
 
 # Extract expiration date from new cert
@@ -147,7 +147,7 @@ if "$KEYTOOL" -exportcert -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -storepass 
     if [ "$NEW_EXPIRY" == "$EXISTING_EXPIRY" ]; then
         log_entry "Certificate for $CERT_ALIAS is unchanged (expiry unchanged: $NEW_EXPIRY). Skipping import."
         rm -f "$CERT_FILE_EXISTING"
-        exit 0
+        return 0
     else
         log_entry "Certificate for $CERT_ALIAS has changed (new expiry: $NEW_EXPIRY, old expiry: $EXISTING_EXPIRY). Replacing..."
         "$KEYTOOL" -delete -alias "$CERT_ALIAS" -keystore "$KEYSTORE" -storepass "$STOREPASS"
@@ -166,7 +166,7 @@ if [ $? -eq 0 ]; then
 else
     log_entry "Failed to import certificate for $CERT_ALIAS"
     rm -f "$CERT_FILE_EXISTING"
-    exit 1
+    return 1
 fi
 
 # Clean up existing cert file after comparison/import

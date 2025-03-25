@@ -64,8 +64,14 @@ elif [ "$ENV" == "prod" ]; then
 
  # Update SSL certificate
   CERT_ALIAS="tools.hmcts.net"
-  update_ssl_cert $CERT_ALIAS_INPUT
+  check_and_replace_cert $CERT_ALIAS_INPUT
 
+  if [ $? -eq 0 ]; then
+    echo "Check completed (no change or successful update)."
+  else
+    echo "Something went wrong during certificate check/update." >&2
+  fi
+  
 else
   echo "No environment specified"
 fi
