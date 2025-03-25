@@ -11,7 +11,6 @@ ENV=$4
 APP_ACTION=$5
 
 systemctl $APP_ACTION jira
-rm -f /tmp/configure-file.log
 
 log_entry "Executed systemctl $APP_ACTION jira"
 
@@ -67,13 +66,13 @@ elif [ "$ENV" == "prod" ]; then
   check_and_replace_cert $CERT_ALIAS_INPUT
 
   if [ $? -eq 0 ]; then
-    echo "Check completed (no change or successful update)."
+    log_entry "Check completed (no change or successful update)."
   else
-    echo "Something went wrong during certificate check/update." >&2
+    log_entry "Something went wrong during certificate check/update." >&2
   fi
 
 else
-  echo "No environment specified"
+  log_entry "No environment specified"
 fi
 
 mounting "jira" "/var/atlassian/application_data/jira_shared/"
