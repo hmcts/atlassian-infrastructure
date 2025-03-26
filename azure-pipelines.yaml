@@ -15,7 +15,6 @@ schedules:
       include:
         - master
     always: true
-    timezone: "Europe/London"
 
 resources:
   repositories:
