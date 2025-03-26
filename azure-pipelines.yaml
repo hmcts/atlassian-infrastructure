@@ -8,6 +8,15 @@ pr:
     include:
       - master
 
+schedules:
+  - cron: "* 7 * * 1"
+    displayName: "Monday 7:00AM UK Time"
+    branches:
+      include:
+        - master
+    always: true
+    timezone: "Europe/London"
+
 resources:
   repositories:
     - repository: cnp-azuredevops-libraries
