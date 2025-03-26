@@ -1,6 +1,7 @@
-# empty
+#General
 env             = "prod"
 subscription_id = "79898897-729c-41a0-a5ca-53c764839d95"
+app_action = "status" # change this to "status" or "stop" in order to stop the jira
 
 vnets = {
   atlassian-int-prod-vnet = {
@@ -1194,8 +1195,6 @@ waf_custom_rules = [
     action = "Allow"
   }
 ]
-
-app_action = "status" # change this to "status" or "stop" in order to stop the jira
 
 app_gw_rewrite_rules = [
   {

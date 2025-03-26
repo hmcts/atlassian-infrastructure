@@ -5,6 +5,7 @@ locals {
   gluster_file_hash      = md5(file("${path.module}/scripts/configure-gluster-vm.sh"))
   confluence_private_ips = join(",", [for k, v in var.vms : v.private_ip_address if can(regex("confluence", k))])
   confluence_file_hash   = md5(file("${path.module}/scripts/configure-confluence-vm.sh"))
+  ssl_version            = data.azurerm_key_vault_certificate.ssl_cert.version
 }
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
@@ -44,6 +45,17 @@ data "azurerm_key_vault_secret" "admin_username" {
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
+data "azurerm_key_vault" "external_kv" {
+  provider            = azurerm.sds-prod
+  name                = "acmedtssdsprod"
+  resource_group_name = "sds-platform-prod-rg"
+}
+data "azurerm_key_vault_certificate" "ssl_cert" {
+  provider     = azurerm.sds-prod
+  name         = replace(var.ssl_certificates[0].name, ".", "-")
+  key_vault_id = data.azurerm_key_vault.external_kv.id
+}
+
 resource "terraform_data" "vm" {
   for_each = { for k, v in var.vms : k => v if can(regex("(jira|crowd|gluster|confluence)", k)) }
 
@@ -53,6 +65,7 @@ resource "terraform_data" "vm" {
     local.function_file_hash,
     local.gluster_file_hash,
     local.confluence_file_hash,
+    local.ssl_version,
   ]
 
   connection {
