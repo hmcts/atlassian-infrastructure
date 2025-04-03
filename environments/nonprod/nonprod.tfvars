@@ -1,7 +1,7 @@
 #General
-env                        = "nonprod"
-subscription_id            = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
-app_action = "status" # change this to "status" or "stop" in order to stop the jira
+env             = "nonprod"
+subscription_id = "b7d2bd5f-b744-4acc-9c73-e068cec2e8d8"
+app_action      = "status" # change this to "status" or "stop" in order to stop the jira
 
 #Dynatrace
 install_dynatrace_oneagent = true
