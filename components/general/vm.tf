@@ -5,7 +5,7 @@ locals {
   gluster_file_hash      = md5(file("${path.module}/scripts/configure-gluster-vm.sh"))
   confluence_private_ips = join(",", [for k, v in var.vms : v.private_ip_address if can(regex("confluence", k))])
   confluence_file_hash   = md5(file("${path.module}/scripts/configure-confluence-vm.sh"))
-  ssl_version            = data.azurerm_key_vault_certificate.ssl_cert.version
+  ssl_version            = data.azurerm_key_vault_certificate_data.ssl_cert.version
 }
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
@@ -50,7 +50,7 @@ data "azurerm_key_vault" "external_kv" {
   name                = "acmedtssdsprod"
   resource_group_name = "sds-platform-prod-rg"
 }
-data "azurerm_key_vault_certificate" "ssl_cert" {
+data "azurerm_key_vault_certificate_data" "ssl_cert" {
   provider     = azurerm.sds-prod
   name         = replace(var.ssl_certificates[0].name, ".", "-")
   key_vault_id = data.azurerm_key_vault.external_kv.id

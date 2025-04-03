@@ -100,14 +100,11 @@ resource "azurerm_application_gateway" "ag" {
     }
   }
 
-  dynamic "ssl_certificate" {
-    for_each = var.ssl_certificates
-    content {
-      name                = ssl_certificate.value.name
-      key_vault_secret_id = ssl_certificate.value.key_vault_secret_id
-    }
-
+  ssl_certificate {
+    name = data.azurerm_key_vault_certificate_data.ssl_cert.name
+    data = base64encode(data.azurerm_key_vault_certificate_data.ssl_cert.key)
   }
+
   dynamic "request_routing_rule" {
     for_each = var.request_routing_rules
     content {
