@@ -102,7 +102,7 @@ resource "azurerm_application_gateway" "ag" {
 
   ssl_certificate {
     name = data.azurerm_key_vault_certificate_data.ssl_cert.name
-    data = base64encode(data.azurerm_key_vault_certificate_data.ssl_cert.key)
+    data = base64encode(data.azurerm_key_vault_certificate_data.ssl_cert.pem)
   }
 
   dynamic "request_routing_rule" {
