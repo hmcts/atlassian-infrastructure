@@ -161,6 +161,15 @@ fi
 "$KEYTOOL" -importcert -alias "$CERT_ALIAS" -keystore "$KEYSTORE" \
     -file "$CERT_FILE_NEW" -storepass "$STOREPASS" -noprompt
 
+# Check current time and restart Jira if before 8am
+CURRENT_HOUR=$(date +%H)
+if [ "$CURRENT_HOUR" -lt 8 ]; then
+  log_entry "Current time is before 8am. Restarting Jira service."
+  systemctl restart jira
+else
+  log_entry "Current time is after 8am. Will not restart Jira service."
+fi
+
 if [ $? -eq 0 ]; then
     log_entry "Successfully imported new certificate for $CERT_ALIAS (expires: $NEW_EXPIRY)"
 else
