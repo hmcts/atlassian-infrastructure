@@ -37,6 +37,12 @@ if [ "$ENV" == "nonprod" ]; then
   log_entry "Updated server.xml"
 
   mounting "crowd" "/var/atlassian/application-data/crowd_shared"
+
+  # Update SSL certificate
+  CERT_ALIAS_INPUT="staging.tools.hmcts.net"
+  SERVICE_NAME="crowd"
+  check_and_replace_cert $SERVICE_NAME $CERT_ALIAS_INPUT
+
 elif [ "$ENV" == "prod" ]; then
   update_hosts_file_prod
   log_entry "Added entries in the hosts file"
@@ -47,6 +53,11 @@ elif [ "$ENV" == "prod" ]; then
   log_entry "Mounted glusterfs"
 
   mounting "crowd" "/var/atlassian/application-data/crowd_shared"
+
+  # Update SSL certificate
+  CERT_ALIAS_INPUT="tools.hmcts.net"
+  SERVICE_NAME="crowd"
+  check_and_replace_cert $SERVICE_NAME $CERT_ALIAS_INPUT
 
 else
   echo "No environment specified"

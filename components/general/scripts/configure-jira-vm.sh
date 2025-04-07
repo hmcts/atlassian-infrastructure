@@ -44,7 +44,8 @@ if [ "$ENV" == "nonprod" ]; then
 
   # Update SSL certificate
   CERT_ALIAS_INPUT="staging.tools.hmcts.net"
-  check_and_replace_cert $CERT_ALIAS_INPUT
+  SERVICE_NAME="jira"
+  check_and_replace_cert $SERVICE_NAME $CERT_ALIAS_INPUT
 
 
 elif [ "$ENV" == "prod" ]; then
@@ -62,8 +63,9 @@ elif [ "$ENV" == "prod" ]; then
   log_entry "Updated resolv.conf"
 
  # Update SSL certificate
-  CERT_ALIAS="tools.hmcts.net"
-  check_and_replace_cert $CERT_ALIAS_INPUT
+  CERT_ALIAS_INPUT="tools.hmcts.net"
+  SERVICE_NAME="jira"
+  check_and_replace_cert $SERVICE_NAME $CERT_ALIAS_INPUT
 
   if [ $? -eq 0 ]; then
     log_entry "Check completed (no change or successful update)."

@@ -66,12 +66,22 @@ if [ "$ENV" == "nonprod" ]; then
   echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
   log_entry "Updated resolv.conf"
 
+  # Update SSL certificate
+  CERT_ALIAS_INPUT="staging.tools.hmcts.net"
+  SERVICE_NAME="confluence"
+  check_and_replace_cert $SERVICE_NAME $CERT_ALIAS_INPUT
+
 elif [ "$ENV" == "prod" ]; then
   # Update /etc/resolv.conf
   RESOLV_CONF_ENTRIES="search e3aqxhxo1fvubo0wzweg4zp0eg.zx.internal.cloudapp.net
   nameserver 168.63.129.16"
   echo "${RESOLV_CONF_ENTRIES}" > /etc/resolv.conf
   log_entry "Updated resolv.conf"
+
+  # Update SSL certificate
+  CERT_ALIAS_INPUT="tools.hmcts.net"
+  SERVICE_NAME="confluence"
+  check_and_replace_cert $SERVICE_NAME $CERT_ALIAS_INPUT
 
 else
   log_entry "No environment specified"

@@ -117,16 +117,42 @@ log_entry "mounting cron job has been added to run 8am daily"
 
 check_and_replace_cert() {
 
-# Variables
-KEYSTORE="/opt/atlassian/jira/jre/lib/security/cacerts"
-STOREPASS="changeit"
-KEYTOOL="/opt/atlassian/jira/jre/bin/keytool"
+SERVICE_NAME=$1
+CERT_ALIAS=$2
+# Check if the args have been provided
+if [ -z "$service_name" ]; then
+    echo "Usage: $0 <service_name> <cert_alias>"
+    return 1
+fi
+# Log the start of the process
+log_entry "Checking and replacing certificate for $service_name"
 
-CERT_DIR="/opt/atlassian/jira/jre"
+if [ "$SERVICE_NAME" == "crowd" ]; then
+  # Set variables for Crowd
+  KEYSTORE="/usr/java/jdk1.8.0_191-amd64/jre/lib/security/cacerts"
+  KEYTOOL="/bin/keytool"
+  CERT_DIR="/usr/java/jdk1.8.0_191-amd64/jre"
+
+elif [ "$SERVICE_NAME" == "jira" ]; then
+  # Set variables for Jira
+  KEYSTORE="/opt/atlassian/jira/jre/lib/security/cacerts"
+  KEYTOOL="/opt/atlassian/jira/jre/bin/keytool"
+  CERT_DIR="/opt/atlassian/jira/jre"
+
+elif [ "$SERVICE_NAME" == "confluence" ]; then
+  # Set variables for Confluence
+  KEYSTORE="/opt/atlassian/confluence/jre/lib/security/cacerts"
+  KEYTOOL="/opt/atlassian/confluence/jre/bin/keytool"
+  CERT_DIR="/opt/atlassian/confluence/jre"
+
+else
+    log_entry "Invalid service name. Must be one of crowd|jira|confluence."
+    return 1
+fi
+
+STOREPASS="changeit"
 CERT_FILE_NEW="${CERT_DIR}/public.crt"
 CERT_FILE_EXISTING="${CERT_DIR}/public-existing.crt"
-
-CERT_ALIAS=$1
 
 # Fetch new certificate from remote server
 openssl s_client -connect ${CERT_ALIAS}:443 -servername ${CERT_ALIAS} < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "$CERT_FILE_NEW"
@@ -161,13 +187,13 @@ fi
 "$KEYTOOL" -importcert -alias "$CERT_ALIAS" -keystore "$KEYSTORE" \
     -file "$CERT_FILE_NEW" -storepass "$STOREPASS" -noprompt
 
-# Check current time and restart Jira if before 8am
+# Check current time and restart service if before 8am
 CURRENT_HOUR=$(date +%H)
 if [ "$CURRENT_HOUR" -lt 8 ]; then
-  log_entry "Current time is before 8am. Restarting Jira service."
-  systemctl restart jira
+  log_entry "Current time is before 8am. Restarting $SERVICE_NAME service."
+  systemctl restart $SERVICE_NAME
 else
-  log_entry "Current time is after 8am. Will not restart Jira service."
+  log_entry "Current time is after 8am. Will not restart $SERVICE_NAME service."
 fi
 
 if [ $? -eq 0 ]; then
