@@ -10,7 +10,7 @@ pr:
 
 schedules:
   - cron: "0 6 * * 1"
-    displayName: "Monday 6:00AM UK Time"
+    displayName: "Monday 7:00AM UK Time"
     branches:
       include:
         - master
