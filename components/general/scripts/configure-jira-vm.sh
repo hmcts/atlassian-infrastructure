@@ -3,7 +3,7 @@ set -x
 
 source /tmp/functions.sh
 
-# Access the variables
+# Access the variables.
 DB_URL=$1
 DB_USERNAME=$2
 DB_PASSWORD=$3
