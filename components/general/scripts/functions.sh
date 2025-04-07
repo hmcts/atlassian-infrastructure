@@ -120,12 +120,12 @@ check_and_replace_cert() {
 SERVICE_NAME=$1
 CERT_ALIAS=$2
 # Check if the args have been provided
-if [ -z "$service_name" ]; then
+if [[ -z "$SERVICE_NAME" || -z "$CERT_ALIAS" ]]; then
     echo "Usage: $0 <service_name> <cert_alias>"
     return 1
 fi
 # Log the start of the process
-log_entry "Checking and replacing certificate for $service_name"
+log_entry "Checking and replacing certificate for $SERVICE_NAME"
 
 if [ "$SERVICE_NAME" == "crowd" ]; then
   # Set variables for Crowd
