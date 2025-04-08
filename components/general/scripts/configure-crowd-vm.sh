@@ -28,6 +28,7 @@ if [ "$ENV" == "nonprod" ]; then
   
   update_hosts_file_staging
   log_entry "Added entries in the hosts file"
+  
   # Replace glusterfs entry in /etc/fstab
   sed -i '/glusterfs/c\10.0.4.150:/crowd_shared /var/atlassian/application-data/crowd_shared glusterfs defaults 0 0' /etc/fstab
   mount -a

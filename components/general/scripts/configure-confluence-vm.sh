@@ -103,4 +103,5 @@ done
 log_entry "Updated dbconfig.xml"
 
 systemctl start confluence
+
 log_entry "started confluence"

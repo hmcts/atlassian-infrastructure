@@ -47,7 +47,6 @@ if [ "$ENV" == "nonprod" ]; then
   SERVICE_NAME="jira"
   check_and_replace_cert $SERVICE_NAME $CERT_ALIAS_INPUT
 
-
 elif [ "$ENV" == "prod" ]; then
   update_hosts_file_prod
   log_entry "Added entries in the hosts file"
