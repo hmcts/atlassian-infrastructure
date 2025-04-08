@@ -95,5 +95,9 @@ for file in /var/atlassian/application-data/crowd_shared/crowd-home/shared/crowd
 done
 log_entry "Updated dbconfig.xml"
 
+# set ownership of crowd_shared directory
+chown -R crowd:crowd /var/atlassian/application-data/crowd_shared
+log_entry "Changed ownership of /var/atlassian/application-data/crowd_shared to crowd:crowd"
+
 systemctl start crowd
 log_entry "started crowd"
