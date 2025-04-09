@@ -129,9 +129,9 @@ log_entry "Checking and replacing certificate for $SERVICE_NAME"
 
 if [ "$SERVICE_NAME" == "crowd" ]; then
   # Set variables for Crowd
-  KEYSTORE="/usr/java/jdk1.8.0_191-amd64/jre/lib/security/cacerts"
+  KEYSTORE="/etc/pki/java/cacerts"
   KEYTOOL="/bin/keytool"
-  CERT_DIR="/usr/java/jdk1.8.0_191-amd64/jre"
+  CERT_DIR="/etc/pki/java"
 
 elif [ "$SERVICE_NAME" == "jira" ]; then
   # Set variables for Jira
