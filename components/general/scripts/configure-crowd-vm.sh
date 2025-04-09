@@ -38,6 +38,19 @@ if [ "$ENV" == "nonprod" ]; then
 
   mounting "crowd" "/var/atlassian/application-data/crowd_shared"
 
+  # Set $JAVA_HOME based on what is installed
+  if [ -d "/opt/jdk-17.0.12" ]; then
+    echo "JAVA_HOME=/opt/jdk-17.0.12" | tee -a /etc/environment
+  elif [ -d "/usr/java/jdk1.8.0_191-amd64" ]; then
+    echo "JAVA_HOME=/usr/java/jdk1.8.0_191-amd64" | tee -a /etc/environment
+  else
+    log_entry "JDK not found in expected locations."
+    return 1
+  fi
+
+  source /etc/environment
+  log_entry "JAVA_HOME set to $JAVA_HOME"
+
   # Update SSL certificate
   CERT_ALIAS_INPUT="staging.tools.hmcts.net"
   SERVICE_NAME="crowd"
