@@ -101,6 +101,6 @@ resource "terraform_data" "vm" {
     ]
   }
 
-  depends_on = [terraform_data.postgres]
+  depends_on = [terraform_data.postgres, azurerm_application_gateway.ag]
 }
 
