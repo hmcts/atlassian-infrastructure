@@ -128,10 +128,16 @@ fi
 log_entry "Checking and replacing certificate for $SERVICE_NAME"
 
 if [ "$SERVICE_NAME" == "crowd" ]; then
-  # Set variables for Crowd
-  KEYSTORE="/usr/java/jdk1.8.0_191-amd64/jre/lib/security/cacerts"
-  KEYTOOL="/bin/keytool"
-  CERT_DIR="/usr/java/jdk1.8.0_191-amd64/jre"
+  # Set variables for Crowd based on JAVA_HOME
+  if [ "$JAVA_HOME" == "/opt/jdk-17.0.12" ]; then
+    KEYSTORE="$JAVA_HOME/lib/security/cacerts"
+    CERT_DIR="$JAVA_HOME/lib/security"
+  else
+    KEYSTORE="$JAVA_HOME/jre/lib/security/cacerts"
+    CERT_DIR="$JAVA_HOME/jre"
+  fi
+
+  KEYTOOL="$JAVA_HOME/bin/keytool"
 
 elif [ "$SERVICE_NAME" == "jira" ]; then
   # Set variables for Jira
