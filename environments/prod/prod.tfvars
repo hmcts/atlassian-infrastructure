@@ -1221,4 +1221,4 @@ app_gw_rewrite_rules = [
 
 flex_server_backup_retention_days = 35
 
-
+sendgrid_domains = ["cjscp.justice.gov.uk"]

@@ -4,6 +4,10 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = ">= 4.9.0"
+    },
+    sendgrid = {
+      source  = "anna-money/sendgrid"
+      version = "1.0.5"
     }
   }
   backend "azurerm" {}
@@ -12,6 +16,10 @@ terraform {
 provider "azurerm" {
   features {}
   subscription_id = var.subscription_id
+}
+
+provider "sendgrid" {
+  api_key = data.azurerm_key_vault_secret.sendgrid-terraform-api-key.value
 }
 
 provider "azurerm" {
