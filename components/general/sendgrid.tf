@@ -61,9 +61,20 @@ resource "sendgrid_domain_authentication" "sendgrid-domain-authenticate" {
 # So these need to be manually verified by: legalservices webmaster <domains@digital.justice.gov.uk>
 output "sendgrid_dns_records" {
   value = {
-    for index, record in var.sendgrid_domains : {
-      host = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[0].host
-      data = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[0].data
+    for index, record in var.sendgrid_domains :
+    "${index}" => {
+      record1 = {
+        host = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[0].host
+        data = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[0].data
+      }
+      record2 = {
+        host = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[1].host
+        data = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[1].data
+      }
+      record3 = {
+        host = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[2].host
+        data = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[2].data
+      }
     }
   }
 }
