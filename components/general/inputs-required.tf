@@ -221,5 +221,22 @@ variable "health_probes" {
   }))
   description = "Map of health probes to add to the load balancer"
   default     = {}
+}
 
+variable "update_postfix_sendgrid_api_key" {
+  description = "Whether to replace the SendGrid API key within the Postfix config on Jira VMs"
+  type        = bool
+  default     = false
+}
+
+variable "sendgrid_domain" {
+  description = "Domain used by Jira to send emails that we need to verify to prove it belongs to us before emails can be sent"
+  type        = string
+  default     = "cjscp.justice.gov.uk"
+}
+
+variable "sendgrid_domain_authentication_id" {
+  description = "ID of the existing SendGrid domain authentication to import into state"
+  type        = string
+  default     = "25482485"
 }

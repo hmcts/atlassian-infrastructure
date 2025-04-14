@@ -1,4 +1,3 @@
-
 module "ctags" {
   source = "github.com/hmcts/terraform-module-common-tags"
 
