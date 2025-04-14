@@ -66,6 +66,7 @@ resource "azurerm_data_protection_backup_vault" "postgres-backup-vault" {
   identity {
     type = "SystemAssigned"
   }
+  tags = module.ctags.common_tags
 }
 
 resource "azurerm_data_protection_backup_policy_postgresql_flexible_server" "postgres-backup-policy" {

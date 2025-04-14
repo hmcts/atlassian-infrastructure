@@ -5,6 +5,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 4.9.0"
     }
+    sendgrid = {
+      source  = "anna-money/sendgrid"
+      version = "1.0.5"
+    }
   }
   backend "azurerm" {}
 }
@@ -12,6 +16,10 @@ terraform {
 provider "azurerm" {
   features {}
   subscription_id = var.subscription_id
+}
+
+provider "sendgrid" {
+  api_key = data.azurerm_key_vault_secret.platform-operations-sendgrid-api-key-secret.value
 }
 
 provider "azurerm" {
@@ -45,8 +53,8 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
-  alias                      = "dcr"
-  skip_provider_registration = "true"
+  alias                           = "dcr"
+  resource_provider_registrations = "none"
   features {}
   subscription_id = var.env == "prod" ? "8999dec3-0104-4a27-94ee-6588559729d1" : "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 }
