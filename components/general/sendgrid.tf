@@ -42,11 +42,11 @@ resource "azurerm_key_vault_secret" "sendgrid-api-key-secret" {
 }
 
 resource "sendgrid_domain_authentication" "sendgrid-domain-authenticate" {
-  for_each             = toset(var.sendgrid_config.subuser_domains)
-  provider             = sendgrid.subuser
-  domain               = each.value
-  is_default           = true
-  automatic_security   = true
+  for_each           = toset(var.sendgrid_config.subuser_domains)
+  provider           = sendgrid.subuser
+  domain             = each.value
+  is_default         = true
+  automatic_security = true
   depends_on = [
     sendgrid_api_key.subuser-api-key
   ]
