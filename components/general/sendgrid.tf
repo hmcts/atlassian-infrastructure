@@ -2,7 +2,7 @@
 # This is created manually on master Sendgrid account then added to the key vault
 data "azurerm_key_vault_secret" "sendgrid-terraform-api-key" {
   name         = "platform-operations-sendgrid-api-key"
-  key_vault_id = data.azurerm_key_vault.atlassian_kv.id
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
 resource "random_password" "password" {
@@ -15,7 +15,7 @@ resource "random_password" "password" {
 resource "azurerm_key_vault_secret" "subuser-pwd-secret" {
   name         = "hmcts-atlassian-${var.env}-sendgrid-subuser-pwd"
   value        = random_password.password.result
-  key_vault_id = data.azurerm_key_vault.atlassian_kv.id
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
 resource "sendgrid_subuser" "sendgrid-subuser-account" {
@@ -38,7 +38,7 @@ resource "sendgrid_api_key" "subuser-api-key" {
 resource "azurerm_key_vault_secret" "sendgrid-api-key-secret" {
   name         = "hmcts-atlassian-${var.env}-jira-sendgrid-api-key"
   value        = sendgrid_api_key.subuser-api-key.api_key
-  key_vault_id = data.azurerm_key_vault.atlassian_kv.id
+  key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
 resource "sendgrid_domain_authentication" "sendgrid-domain-authenticate" {
