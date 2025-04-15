@@ -1,7 +1,7 @@
 # API Key with more open permissions for the Sengrid TF provider
 # This is created manually on master Sendgrid account then added to the key vault
 data "azurerm_key_vault_secret" "sendgrid-terraform-api-key" {
-  name         = "platform-operations-api-key"
+  name         = "platform-operations-sendgrid-api-key"
   key_vault_id = data.azurerm_key_vault.atlassian_kv.id
 }
 
