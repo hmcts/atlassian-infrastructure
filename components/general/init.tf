@@ -60,7 +60,7 @@ provider "azurerm" {
 
 provider "azurerm" {
   alias                      = "dcr"
-  skip_provider_registration = "true"
+  resource_provider_registrations = "none"
   features {}
   subscription_id = var.env == "prod" ? "8999dec3-0104-4a27-94ee-6588559729d1" : "1c4f0704-a29e-403d-b719-b90c34ef14c9"
 }

@@ -220,5 +220,32 @@ variable "health_probes" {
   }))
   description = "Map of health probes to add to the load balancer"
   default     = {}
+}
 
+variable "sendgrid_domains" {
+  description = "List of domains to authenticate with Sendgrid"
+  type        = list(string)
+  default     = ["cjscp.justice.gov.uk"]
+}
+
+variable "sendgrid_subuser_email" {
+  description = "Sendgrid account email"
+  default     = "DTSPlatformOps@HMCTS.NET"
+}
+
+variable "sendgrid_config" {
+  description = "Sendgrid configuration"
+  type = object({
+    # List of IPs present on the main Sendgrid account, each can be assigned to a separate subuser 
+    subuser_ips = list(string)
+    # Domain name to be verified for the subuser account
+    subuser_domains = list(string)
+    # Email to be used for the subuser account
+    subuser_email = string
+  })
+  default = {
+    subuser_ips     = ["167.89.58.18"]
+    subuser_domains = ["cjscp.justice.gov.uk"]
+    subuser_email   = "DTSPlatformOps@HMCTS.NET"
+  }
 }

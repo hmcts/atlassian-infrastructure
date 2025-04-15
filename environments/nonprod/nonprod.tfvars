@@ -1222,5 +1222,3 @@ app_gw_rewrite_rules = [
     }
   }
 ]
-
-sendgrid_domains = ["cjscp.justice.gov.uk"]

@@ -21,9 +21,9 @@ resource "azurerm_key_vault_secret" "subuser-pwd-secret" {
 resource "sendgrid_subuser" "sendgrid-subuser-account" {
   provider = sendgrid
   username = "hmcts-atlassian-${var.env}-jira"
-  email    = var.email
+  email    = var.sendgrid_config.subuser_email
   password = random_password.password.result
-  ips      = local.sendgrid_config.ips
+  ips      = var.sendgrid_config.subuser_ips
 }
 
 resource "sendgrid_api_key" "subuser-api-key" {
@@ -42,11 +42,11 @@ resource "azurerm_key_vault_secret" "sendgrid-api-key-secret" {
 }
 
 resource "sendgrid_domain_authentication" "sendgrid-domain-authenticate" {
+  for_each             = toset(var.sendgrid_config.subuser_domains)
   provider             = sendgrid.subuser
-  domain               = var.jira_domain
+  domain               = each.value
   is_default           = true
   automatic_security   = true
-  custom_dkim_selector = var.custom_dkim_selector
   depends_on = [
     sendgrid_api_key.subuser-api-key
   ]
@@ -56,7 +56,7 @@ resource "sendgrid_domain_authentication" "sendgrid-domain-authenticate" {
 # So these need to be manually verified by: legalservices webmaster <domains@digital.justice.gov.uk>
 output "sendgrid_dns_records" {
   value = {
-    for index, record in var.sendgrid_domains :
+    for index, record in toset(var.sendgrid_config.subuser_domains) :
     "${index}" => {
       record1 = {
         host = sendgrid_domain_authentication.sendgrid-domain-authenticate["${index}"].dns[0].host
