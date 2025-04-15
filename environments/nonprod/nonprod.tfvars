@@ -34,6 +34,7 @@ vnets = {
       atlassian-int-subnet-postgres-flex = {
         name_override    = "atlassian-int-subnet-postgres-flex"
         address_prefixes = ["10.0.5.0/28"]
+        service_endpoints = ["Microsoft.Storage"]
         delegations = {
           flexibleserver = {
             service_name = "Microsoft.DBforPostgreSQL/flexibleServers"
