@@ -244,6 +244,7 @@ variable "sendgrid_config" {
     subuser_email = string
   })
   default = {
+    # TODO: Change this IP to the one provided on Sendgrid account created by sendgrid-rdo automation
     subuser_ips     = ["167.89.58.18"]
     subuser_domains = ["cjscp.justice.gov.uk"]
     subuser_email   = "DTSPlatformOps@HMCTS.NET"

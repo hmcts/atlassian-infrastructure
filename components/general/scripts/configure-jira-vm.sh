@@ -9,6 +9,7 @@ DB_USERNAME=$2
 DB_PASSWORD=$3
 ENV=$4
 APP_ACTION=$5
+SENDGRID_API_KEY=$6
 
 systemctl $APP_ACTION jira
 
@@ -107,6 +108,11 @@ echo "" >> /opt/atlassian/jira/install/atlassian-jira/robots.txt
 chmod 644 "$ROBOTS_FILE"
 
 log_entry "robots.txt updated from template file"
+
+# Update sendgrid API key
+
+
+
 
 systemctl start jira
 log_entry "started jira"

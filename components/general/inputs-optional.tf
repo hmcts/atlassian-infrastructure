@@ -96,6 +96,12 @@ variable "app_action" {
   default     = "status"
 }
 
+variable "update_postfix_sendgrid_api_key" {
+  description = "Whether to update the SendGrid API key in Postfix config"
+  type        = bool
+  default     = false
+}
+
 variable "app_gw_rewrite_rules" {
   description = "List of rewrite rules"
   type = list(object({

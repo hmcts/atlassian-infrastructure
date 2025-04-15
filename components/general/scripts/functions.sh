@@ -207,3 +207,15 @@ fi
 # Clean up existing cert file after comparison/import
 rm -f "$CERT_FILE_EXISTING"
 }
+
+configure_postfix_sendgrid_api_key() {
+  $SENDGRID_API_KEY=$1
+  # Check if /etc/postfix/main.cf exists and contains matching Sendgrid API key already
+  if grep -q "api_key  $SENDGRID_API_KEY" /etc/postfix/main.cf; then
+    log_entry "Sendgrid API key already exists in /etc/postfix/main.cf. No action required."
+  else
+    # Update /etc/postfix/main.cf with the new Sendgrid API key
+    sed -i "s|^#api_key .*|sendgrid_api_key = $SENDGRID_API_KEY|" /etc/postfix/main.cf
+    log_entry "Updated /etc/postfix/main.cf with new Sendgrid API key."
+  fi
+}
