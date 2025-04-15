@@ -187,54 +187,6 @@ resource "terraform_data" "atlassian-flex-server" {
   }
 }
 
-resource "azurerm_postgresql_flexible_server" "atlassian-flex-server-temp" {
-  count = var.env == "nonprod" ? 1 : 0
-
-  name                = "${var.product}-${var.env}-flex-server-temp"
-  location            = azurerm_resource_group.atlassian_rg.location
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
-  sku_name            = var.flex_server_sku_name # Memory Optimized SKU
-  delegated_subnet_id = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres-flex"]
-  private_dns_zone_id = local.private_dns_zone_id
-  zone                = "1"
-
-  storage_mb        = var.flex_server_storage_mb #Closest alternative to previous 200GB on single server
-  storage_tier      = var.flex_server_storage_tier
-  auto_grow_enabled = false
-
-  authentication {
-    active_directory_auth_enabled = false
-    tenant_id                     = data.azurerm_client_config.current.tenant_id
-    password_auth_enabled         = true
-  }
-
-  administrator_login           = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value
-  administrator_password        = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-PASS.value
-  public_network_access_enabled = false
-
-  maintenance_window {
-    day_of_week  = "0"
-    start_hour   = "03"
-    start_minute = "00"
-  }
-
-  backup_retention_days        = var.flex_server_backup_retention_days
-  geo_redundant_backup_enabled = var.flex_server_geo_redundant_backups
-
-  create_mode                       = "PointInTimeRestore"
-  source_server_id                  = azurerm_postgresql_flexible_server.atlassian-flex-server.id
-  point_in_time_restore_time_in_utc = timeadd(timestamp(), "-24h")
-
-  lifecycle {
-    ignore_changes = [
-      administrator_login,
-      point_in_time_restore_time_in_utc
-    ]
-  }
-
-  tags = module.ctags.common_tags
-}
-
 resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15" {
   count = var.env == "nonprod" ? 1 : 0
 
@@ -269,13 +221,15 @@ resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15
   backup_retention_days        = var.flex_server_backup_retention_days
   geo_redundant_backup_enabled = var.flex_server_geo_redundant_backups
 
-  create_mode                       = "PointInTimeRestore"
-  source_server_id                  = azurerm_postgresql_flexible_server.atlassian-flex-server-temp[0].id
-  point_in_time_restore_time_in_utc = timeadd(timestamp(), "-10m")
+  create_mode = "PointInTimeRestore"
+  # source_server_id                  = azurerm_postgresql_flexible_server.atlassian-flex-server-temp[0].id
+  # point_in_time_restore_time_in_utc = timeadd(timestamp(), "-10m")
 
   lifecycle {
     ignore_changes = [
-      administrator_login
+      administrator_login,
+      point_in_time_restore_time_in_utc,
+      source_server_id
     ]
   }
 
