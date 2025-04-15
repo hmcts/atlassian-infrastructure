@@ -270,7 +270,7 @@ resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15
   geo_redundant_backup_enabled = var.flex_server_geo_redundant_backups
 
   create_mode                       = "PointInTimeRestore"
-  source_server_id                  = azurerm_postgresql_flexible_server.atlassian-flex-server-temp.id
+  source_server_id                  = azurerm_postgresql_flexible_server.atlassian-flex-server-temp[0].id
   point_in_time_restore_time_in_utc = timeadd(timestamp(), "-10m")
 
   lifecycle {
