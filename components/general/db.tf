@@ -247,7 +247,7 @@ resource "terraform_data" "atlassian-nonprod-flex-server-v15" {
   provisioner "local-exec" {
     command = "./scripts/configure-postgres.sh"
     environment = {
-      POSTGRES_HOST  = azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15.fqdn
+      POSTGRES_HOST  = azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15[0].fqdn
       ADMIN_USER     = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value
       ADMIN_PASSWORD = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-PASS.value
       DATABASE_NAME  = "${each.key}-db-${var.env}"
