@@ -36,7 +36,6 @@ resource "sendgrid_api_key" "subuser-api-key" {
 }
 
 resource "azurerm_key_vault_secret" "sendgrid-api-key-secret" {
-  provider     = azurerm.api_key_vault
   name         = "hmcts-atlassian-${var.env}-jira-sendgrid-api-key"
   value        = sendgrid_api_key.subuser-api-key.api_key
   key_vault_id = data.azurerm_key_vault.atlassian_kv.id
