@@ -124,6 +124,9 @@ data "azurerm_key_vault_secret" "POSTGRES-FLEX-SERVER-USER" {
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
+###################
+# V11 Flex Server #
+###################
 resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   name                = "${var.product}-${var.env}-flex-server"
   location            = azurerm_resource_group.atlassian_rg.location
@@ -187,6 +190,10 @@ resource "terraform_data" "atlassian-flex-server" {
   }
 }
 
+###########################
+# V15 Flex Server Nonprod #
+###########################
+
 resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15" {
   count = var.env == "nonprod" ? 1 : 0
 
@@ -222,8 +229,6 @@ resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15
   geo_redundant_backup_enabled = var.flex_server_geo_redundant_backups
 
   create_mode = "PointInTimeRestore"
-  # source_server_id                  = azurerm_postgresql_flexible_server.atlassian-flex-server-temp[0].id
-  # point_in_time_restore_time_in_utc = timeadd(timestamp(), "-10m")
 
   lifecycle {
     ignore_changes = [
