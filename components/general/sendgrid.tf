@@ -5,7 +5,7 @@ data "azurerm_key_vault_secret" "sendgrid-terraform-api-key" {
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
-resource "random_password" "password" {
+resource "random_password" "sendgrid-subuser-pwd" {
   length           = 16
   special          = true
   min_numeric      = 1
@@ -14,7 +14,7 @@ resource "random_password" "password" {
 
 resource "azurerm_key_vault_secret" "subuser-pwd-secret" {
   name         = "hmcts-atlassian-${var.env}-sendgrid-subuser-pwd"
-  value        = random_password.password.result
+  value        = random_password.sendgrid-subuser-pwd.result
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
@@ -22,7 +22,7 @@ resource "sendgrid_subuser" "sendgrid-subuser-account" {
   provider = sendgrid
   username = "hmcts-atlassian-${var.env}-jira"
   email    = var.sendgrid_config.subuser_email
-  password = random_password.password.result
+  password = random_password.sendgrid-subuser-pwd.result
   ips      = var.sendgrid_config.subuser_ips
 }
 
