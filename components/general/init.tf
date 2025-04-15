@@ -25,6 +25,10 @@ data "azurerm_key_vault_secret" "sendgrid-terraform-api-key" {
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
+output "sendgrid_api_key" {
+  value = length(data.azurerm_key_vault_secret.sendgrid-terraform-api-key.value)
+}
+
 provider "sendgrid" {
   api_key = data.azurerm_key_vault_secret.sendgrid-terraform-api-key.value
 }
