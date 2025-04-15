@@ -32,7 +32,7 @@ provider "sendgrid" {
 }
 
 provider "sendgrid" {
-  alias   = "subuser"
+  alias = "subuser"
   # api_key = data.azurerm_key_vault_secret.sendgrid-terraform-api-key.value
   api_key = "incorrect-api-key-testing"
   subuser = sendgrid_subuser.sendgrid-subuser-account.username
