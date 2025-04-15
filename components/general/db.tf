@@ -240,7 +240,7 @@ resource "terraform_data" "atlassian-nonprod-flex-server-v15" {
   for_each = { for k, v in local.app_names : k => v if var.env == "nonprod" }
 
   triggers_replace = [
-    azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15.id,
+    azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15[0].id,
     azurerm_key_vault_secret.postgres_password[each.key].id,
     azurerm_key_vault_secret.postgres_username[each.key].id
   ]
