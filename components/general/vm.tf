@@ -24,6 +24,15 @@ resource "azurerm_virtual_machine" "vm" {
     managed_disk_type = "Premium_LRS"
   }
 
+  lifecycle {
+    # Pipeline keeps removing os_profile and os_profile_linux_config even though we don't use them
+    # Adding here for now to prevent
+    ignore_changes = [
+      os_profile,
+      os_profile_linux_config
+    ]
+  }
+
   tags = module.ctags.common_tags
 }
 
