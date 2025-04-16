@@ -19,7 +19,7 @@ provider "azurerm" {
 }
 
 provider "sendgrid" {
-  api_key = data.azurerm_key_vault_secret.sendgrid-terraform-api-key.value
+  api_key = "${data.azurerm_key_vault_secret.sendgrid-terraform-api-key.value}"
 }
 
 provider "azurerm" {
