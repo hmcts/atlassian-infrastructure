@@ -29,7 +29,7 @@ data "azurerm_key_vault_secret" "sendgrid-terraform-api-key-secret" {
 }
 
 provider "sendgrid" {
-  api_key = tostring(data.azurerm_key_vault_secret.sendgrid-terraform-api-key-secret.value)
+  api_key = tostring("${data.azurerm_key_vault_secret.sendgrid-terraform-api-key-secret.value}")
 }
 
 provider "azurerm" {
