@@ -23,13 +23,13 @@ provider "azurerm" {
 # TODO: 
 # - change non-prod value to api key in Sendgrid account created with sendgrid-rdo automation
 # - create this secret in prod vault
-data "azurerm_key_vault_secret" "sendgrid-terraform-api-key" {
+data "azurerm_key_vault_secret" "sendgrid-terraform-api-key-secret" {
   name         = "platform-operations-sendgrid-api-key"
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
 provider "sendgrid" {
-  api_key = data.azurerm_key_vault_secret.sendgrid-terraform-api-key.value
+  api_key = tostring(data.azurerm_key_vault_secret.sendgrid-terraform-api-key-secret.value)
 }
 
 provider "azurerm" {
