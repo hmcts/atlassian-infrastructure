@@ -6,7 +6,9 @@ locals {
   confluence_private_ips = join(",", [for k, v in var.vms : v.private_ip_address if can(regex("confluence", k))])
   confluence_file_hash   = md5(file("${path.module}/scripts/configure-confluence-vm.sh"))
   ssl_version            = data.azurerm_key_vault_secret.ssl_cert.version
+  jira_sendgrid_api_key  = azurerm_key_vault_secret.sendgrid-jira-api-key-secret.value
 }
+
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
 
@@ -105,7 +107,7 @@ resource "terraform_data" "vm" {
     inline = [
       "chmod +x /tmp/configure-${each.value.app}-vm.sh",
       "chmod +x /tmp/functions.sh",
-      "sudo su - -c '/tmp/configure-${each.value.app}-vm.sh ${local.DB_SERVER}/${each.value.app}-db-${var.env} ${each.value.app}_user ${each.value.app != "gluster" ? random_password.postgres_password["${each.value.app}"].result : each.value.app} ${var.env} ${var.app_action} ${local.confluence_private_ips}'",
+      "sudo su - -c '/tmp/configure-${each.value.app}-vm.sh ${local.DB_SERVER}/${each.value.app}-db-${var.env} ${each.value.app}_user ${each.value.app != "gluster" ? random_password.postgres_password["${each.value.app}"].result : each.value.app} ${var.env} ${var.app_action} ${local.confluence_private_ips} ${local.jira_sendgrid_api_key} ${var.update_postfix_sendgrid_api_key}'",
       "rm -f /tmp/configure-${each.value.app}-vm.sh",
     ]
   }

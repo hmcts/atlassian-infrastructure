@@ -1221,4 +1221,3 @@ app_gw_rewrite_rules = [
 
 flex_server_backup_retention_days = 35
 
-
