@@ -227,8 +227,6 @@ resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15
   backup_retention_days        = var.flex_server_backup_retention_days
   geo_redundant_backup_enabled = var.flex_server_geo_redundant_backups
 
-  create_mode = "PointInTimeRestore"
-
   lifecycle {
     ignore_changes = [
       administrator_login,
