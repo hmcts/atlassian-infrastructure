@@ -88,18 +88,18 @@ resource "azurerm_data_protection_backup_policy_postgresql_flexible_server" "pos
 
 resource "azurerm_role_assignment" "backup_role" {
   count                = var.env == "nonprod" ? 1 : 0
-  principal_id         = azurerm_data_protection_backup_vault.postgres-backup-vault.identity[0].principal_id
+  principal_id         = azurerm_data_protection_backup_vault.postgres-backup-vault[0].identity[0].principal_id
   role_definition_name = "PostgreSQL Flexible Server Long Term Retention Backup Role"
   scope                = azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15[0].id
 
   depends_on = [
-    azurerm_data_protection_backup_policy.postgresql_backup_policy[0]
+    azurerm_data_protection_backup_policy_postgresql_flexible_server.postgres-backup-policy[0]
   ]
 }
 
 resource "azurerm_role_assignment" "reader_role" {
   count                = var.env == "nonprod" ? 1 : 0
-  principal_id         = azurerm_data_protection_backup_vault.postgres-backup-vault.identity[0].principal_id
+  principal_id         = azurerm_data_protection_backup_vault.postgres-backup-vault[0].identity[0].principal_id
   role_definition_name = "Reader"
   scope                = azurerm_resource_group.atlassian_rg.id
 
