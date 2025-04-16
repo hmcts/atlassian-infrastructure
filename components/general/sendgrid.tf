@@ -8,13 +8,13 @@ data "azurerm_key_vault_secret" "sendgrid-terraform-api-key" {
   key_vault_id = azurerm_key_vault.atlassian_kv.id
 }
 
-# Do not recreate existing API keys already used on Prod, instead import
+# Import existing API key already used on Prod
 import {
-  to = sendgrid_api_key.sendgrid-api-key
+  to = sendgrid_api_key.sendgrid-jira-api-key
   id = "mKQ52wP8SVmz7_YY8CsPHw"
 }
 
-# Do not recreate existing domain authentication already used on Prod, instead import
+# Import existing domain authenticate as the domain has already been verified
 import {
   to = sendgrid_domain_authentication.sendgrid-domain-authenticate
   id = "em1187.cjscp.justice.gov.uk"
