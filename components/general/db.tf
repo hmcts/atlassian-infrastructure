@@ -231,7 +231,8 @@ resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15
     ignore_changes = [
       administrator_login,
       point_in_time_restore_time_in_utc,
-      source_server_id
+      source_server_id,
+      create_mode
     ]
   }
 
