@@ -82,7 +82,7 @@ resource "azurerm_data_protection_backup_policy_postgresql_flexible_server" "pos
   }
 
   depends_on = [
-    azurerm_data_protection_backup_vault.postgres-backup-vault
+    azurerm_data_protection_backup_vault.postgres-backup-vault[0]
   ]
 }
 
@@ -93,7 +93,7 @@ resource "azurerm_role_assignment" "backup_role" {
   scope                = azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15[0].id
 
   depends_on = [
-    azurerm_data_protection_backup_policy.postgresql_backup_policy
+    azurerm_data_protection_backup_policy.postgresql_backup_policy[0]
   ]
 }
 
@@ -104,7 +104,7 @@ resource "azurerm_role_assignment" "reader_role" {
   scope                = azurerm_resource_group.atlassian_rg.id
 
   depends_on = [
-    azurerm_role_assignment.backup_role
+    azurerm_role_assignment.backup_role[0]
   ]
 }
 
@@ -115,5 +115,9 @@ resource "azurerm_data_protection_backup_instance_postgresql_flexible_server" "p
   vault_id         = azurerm_data_protection_backup_vault.postgres-backup-vault[0].id
   server_id        = azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15[0].id
   backup_policy_id = azurerm_data_protection_backup_policy_postgresql_flexible_server.postgres-backup-policy[0].id
+
+  depends_on = [
+    azurerm_role_assignment.reader_role[0]
+  ]
 }
 
