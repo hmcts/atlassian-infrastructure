@@ -193,7 +193,6 @@ resource "terraform_data" "atlassian-flex-server" {
 ###########################
 # V15 Flex Server Nonprod #
 ###########################
-
 resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15" {
   count = var.env == "nonprod" ? 1 : 0
 
