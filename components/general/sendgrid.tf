@@ -1,13 +1,3 @@
-# API Key with more open permissions for the Sengrid TF provider
-# This is created manually on master Sendgrid account then added to the key vault
-# TODO: 
-# - change non-prod value to api key in Sendgrid account created with sendgrid-rdo automation
-# - create this secret in prod vault
-data "azurerm_key_vault_secret" "sendgrid-terraform-api-key" {
-  name         = "platform-operations-sendgrid-api-key"
-  key_vault_id = azurerm_key_vault.atlassian_kv.id
-}
-
 # Import existing API key already used on Prod
 import {
   to = sendgrid_api_key.sendgrid-jira-api-key
