@@ -208,14 +208,33 @@ fi
 rm -f "$CERT_FILE_EXISTING"
 }
 
-configure_postfix_sendgrid_api_key() {
-  $SENDGRID_API_KEY=$1
-  # Check if /etc/postfix/main.cf exists and contains matching Sendgrid API key already
-  if grep -q "api_key  $SENDGRID_API_KEY" /etc/postfix/main.cf; then
-    log_entry "Sendgrid API key already exists in /etc/postfix/main.cf. No action required."
-  else
-    # Update /etc/postfix/main.cf with the new Sendgrid API key
-    sed -i "s|^#api_key .*|sendgrid_api_key = $SENDGRID_API_KEY|" /etc/postfix/main.cf
-    log_entry "Updated /etc/postfix/main.cf with new Sendgrid API key."
-  fi
+update_postfix_sendgrid_api_key() {
+    SENDGRID_API_KEY=$1
+    POSTFIX_PASSWD_FILE='/etc/postfix/sasl_passwd'
+
+    if [ -z "$SENDGRID_API_KEY" ]; then
+        log_entry "Sendgrid API key is empty - check the key vault."
+        return 1
+    fi
+
+    if [ ! -f "$POSTFIX_PASSWD_FILE" ]; then
+        log_entry "File $POSTFIX_PASSWD_FILE does not exist - check the VM configuration."
+        return 1
+    fi
+
+    if grep -q "apikey:$SENDGRID_API_KEY" "$POSTFIX_PASSWD_FILE"; then
+        log_entry "Matching Sendgrid API key already exists in $POSTFIX_PASSWD_FILE. No action required."
+    else
+        # Update postfix password with the new Sendgrid API key
+        POSTFIX_API_KEY_ENTRY="[smtp.sendgrid.net]:2525 apikey:${SENDGRID_API_KEY}"
+        log_entry "${POSTFIX_API_KEY_ENTRY}" > ./sasl_passwd
+        log_entry "Updated /etc/postfix/sasl_passwd with new Sendgrid API key."
+
+        # Update sasl_passwd.db file
+        postmap $POSTFIX_PASSWD_FILE
+        log_entry "Updated postfix sasl_passwd.db file."
+
+        systemctl restart postfix
+        log_entry "Restarted postfix service."
+    fi
 }
