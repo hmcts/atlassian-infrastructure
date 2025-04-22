@@ -1,7 +1,6 @@
 
 This repository is used to create infrastructure for atlassian.
 
-TODO: WIP
 ## Jira and SendGrid Email Service
 
 ### Postfix
