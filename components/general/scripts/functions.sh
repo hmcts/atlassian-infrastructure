@@ -227,7 +227,7 @@ update_postfix_sendgrid_api_key() {
     else
         # Update postfix password with the new Sendgrid API key
         POSTFIX_API_KEY_ENTRY="[smtp.sendgrid.net]:2525 apikey:${SENDGRID_API_KEY}"
-        echo "${POSTFIX_API_KEY_ENTRY}" > ./sasl_passwd
+        echo "${POSTFIX_API_KEY_ENTRY}" > $POSTFIX_PASSWD_FILE
         log_entry "Updated /etc/postfix/sasl_passwd with new Sendgrid API key."
 
         # Update sasl_passwd.db file
