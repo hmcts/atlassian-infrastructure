@@ -3,6 +3,7 @@ locals {
   zone_name           = "privatelink.postgres.database.azure.com"
   zone_resource_group = "core-infra-intsvc-rg"
   app_names           = toset(["jira", "crowd", "confluence"])
+  v15_app_names       = toset(["jira", "confluence"])
   DB_SERVER           = "jdbc:postgresql://atlassian-${var.env}-flex-server.postgres.database.azure.com:5432"
 }
 
@@ -232,7 +233,7 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server-v15" {
 }
 
 resource "azurerm_postgresql_flexible_server_database" "v15-database" {
-  for_each = { for k, v in local.app_names : k => v if var.env == "nonprod" }
+  for_each = { for k, v in local.v15_app_names : k => v if var.env == "nonprod" }
 
   name      = "${each.key}-db-${var.env}"
   server_id = azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id
