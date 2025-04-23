@@ -6,7 +6,7 @@ import {
 resource "azurerm_resource_group_template_deployment" "sendgrid" {
   name                = "SGAAPPATL01"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
-  template_content       = file("sendgrid_template.json")
+  template_content    = file("sendgrid_template.json")
 
   parameters_content = jsonencode({
     name                  = "SGAAPPATL01"
