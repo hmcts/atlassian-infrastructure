@@ -54,3 +54,48 @@ resource "azurerm_backup_protected_vm" "vm-backup" {
   source_vm_id        = azurerm_virtual_machine.vm[each.key].id
   backup_policy_id    = azurerm_backup_policy_vm.vm-backup-policy.id
 }
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-confluence-02"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-confluence-02/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-confluence-02"
+}
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-confluence-04"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-confluence-04/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-confluence-04"
+}
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-crowd-01"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-crowd-01/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-crowd-01"
+}
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-gluster-01"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-gluster-01/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-gluster-01"
+}
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-gluster-02"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-gluster-02/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-gluster-02"
+}
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-gluster-03"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-gluster-03/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-gluster-03"
+}
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-jira-01"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-jira-01/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-jira-01"
+}
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-jira-02"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-jira-02/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-jira-02"
+}
+
+import {
+  to = azurerm_backup_protected_vm.vm-backup["atlassian-nonprod-jira-03"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-jira-03/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;atlassian-nonprod-jira-03"
+}
