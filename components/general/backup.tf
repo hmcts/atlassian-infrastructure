@@ -58,6 +58,6 @@ resource "azurerm_backup_protected_vm" "vm-backup" {
 import {
   for_each = { for k, v in var.vms : k => v if var.env == "nonprod" }
 
-  to = azurerm_backup_protected_vm.vm-backup["${k}"]
-  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;${k}/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;${k}"
+  to = azurerm_backup_protected_vm.vm-backup["${each.key}"]
+  id = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.RecoveryServices/vaults/atlassian-nonprod-rsv/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;atlassian-nonprod-rg;${each.key}/protectedItems/VM;iaasvmcontainerv2;atlassian-nonprod-rg;${each.key}"
 }
