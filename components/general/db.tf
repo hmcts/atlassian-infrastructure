@@ -265,4 +265,8 @@ resource "terraform_data" "atlassian-flex-server-v15" {
       PASSWORD       = random_password.postgres_password[each.key].result
     }
   }
+
+  depends_on = [
+    azurerm_postgresql_flexible_server_database.v15-database
+  ]
 }
