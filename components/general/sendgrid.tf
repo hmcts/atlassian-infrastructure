@@ -6,22 +6,21 @@ import {
 resource "azurerm_resource_group_template_deployment" "sendgrid" {
   name                = "MarketplaceSaaS_62b3dd1c-cb30-4009-8373-ccdeac71728a"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
-  template_content    = file("sendgrid_template.json")
+  template_content    = file("sendgrid_saas_tpl.json")
 
   parameters_content = jsonencode({
-    name                  = "SGAAPPATL01"
-    location              = "global"
-    plan_name             = "silver"
-    plan_publisher        = "Sendgrid"
-    plan_product          = "sendgrid_azure"
-    plan_promotion_code   = ""
-    password              = "testing"
-    acceptMarketingEmails = 0
-    email                 = "DTSPlatformOps@HMCTS.NET"
-    firstName             = "Platform"
-    lastName              = "Operations"
-    company               = "HMCTS"
-    website               = "https://www.gov.uk/"
+    name                     = "SGAAPPATL01"
+    planId                   = "pro-300k"
+    offerId                  = "tsg-saas-offer"
+    publisherId              = "sendgrid"
+    quantity                 = 1
+    termId                   = "gmz7xq9ge3py"
+    azureSubscriptionId      = "79898897-729c-41a0-a5ca-53c764839d95"
+    publisherTestEnvironment = ""
+    autoRenew                = true
+    location                 = "global"
+    tags                     = module.ctags.common_tags
+    riskPropertyBagHeader    = {}
   })
 
   deployment_mode = "Incremental"
