@@ -36,14 +36,6 @@ parameters:
   - name: environment_components
     type: object
     default:
-      - deployment: "nonprod_general"
-        environment: "nonprod"
-        component: "general"
-        service_connection: "MOJ DCD Atlassian NLE"
-        resource_group: azure-control-stg-rg
-        dependsOn: "Precheck"
-        agentPool: "hmcts-ss-stg"
-
       - deployment: "prod_general"
         environment: "prod"
         component: "general"

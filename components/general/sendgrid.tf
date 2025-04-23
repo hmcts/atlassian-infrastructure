@@ -3,26 +3,6 @@ import {
   id = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Resources/deployments/MarketplaceSaaS_62b3dd1c-cb30-4009-8373-ccdeac71728a"
 }
 
-# terraform import azurerm_resource_group_template_deployment.example 
-
-
-# terraform import azurerm_resource_group_template_deployment.example
-# /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.Resources/deployments/template1
-# /subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.Resources/deployments/MarketplaceSaaS_62b3dd1c-cb30-4009-8373-ccdeac71728a
-
-# /root/.local/bin/terraform init 
-# -backend-config=storage_account_name=cb7d2bd5fe068cec2e8d8sa 
-# -backend-config=container_name=subscription-tfstate 
-# -backend-config=key=UK South/atlassian/atlassian-infrastructure/nonprod/general/terraform.tfstate
-# -backend-config=resource_group_name=azure-control-nonprod-rg
-# -backend-config=subscription_id=b7d2bd5f-b744-4acc-9c73-e068cec2e8d8
-# -backend-config=tenant_id=531ff96d-0ae9-462a-8d2d-bec7c0b42082
-# -backend-config=client_id=*** 
-# -backend-config=client_secret=*** 
-# -backend-config=subscription_id=04d27a32-7a07-48b3-95b8-3c8691e1a263
-# -backend-config=resource_group_name=azure-control-stg-rg
-
-
 resource "azurerm_resource_group_template_deployment" "sendgrid" {
   name                = "MarketplaceSaaS_62b3dd1c-cb30-4009-8373-ccdeac71728a"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
