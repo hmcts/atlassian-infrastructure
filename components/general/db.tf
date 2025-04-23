@@ -190,10 +190,10 @@ resource "terraform_data" "atlassian-flex-server" {
   }
 }
 
-###########################
-# V15 Flex Server Nonprod #
-###########################
-resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15" {
+###################
+# V15 Flex Server #
+###################
+resource "azurerm_postgresql_flexible_server" "atlassian-flex-server-v15" {
   count = var.env == "nonprod" ? 1 : 0
 
   name                = "${var.product}-${var.env}-flex-server-v15"
@@ -226,31 +226,37 @@ resource "azurerm_postgresql_flexible_server" "atlassian-nonprod-flex-server-v15
 
   backup_retention_days        = var.flex_server_backup_retention_days
   geo_redundant_backup_enabled = var.flex_server_geo_redundant_backups
-
-  lifecycle {
-    ignore_changes = [
-      administrator_login,
-      point_in_time_restore_time_in_utc,
-      source_server_id,
-      create_mode
-    ]
-  }
+  version                      = "15"
 
   tags = module.ctags.common_tags
 }
 
-resource "terraform_data" "atlassian-nonprod-flex-server-v15" {
+resource "azurerm_postgresql_flexible_server_database" "v15-database" {
+  for_each = { for k, v in local.app_names : k => v if var.env == "nonprod" }
+
+  name      = "${each.key}-db-${var.env}"
+  server_id = azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id
+  collation = "en_US.utf8"
+  charset   = "UTF8"
+
+  # prevent the possibility of accidental data loss
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "terraform_data" "atlassian-flex-server-v15" {
   for_each = { for k, v in local.app_names : k => v if var.env == "nonprod" }
 
   triggers_replace = [
-    azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15[0].id,
+    azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id,
     azurerm_key_vault_secret.postgres_password[each.key].id,
     azurerm_key_vault_secret.postgres_username[each.key].id
   ]
   provisioner "local-exec" {
     command = "./scripts/configure-postgres.sh"
     environment = {
-      POSTGRES_HOST  = azurerm_postgresql_flexible_server.atlassian-nonprod-flex-server-v15[0].fqdn
+      POSTGRES_HOST  = azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].fqdn
       ADMIN_USER     = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-USER.value
       ADMIN_PASSWORD = data.azurerm_key_vault_secret.POSTGRES-FLEX-SERVER-PASS.value
       DATABASE_NAME  = "${each.key}-db-${var.env}"
