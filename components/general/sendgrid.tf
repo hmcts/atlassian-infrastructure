@@ -1,3 +1,32 @@
+import {
+  to = azurerm_template_deployment.sendgrid
+  id = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.SaaS/resources/SGAAPPATL01"
+}
+
+resource "azurerm_resource_group_template_deployment" "sendgrid" {
+  name                = "SGAAPPATL01"
+  resource_group_name = azurerm_resource_group.atlassian_rg.name
+  template_content       = file("sendgrid_template.json")
+
+  parameters_content = jsonencode({
+    name                  = "SGAAPPATL01"
+    location              = azurerm_resource_group.atlassian_rg.location
+    plan_name             = "silver"
+    plan_publisher        = "Sendgrid"
+    plan_product          = "sendgrid_azure"
+    plan_promotion_code   = ""
+    password              = "testing"
+    acceptMarketingEmails = 0
+    email                 = "DTSPlatformOps@HMCTS.NET"
+    firstName             = "Platform"
+    lastName              = "Operations"
+    company               = "HMCTS"
+    website               = "https://www.gov.uk/"
+  })
+
+  deployment_mode = "Incremental"
+}
+
 data "azurerm_key_vault" "atlassian-kv" {
   name                = "atlasssian-${var.env}-kv"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
