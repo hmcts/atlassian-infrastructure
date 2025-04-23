@@ -9,37 +9,37 @@ resource "azurerm_resource_group_template_deployment" "sendgrid" {
   template_content    = file("sendgrid_saas_tpl.json")
 
   parameters_content = jsonencode({
-    name                     = {
+    name = {
       value = "SGAAPPATL01"
     }
-    planId                   = {
+    planId = {
       value = "pro-300k"
     }
-    offerId                  = {
+    offerId = {
       value = "tsg-saas-offer"
     }
-    publisherId              = {
+    publisherId = {
       value = "sendgrid"
     }
-    quantity                 = {
+    quantity = {
       value = 1
     }
-    termId                   = {
+    termId = {
       value = "gmz7xq9ge3py"
     }
-    azureSubscriptionId      = {
+    azureSubscriptionId = {
       value = "79898897-729c-41a0-a5ca-53c764839d95"
     }
     publisherTestEnvironment = {
       value = ""
     }
-    autoRenew                = {
+    autoRenew = {
       value = true
     }
-    location                 = {
+    location = {
       value = "global"
     }
-    tags                     = {
+    tags = {
       value = module.ctags.common_tags
     }
   })
