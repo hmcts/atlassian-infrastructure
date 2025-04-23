@@ -1,8 +1,7 @@
-import {
-  to = azurerm_resource_group_template_deployment.sendgrid
-  id = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.SaaS/deployments/SGAAPPATL01"
-}
-
+# import {
+#   to = azurerm_resource_group_template_deployment.sendgrid
+#   id = "/subscriptions/79898897-729c-41a0-a5ca-53c764839d95/resourceGroups/atlassian-prod-rg/providers/Microsoft.SaaS/resources/SGAAPPATL01"
+# }
 resource "azurerm_resource_group_template_deployment" "sendgrid" {
   name                = "SGAAPPATL01"
   resource_group_name = azurerm_resource_group.atlassian_rg.name
