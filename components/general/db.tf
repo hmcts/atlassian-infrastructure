@@ -170,6 +170,12 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   tags = module.ctags.common_tags
 }
 
+resource "azurerm_postgresql_flexible_server_configuration" "atlassian-flex-server-config" {
+  name      = "azure.extensions"
+  server_id = azurerm_postgresql_flexible_server.atlassian-flex-server.id
+  value     = "PG_BUFFERCACHE,PG_STAT_STATEMENTS"
+}
+
 resource "terraform_data" "atlassian-flex-server" {
   for_each = local.app_names
 
@@ -232,18 +238,10 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server-v15" {
   tags = module.ctags.common_tags
 }
 
-resource "azurerm_postgresql_flexible_server_database" "v15-database" {
-  for_each = { for k, v in local.v15_app_names : k => v if var.env == "nonprod" }
-
-  name      = "${each.key}-db-${var.env}"
+resource "azurerm_postgresql_flexible_server_configuration" "atlassian-flex-server-v15-config" {
+  name      = "azure.extensions"
   server_id = azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id
-  collation = "en_US.utf8"
-  charset   = "UTF8"
-
-  # prevent the possibility of accidental data loss
-  lifecycle {
-    prevent_destroy = true
-  }
+  value     = "PG_BUFFERCACHE,PG_STAT_STATEMENTS"
 }
 
 resource "terraform_data" "atlassian-flex-server-v15" {
