@@ -239,6 +239,8 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server-v15" {
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "atlassian-flex-server-v15-config" {
+  count = var.env == "nonprod" ? 1 : 0
+
   name      = "azure.extensions"
   server_id = azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id
   value     = "PG_BUFFERCACHE,PG_STAT_STATEMENTS"
