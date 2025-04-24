@@ -101,8 +101,7 @@ resource "terraform_data" "postgres" {
   triggers_replace = [
     azurerm_postgresql_server.atlassian-server[0].id,
     azurerm_key_vault_secret.postgres_password[each.key].id,
-    azurerm_key_vault_secret.postgres_username[each.key].id,
-    local.postgres_script_hash
+    azurerm_key_vault_secret.postgres_username[each.key].id
   ]
   provisioner "local-exec" {
     command = "./scripts/configure-postgres.sh"
@@ -241,6 +240,7 @@ resource "terraform_data" "atlassian-flex-server-v15" {
     azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id,
     azurerm_key_vault_secret.postgres_password[each.key].id,
     azurerm_key_vault_secret.postgres_username[each.key].id,
+    local.postgres_script_hash
   ]
   provisioner "local-exec" {
     command = "./scripts/configure-postgres.sh"
