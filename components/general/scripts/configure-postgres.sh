@@ -30,11 +30,13 @@ psql "sslmode=require" -c "${SQL_COMMAND}"
 
 # Disable emails if DATABASE_NAME is jira-db-nonprod
 if [[ "${DATABASE_NAME}" == "jira-db-nonprod" ]]; then
+  # Check if the database exists
+  DB_EXISTS=$(psql "sslmode=require" -tAc "SELECT 1 FROM pg_database WHERE datname = '${DATABASE_NAME}';")
   # Check if the table 'propertynumber' exists
   TABLE_EXISTS=$(psql "sslmode=require" -tAc "SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_tables WHERE schemaname = 'public' AND tablename = 'propertynumber');")
 
   # If the table exists, run the query to disable emails
-  if [[ "${TABLE_EXISTS}" == "t" ]]; then
+  if [[ "${TABLE_EXISTS}" == "t" && "$DB_EXISTS" == "1" ]]; then
     DISABLE_EMAIL="UPDATE propertynumber SET propertyvalue = 1 WHERE \"id\" = (SELECT \"id\" FROM \"propertyentry\" WHERE \"property_key\" = 'jira.mail.send.disabled');"
     psql "sslmode=require" -c "${DISABLE_EMAIL}"
   else
