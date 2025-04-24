@@ -6,7 +6,7 @@ echo
 echo "1. You should have access to the atlassian key vault. This is required to retrieve the database password."
 echo "2. You should have the Azure CLI installed and configured."
 echo "3. You should have the PostgreSQL client installed and configured. This contains the pg_restore utility used by the script."
-echo "4. You should stop the ${SERVICE} service to prevent a delta."
+echo "4. You should stop the appropriate service to prevent a delta."
 echo
 read -p "Have you completed the above? [y/n]: " CONFIRM
 
