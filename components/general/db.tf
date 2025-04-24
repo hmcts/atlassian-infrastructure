@@ -170,12 +170,6 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server" {
   tags = module.ctags.common_tags
 }
 
-resource "azurerm_postgresql_flexible_server_configuration" "atlassian-flex-server-config" {
-  name      = "azure.extensions"
-  server_id = azurerm_postgresql_flexible_server.atlassian-flex-server.id
-  value     = "PG_BUFFERCACHE,PG_STAT_STATEMENTS"
-}
-
 resource "terraform_data" "atlassian-flex-server" {
   for_each = local.app_names
 
@@ -236,14 +230,6 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server-v15" {
   version                      = "15"
 
   tags = module.ctags.common_tags
-}
-
-resource "azurerm_postgresql_flexible_server_configuration" "atlassian-flex-server-v15-config" {
-  count = var.env == "nonprod" ? 1 : 0
-
-  name      = "azure.extensions"
-  server_id = azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id
-  value     = "PG_BUFFERCACHE,PG_STAT_STATEMENTS"
 }
 
 resource "terraform_data" "atlassian-flex-server-v15" {
