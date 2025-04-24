@@ -232,20 +232,6 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server-v15" {
   tags = module.ctags.common_tags
 }
 
-resource "azurerm_postgresql_flexible_server_database" "v15-database" {
-  for_each = { for k, v in local.v15_app_names : k => v if var.env == "nonprod" }
-
-  name      = "${each.key}-db-${var.env}"
-  server_id = azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id
-  collation = "en_US.utf8"
-  charset   = "UTF8"
-
-  # prevent the possibility of accidental data loss
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
 resource "terraform_data" "atlassian-flex-server-v15" {
   for_each = { for k, v in local.v15_app_names : k => v if var.env == "nonprod" }
 
