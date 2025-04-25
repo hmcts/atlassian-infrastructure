@@ -38,7 +38,7 @@ variable "vms" {
     os_disk_name       = optional(string)
     private_ip_address = string
     app                = string
-    db_server          = optional(string)
+    db_server          = optional(string, "jdbc:postgresql://atlassian-nonprod-flex-server.postgres.database.azure.com:5432")
   }))
 }
 
