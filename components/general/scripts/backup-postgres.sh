@@ -36,18 +36,38 @@ fi
 DB_HOST="atlassian-${ENVIRONMENT}-flex-server.postgres.database.azure.com"
 DB_NAME="${SERVICE}-db-${ENVIRONMENT}"
 DB_USER="${SERVICE}_user"
+DB_ADMIN="pgsqladmin"
+UPPER_ENVIRONMENT=$(echo "$ENVIRONMENT" | tr a-z A-Z)
 
-# Retrieve the database password from Azure Key Vault - typo in kv name
+# Retrieve the database passwords from Azure Key Vault - typo in kv name
+DB_ADMIN_PASSWORD=$(az keyvault secret show --name "${UPPER_ENVIRONMENT}-POSTGRES-FLEX-SERVER-PASS" --vault-name "atlasssian-${ENVIRONMENT}-kv" --query value -o tsv)
 DB_PASSWORD=$(az keyvault secret show --name "${SERVICE}-db-${ENVIRONMENT}-postgres-password" --vault-name "atlasssian-${ENVIRONMENT}-kv" --query value -o tsv)
-# Set the PGPASSWORD environment variable for authentication
-export PGPASSWORD=$DB_PASSWORD
 
 # Generate a timestamp for the backup file
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 # Define the backup file name
 BACKUP_DIR="${DB_NAME}_backup_${TIMESTAMP}"
 
+export PGPASSWORD=$DB_ADMIN_PASSWORD
+export PGHOST="${DB_HOST}"
+export PGDATABASE="${DB_NAME}"
+export PGUSER="${DB_ADMIN}"
+export PGPORT=5432
+
+# Grant admin role to user for backup
+echo "Granting ${DB_ADMIN} role to ${DB_USER}..."
+GRANT_ROLE_TO_USER="
+GRANT \"${DB_ADMIN}\" TO \"${DB_USER}\";
+"
+psql "sslmode=require" -c "${GRANT_ROLE_TO_USER}"
+if [ $? -ne 0 ]; then
+	echo "Failed to grant ${DB_ADMIN} role to ${DB_USER}. Exiting."
+	exit 1
+fi
+
+export PGPASSWORD=$DB_PASSWORD
 echo "Backing up database ${DB_NAME} to directory ${BACKUP_DIR}..."
+echo "You can monitor the progress by opening a new terminal and running: tail -f backup.log"
 # Run the pg_dump command
 pg_dump -Fd -j 4 "$DB_NAME" -h "$DB_HOST" -p 5432 -U "$DB_USER" -f "$BACKUP_DIR" -v 2> backup.log
 
@@ -58,5 +78,21 @@ else
     echo "Backup failed. View backup.log for details."
 fi
 
-# Unset the PGPASSWORD environment variable for security
+export PGPASSWORD=$DB_ADMIN_PASSWORD
+# Revoke admin role from user after backup
+echo "Revoking ${DB_ADMIN} role from ${DB_USER}..."
+REVOKE_ROLE_FROM_USER="
+REVOKE \"${DB_ADMIN}\" FROM \"${DB_USER}\";
+"
+psql "sslmode=require" -c "${REVOKE_ROLE_FROM_USER}"
+if [ $? -ne 0 ]; then
+	echo "Failed to revoke ${DB_ADMIN} role from ${DB_USER}. Exiting."
+	exit 1
+fi
+
+# Unset the environment variables for security
 unset PGPASSWORD
+unset PGHOST
+unset PGDATABASE
+unset PGUSER
+unset PGPORT

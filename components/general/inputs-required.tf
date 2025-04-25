@@ -38,6 +38,7 @@ variable "vms" {
     os_disk_name       = optional(string)
     private_ip_address = string
     app                = string
+    db_server          = optional(string, "null")
   }))
 }
 

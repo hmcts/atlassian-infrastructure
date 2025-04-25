@@ -118,6 +118,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Restoring database ${DB_NAME} from directory ${BACKUP_DIR}..."
+echo "You can monitor the progress by opening a new terminal and running: tail -f restore.log"
 # Run the pg_restore command
 pg_restore -Fd -j 4 -d "$DB_NAME" "$BACKUP_DIR" -h "$DB_HOST" -p 5432 -U "$DB_ADMIN" -v 2> restore.log
 

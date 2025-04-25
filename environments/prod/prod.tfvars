@@ -1,7 +1,7 @@
 #General
 env             = "prod"
 subscription_id = "79898897-729c-41a0-a5ca-53c764839d95"
-app_action = "status" # change this to "status" or "stop" in order to stop the jira
+app_action      = "status" # change this to "status" or "stop" in order to stop the jira
 
 vnets = {
   atlassian-int-prod-vnet = {
@@ -606,6 +606,7 @@ vms = {
     os_disk_name       = "atlassianprodjira01-osdisk-20250228-220516"
     private_ip_address = "10.1.4.196"
     app                = "jira"
+    db_server          = "jdbc:postgresql://atlassian-prod-flex-server.postgres.database.azure.com:5432"
   }
 
   atlassian-prod-jira-02 = {
@@ -615,6 +616,7 @@ vms = {
     os_disk_name       = "atlassianprodjira02-osdisk-20250228-220712"
     private_ip_address = "10.1.4.197"
     app                = "jira"
+    db_server          = "jdbc:postgresql://atlassian-prod-flex-server.postgres.database.azure.com:5432"
   }
 
   atlassian-prod-jira-03 = {
@@ -624,6 +626,7 @@ vms = {
     os_disk_name       = "atlassianprodjira03-osdisk-20250228-220737"
     private_ip_address = "10.1.4.198"
     app                = "jira"
+    db_server          = "jdbc:postgresql://atlassian-prod-flex-server.postgres.database.azure.com:5432"
   }
 
   atlassian-prod-crowd-01 = {
@@ -633,6 +636,7 @@ vms = {
     os_disk_name       = "atlassianprodcrowd01-osdisk-20250228-220949"
     private_ip_address = "10.1.4.199"
     app                = "crowd"
+    db_server          = "jdbc:postgresql://atlassian-prod-flex-server.postgres.database.azure.com:5432"
   }
 
   atlassian-prod-confluence-02 = {
@@ -642,6 +646,7 @@ vms = {
     os_disk_name       = "atlassianprodconfluence02-osdisk-20250228-221025"
     private_ip_address = "10.1.4.200"
     app                = "confluence"
+    db_server          = "jdbc:postgresql://atlassian-prod-flex-server.postgres.database.azure.com:5432"
   }
 
   atlassian-prod-confluence-04 = {
@@ -651,6 +656,7 @@ vms = {
     os_disk_name       = "atlassianprodconfluence04-osdisk-20250228-221041"
     private_ip_address = "10.1.4.201"
     app                = "confluence"
+    db_server          = "jdbc:postgresql://atlassian-prod-flex-server.postgres.database.azure.com:5432"
   }
   atlassian-prod-gluster-01 = {
     computer_name      = "prdatl01dgst01.cp.cjs.hmcts.net"

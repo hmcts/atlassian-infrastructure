@@ -32,8 +32,8 @@ vnets = {
         service_endpoints = ["Microsoft.Sql"]
       }
       atlassian-int-subnet-postgres-flex = {
-        name_override    = "atlassian-int-subnet-postgres-flex"
-        address_prefixes = ["10.0.5.0/28"]
+        name_override     = "atlassian-int-subnet-postgres-flex"
+        address_prefixes  = ["10.0.5.0/28"]
         service_endpoints = ["Microsoft.Storage"]
         delegations = {
           flexibleserver = {
@@ -610,6 +610,7 @@ vms = {
     os_disk_name       = "atlassiannonprodjira01-osdisk-20250224-221942"
     private_ip_address = "10.0.4.198"
     app                = "jira"
+    db_server          = "jdbc:postgresql://atlassian-nonprod-flex-server-v15.postgres.database.azure.com:5432"
   }
 
   atlassian-nonprod-jira-02 = {
@@ -619,6 +620,7 @@ vms = {
     os_disk_name       = "atlassiannonprodjira02-osdisk-20250224-222013"
     private_ip_address = "10.0.4.199"
     app                = "jira"
+    db_server          = "jdbc:postgresql://atlassian-nonprod-flex-server-v15.postgres.database.azure.com:5432"
   }
 
   atlassian-nonprod-jira-03 = {
@@ -628,6 +630,7 @@ vms = {
     os_disk_name       = "atlassiannonprodjira03-osdisk-20250224-222041"
     private_ip_address = "10.0.4.196"
     app                = "jira"
+    db_server          = "jdbc:postgresql://atlassian-nonprod-flex-server-v15.postgres.database.azure.com:5432"
   }
 
   atlassian-nonprod-crowd-01 = {
@@ -637,6 +640,7 @@ vms = {
     os_disk_name       = "atlassiannonprodcrowd01-osdisk-20250224-222209"
     private_ip_address = "10.0.4.197"
     app                = "crowd"
+    db_server          = "jdbc:postgresql://atlassian-nonprod-flex-server.postgres.database.azure.com:5432"
   }
 
   atlassian-nonprod-confluence-02 = {
@@ -646,6 +650,7 @@ vms = {
     os_disk_name       = "atlassiannonprodconfluence02-osdisk-20250224-222126"
     private_ip_address = "10.0.4.201"
     app                = "confluence"
+    db_server          = "jdbc:postgresql://atlassian-nonprod-flex-server.postgres.database.azure.com:5432"
   }
 
   atlassian-nonprod-confluence-04 = {
@@ -655,6 +660,7 @@ vms = {
     os_disk_name       = "atlassiannonprodconfluence04-osdisk-20250224-222143"
     private_ip_address = "10.0.4.200"
     app                = "confluence"
+    db_server          = "jdbc:postgresql://atlassian-nonprod-flex-server.postgres.database.azure.com:5432"
   }
   atlassian-nonprod-gluster-01 = {
     computer_name      = "PRDATL01DGST01.cp.cjs.hmcts.net"
