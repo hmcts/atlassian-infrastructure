@@ -103,7 +103,7 @@ cp "$TEMPLATE_FILE" "$ROBOTS_FILE"
 # Add a new line at the end of the file
 echo "" >> /opt/atlassian/jira/install/atlassian-jira/robots.txt
 
-# Ensure proper permissions
+# Ensure proper permissions on file
 chmod 644 "$ROBOTS_FILE"
 
 log_entry "robots.txt updated from template file"
