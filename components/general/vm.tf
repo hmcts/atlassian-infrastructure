@@ -6,7 +6,6 @@ locals {
   confluence_private_ips = join(",", [for k, v in var.vms : v.private_ip_address if can(regex("confluence", k))])
   confluence_file_hash   = md5(file("${path.module}/scripts/configure-confluence-vm.sh"))
   ssl_version            = data.azurerm_key_vault_secret.ssl_cert.version
-  DB_SERVER              = "jdbc:postgresql://atlassian-${var.env}-flex-server.postgres.database.azure.com:5432"
 }
 resource "azurerm_virtual_machine" "vm" {
   for_each = var.vms
