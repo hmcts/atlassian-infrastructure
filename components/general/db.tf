@@ -1,10 +1,11 @@
 locals {
-  private_dns_zone_id = "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.postgres.database.azure.com"
-  zone_name           = "privatelink.postgres.database.azure.com"
-  zone_resource_group = "core-infra-intsvc-rg"
-  app_names           = toset(["jira", "crowd", "confluence"])
-  v15_app_names       = toset(["jira", "confluence"])
-  DB_SERVER           = "jdbc:postgresql://atlassian-${var.env}-flex-server.postgres.database.azure.com:5432"
+  private_dns_zone_id  = "/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.postgres.database.azure.com"
+  zone_name            = "privatelink.postgres.database.azure.com"
+  zone_resource_group  = "core-infra-intsvc-rg"
+  app_names            = toset(["jira", "crowd", "confluence"])
+  v15_app_names        = toset(["jira", "confluence"])
+  DB_SERVER            = "jdbc:postgresql://atlassian-${var.env}-flex-server.postgres.database.azure.com:5432"
+  postgres_script_hash = md5(file("${path.module}/scripts/configure-postgres.sh"))
 }
 
 data "azurerm_key_vault_secret" "POSTGRES-SINGLE-SERVER-PASS" {
@@ -238,7 +239,8 @@ resource "terraform_data" "atlassian-flex-server-v15" {
   triggers_replace = [
     azurerm_postgresql_flexible_server.atlassian-flex-server-v15[0].id,
     azurerm_key_vault_secret.postgres_password[each.key].id,
-    azurerm_key_vault_secret.postgres_username[each.key].id
+    azurerm_key_vault_secret.postgres_username[each.key].id,
+    local.postgres_script_hash
   ]
   provisioner "local-exec" {
     command = "./scripts/configure-postgres.sh"
