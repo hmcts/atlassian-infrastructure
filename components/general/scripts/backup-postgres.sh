@@ -19,6 +19,7 @@ echo
 # Prompt the user for input
 read -p "Enter the environment you want to backup [nonprod|prod]: " ENVIRONMENT
 read -p "Enter the service you want to backup [jira|confluence|crowd]: " SERVICE
+read -p "Enter the hostname of the server you want to take a backup from: " DB_HOST
 echo
 
 # Validate the environment input
@@ -31,9 +32,13 @@ if [[ "$SERVICE" != "jira" && "$SERVICE" != "confluence" && "$SERVICE" != "crowd
 	echo "Error: Invalid service. Should be one of [jira|confluence|crowd]."
 	exit 1
 fi
+# Validate the hostname input
+if [[ -z "$DB_HOST" ]]; then
+	echo "Error: Hostname cannot be empty."
+	exit 1
+fi
 
 # Set vars based on the environment and service
-DB_HOST="atlassian-${ENVIRONMENT}-flex-server.postgres.database.azure.com"
 DB_NAME="${SERVICE}-db-${ENVIRONMENT}"
 DB_USER="${SERVICE}_user"
 DB_ADMIN="pgsqladmin"
