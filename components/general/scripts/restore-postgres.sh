@@ -60,7 +60,7 @@ export PGPORT=5432
 DB_EXISTS=$(psql "sslmode=require" -tAc "SELECT 1 FROM pg_database WHERE datname = '${DB_NAME}';")
 if [ "$DB_EXISTS" != "1" ]; then
 	echo "Database ${DB_NAME} does not exist. Creating it..."
-	createdb -h "$DB_HOST" -p 5432 -U "$DB_ADMIN" "$DB_NAME" --lc-collate="en_US.UTF-8" --lc-ctype="en_US.UTF-8"
+	createdb -h "$DB_HOST" -p 5432 -U "$DB_ADMIN" "$DB_NAME" --lc-collate="en_US.UTF-8" --lc-ctype="en_US.UTF-8" --encoding="UTF-8" --template="template0"
 	if [ $? -ne 0 ]; then
 		echo "Failed to create database ${DB_NAME}. Exiting."
 		exit 1
