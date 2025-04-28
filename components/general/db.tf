@@ -230,6 +230,12 @@ resource "azurerm_postgresql_flexible_server" "atlassian-flex-server-v15" {
   geo_redundant_backup_enabled = var.flex_server_geo_redundant_backups
   version                      = "15"
 
+  lifecycle {
+    ignore_changes = [
+      administrator_login
+    ]
+  }
+
   tags = module.ctags.common_tags
 }
 
