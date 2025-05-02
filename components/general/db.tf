@@ -8,27 +8,6 @@ locals {
   postgres_script_hash = md5(file("${path.module}/scripts/configure-postgres.sh"))
 }
 
-resource "azurerm_private_endpoint" "postgres_private_endpoint" {
-  count = var.env == "nonprod" ? 1 : 0
-
-  name                = "${var.product}-${var.env}-postgres-pe"
-  location            = azurerm_resource_group.atlassian_rg.location
-  resource_group_name = azurerm_resource_group.atlassian_rg.name
-  subnet_id           = module.networking.subnet_ids["atlassian-int-${var.env}-vnet-atlassian-int-subnet-postgres"]
-
-  private_service_connection {
-    name                           = "postgres-psc"
-    private_connection_resource_id = azurerm_postgresql_server.atlassian-server[0].id
-    is_manual_connection           = false
-    subresource_names              = ["postgresqlServer"]
-  }
-  private_dns_zone_group {
-    name                 = local.zone_name
-    private_dns_zone_ids = [local.private_dns_zone_id]
-  }
-  tags = module.ctags.common_tags
-}
-
 resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_vnet_link" {
   provider              = azurerm.dns
   name                  = "${var.product}-${var.env}-postgres-dns-vnet-link"
