@@ -1,3 +1,9 @@
+import {
+  for_each = var.env == "nonprod" ? var.vms : {}
+  to       = module.vm-bootstrap[each.key].azurerm_virtual_machine_extension.custom_script[0]
+  id       = "/subscriptions/b7d2bd5f-b744-4acc-9c73-e068cec2e8d8/resourceGroups/atlassian-nonprod-rg/providers/Microsoft.Compute/virtualMachines/${each.key}/extensions/HMCTSVMBootstrap"
+}
+
 module "vm-bootstrap" {
   for_each = var.install_dynatrace_oneagent ? var.vms : {}
 
