@@ -1228,5 +1228,3 @@ app_gw_rewrite_rules = [
     }
   }
 ]
-
-update_postfix_sendgrid_api_key = true

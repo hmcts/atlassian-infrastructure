@@ -10,12 +10,6 @@ data "azurerm_key_vault_secret" "platform-operations-sendgrid-api-key-secret" {
   key_vault_id = data.azurerm_key_vault.atlassian-kv.id
 }
 
-# Import existing domain authenticate as the domain has already been verified
-import {
-  to = sendgrid_domain_authentication.sendgrid-domain-authenticate
-  id = var.sendgrid_domain_authentication_id
-}
-
 # API key value is not set on tf import in this provider
 # so the only chance to store the key is during the creation of the API key
 resource "sendgrid_api_key" "sendgrid-jira-api-key" {
