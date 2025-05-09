@@ -112,6 +112,6 @@ resource "terraform_data" "vm" {
     ]
   }
 
-  depends_on = [terraform_data.postgres, azurerm_application_gateway.ag]
+  depends_on = [terraform_data.atlassian-flex-server, azurerm_application_gateway.ag]
 }
 
